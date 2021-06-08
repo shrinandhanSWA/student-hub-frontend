@@ -2,16 +2,16 @@
   <div class="category-item">
     <base-confirm-dialog
       v-if="showConfirmDialog"
-      confirm-button-title="delete"
+      confirm-button-title="join"
       dismiss-button-title="cancel"
       @dismiss="showConfirmDialog = false"
-      @confirm="deleteCategory({ categorySlug: category.slug })"
+      @confirm="updateCurrentUserGroups({ categorySlug: category.slug })"
+
     >
       <template #title>
-        Delete this category?
+        Do you want to join this group?
       </template>
       <template #default>
-        Deleting this category will also delete all the topics it contains. Note that you cannot undo this action.
       </template>
     </base-confirm-dialog>
     <router-link
@@ -35,13 +35,23 @@
           <i
             class="action-button fas fa-pencil-alt"
           ></i>
-        </router-link>
-        <i
-          v-if="isLoggedIn && currentUser.can('categories:delete')"
-          class="action-button fas fa-trash-alt"
+          <i
+          v-if="isLoggedIn"
+          class="action-button fas fa-plus"
           @click.prevent.stop="showConfirmDialog = true"
         ></i>
+        </router-link>
       </div>
+    </router-link>
+    <router-link
+          v-if="isLoggedIn && currentUser.can('categories:write')"
+        >
+     <base-button
+        :disabled="loading"
+        @click="onSubmit"
+        >
+        {{ loading ? 'Joining...' : 'Join' }}
+      </base-button>
     </router-link>
   </div>
 </template>
@@ -64,7 +74,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['deleteCategory'])
+    ...mapActions(['updateCurrentUserGroups']),
   }
 }
 </script>

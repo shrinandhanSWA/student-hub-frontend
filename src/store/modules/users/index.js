@@ -45,6 +45,11 @@ export default {
 
     async updateCurrentUserPassword ({ commit }, { data }) {
       await apiClient.updateUserPassword({ data })
+    },
+
+    async updateCurrentUserGroups ({ commit }, { categorySlug }) {
+      await apiClient.addUserGroup(categorySlug)  
+      return categorySlug
     }
   },
 

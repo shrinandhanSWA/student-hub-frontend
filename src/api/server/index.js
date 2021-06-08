@@ -92,5 +92,9 @@ export default {
 
   updateUserPassword ({ data }) {
     return request('put', 'profile/password', data)
+  },
+
+  addUserGroup (categorySlug) {
+    return request('put', `groups/${categorySlug}`, {})
   }
 }
