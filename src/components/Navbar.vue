@@ -8,7 +8,7 @@
     </router-link>
     <router-link
       class="logo"
-      :to="{ name: 'AllGroups' }"
+      :to="{ name: 'allGroups' }"
     >
       All Groups
     </router-link>
