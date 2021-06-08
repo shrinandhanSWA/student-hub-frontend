@@ -57,9 +57,9 @@ export default new Router({
       }
     },
     {
-      path: '/my-groups',
-      name: 'myGroups',
-      component: myGroups,
+      path: '/all-groups',
+      name: 'allGroups',
+      component: allGroups,
       meta: {
         auth: true,
       } 
