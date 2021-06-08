@@ -28,15 +28,15 @@
           {{ reply.createdAt | humanizeDate }}
         </span>
       </div>
-    </div>
-    <p class="reply-content">
-      <template v-if="!editing">
-        {{ reply.content }}
-      </template>
-      <template v-else>
-        <base-textarea
           v-model="content"
           :disabled="loading"
+  </div>
+  <p class="reply-content">
+    <template v-if="!editing">
+      {{ reply.content }}
+    </template>
+    <template v-else>
+      <base-textarea
           :min-height="150"
         />
         <base-button

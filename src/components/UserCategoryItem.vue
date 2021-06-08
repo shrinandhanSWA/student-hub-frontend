@@ -1,18 +1,5 @@
 <template>
   <div class="category-item">
-    <base-confirm-dialog
-      v-if="showConfirmDialog"
-      confirm-button-title="join"
-      dismiss-button-title="cancel"
-      @dismiss="showConfirmDialog = false"
-      @confirm="updateCurrentUserGroups({ categorySlug: category.slug })"
-    >
-      <template #title>
-        Do you want to join {{category.title}} ?
-      </template>
-      <template #default>
-      </template>
-    </base-confirm-dialog>
     <router-link
       class="category-item-link"
       :to="{ name: 'Category', params: { categorySlug: category.slug } }"
@@ -34,11 +21,6 @@
           <i
             class="action-button fas fa-pencil-alt"
           ></i>
-          <i
-          v-if="isLoggedIn"
-          class="action-button fas fa-plus"
-          @click.prevent.stop="showConfirmDialog = true"
-        ></i>
         </router-link>
       </div>
     </router-link>

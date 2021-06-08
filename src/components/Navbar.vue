@@ -1,17 +1,30 @@
 <template>
   <div class="navbar">
-    <router-link
-      class="logo"
-      :to="{ name: 'Home' }"
-    >
-      Home
-    </router-link>
-    <router-link
-      class="logo"
-      :to="{ name: 'allGroups' }"
-    >
-      All Groups
-    </router-link>
+    <div>
+      <router-link
+        class="logo"
+        :to="{ name: 'Home' }"
+      >
+        Home
+      </router-link>
+    </div>
+    <div class>
+      <router-link
+        class="logo"
+        :to="{ name: 'allGroups'}"
+      >
+        All Groups
+      </router-link>
+    </div>
+    <div class>
+      <router-link
+        class="logo"
+        :to="{ name: 'MyGroups' }"
+      >
+        My Groups
+      </router-link>
+    </div>
+
     <div class="right">
       <navbar-current-user v-if="isLoggedIn"/>
       <template v-else>
@@ -46,6 +59,7 @@ export default {
   background: #FFF
   padding: 10px 15px
   box-shadow: 0 1px 4px 0 hsla(0, 0, 0, 0.1)
+
 
 .right > *
   margin-left: 15px

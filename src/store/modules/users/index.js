@@ -48,7 +48,7 @@ export default {
     },
 
     async updateCurrentUserGroups ({ commit }, { categorySlug }) {
-      await apiClient.addUserGroup(categorySlug)  
+      await apiClient.addUserGroup(categorySlug)
       return categorySlug
     }
   },

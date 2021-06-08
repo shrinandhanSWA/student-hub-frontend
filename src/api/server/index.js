@@ -23,6 +23,9 @@ export default {
   getCategories () {
     return request('get', 'categories')
   },
+  getUserCategories (data) {
+    return request('get', 'user-categories', data)
+  },
 
   getCategory (categorySlug) {
     return request('get', `categories/${categorySlug}`)

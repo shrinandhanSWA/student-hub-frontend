@@ -12,6 +12,11 @@ export default {
       commit('SET_CATEGORIES', { categories })
     },
 
+    async loadUserCategories ({ commit }, { data }) {
+      const categories = await apiClient.getUserCategories(data)
+      commit('SET_CATEGORIES', { categories })
+    },
+
     async loadCurrentCategory ({ commit }, { categorySlug }) {
       const category = await apiClient.getCategory(categorySlug)
       commit('SET_CURRENT_CATEGORY', { category })
