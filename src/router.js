@@ -11,7 +11,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import AccountSettings from './views/AccountSettings.vue'
 import NotFound from './views/NotFound.vue'
-import myGroups from './views/myGroups.vue'
+import allGroups from './views/AllGroups.vue' 
 
 Vue.use(Router)
 
@@ -61,8 +61,8 @@ export default new Router({
       name: 'allGroups',
       component: allGroups,
       meta: {
-        auth: true,
-      } 
+        auth: true
+      }
     },
     {
       path: '/c/:categorySlug/edit',
