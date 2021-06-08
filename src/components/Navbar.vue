@@ -4,7 +4,13 @@
       class="logo"
       :to="{ name: 'Home' }"
     >
-      Forum
+      Home
+    </router-link>
+    <router-link
+      class="logo"
+      :to="{ name: 'myGroups' }"
+    >
+      All Groups
     </router-link>
     <div class="right">
       <navbar-current-user v-if="isLoggedIn"/>

@@ -2,7 +2,7 @@
   <div class="app-page home-page">
     <div class="header">
       <span class="title">
-        Categories
+        My Groups
       </span>
       <base-button
         v-if="isLoggedIn && currentUser.can('categories:write')"
@@ -10,7 +10,7 @@
         :to="{ name: 'CreateCategory' }"
       >
         <i class="fas fa-plus plus-icon"></i>
-        New Category
+        New Group
       </base-button>
     </div>
     <categories-list/>
