@@ -11,6 +11,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import AccountSettings from './views/AccountSettings.vue'
 import NotFound from './views/NotFound.vue'
+import myGroups from './views/myGroups.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,14 @@ export default new Router({
         auth: true,
         permissions: ['categories:write']
       }
+    },
+    {
+      path: '/my-groups',
+      name: 'myGroups',
+      component: myGroups,
+      meta: {
+        auth: true,
+      } 
     },
     {
       path: '/c/:categorySlug/edit',
