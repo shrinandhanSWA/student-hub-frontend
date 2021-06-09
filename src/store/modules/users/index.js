@@ -50,11 +50,9 @@ export default {
     async updateCurrentUserGroups ({ commit }, { categorySlug }) {
       await apiClient.addUserGroup(categorySlug)
       return categorySlug
-    },
-
-    async deleteCurrentUserGroup ({ commit }, { categorySlug }) {
-      await apiClient.deleteUserGroup(categorySlug)
     }
+
+
   },
 
   mutations: {
@@ -63,9 +61,13 @@ export default {
         ...user,
         ...permissionCheckers
       }
+    },
+    DELETE_CATEGORY_FROM_USER (state, { categorySlug }) {
+      state.all = state.all.filter(
+        category => category.slug !== categorySlug
+      )
     }
   },
-
   getters: {
     isLoggedIn (state) {
       const token = localStorage.getItem('auth_token')

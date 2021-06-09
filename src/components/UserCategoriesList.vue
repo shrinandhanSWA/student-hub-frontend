@@ -10,9 +10,9 @@
     >
       An error occured while fetching the categories.<br>Try to reload the page.
     </div>
-    <category-item
+    <user-category-item
       v-else
-      v-for="category in categories"
+      v-for="category in userCategories"
       :key="category._id"
       :category="category"
     />
@@ -21,28 +21,27 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import CategoryItem from './UserCategoryItem'
+import UserCategoryItem from './UserCategoryItem'
 
 export default {
-  components: { CategoryItem },
+  components: { UserCategoryItem },
   data () {
     return {
       loading: true,
       error: false
     }
   },
-
   computed: {
     ...mapState({
-      categories: state => state.categories.all
+      userCategories: state => state.userCategories.all
     })
   },
 
   async mounted () {
     try {
-      await this.loadUserCategories({  data: {
-          email: this.currentUser.email
-        }
+      await this.loadUserCategories({ data: {
+        email: this.currentUser.email
+      }
       })
       this.loading = false
     } catch (err) {

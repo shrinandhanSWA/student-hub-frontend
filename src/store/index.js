@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import categories from './modules/categories'
 import topics from './modules/topics'
 import users from './modules/users'
+import userCategories from './modules/userCategories'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     categories,
+    userCategories,
     topics,
     users
   },

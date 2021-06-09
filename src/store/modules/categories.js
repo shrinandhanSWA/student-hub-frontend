@@ -12,11 +12,6 @@ export default {
       commit('SET_CATEGORIES', { categories })
     },
 
-    async loadUserCategories ({ commit }, { data }) {
-      const categories = await apiClient.getUserCategories(data)
-      commit('SET_CATEGORIES', { categories })
-    },
-
     async loadCurrentCategory ({ commit }, { categorySlug }) {
       const category = await apiClient.getCategory(categorySlug)
       commit('SET_CURRENT_CATEGORY', { category })
@@ -42,11 +37,9 @@ export default {
     SET_CATEGORIES (state, { categories }) {
       state.all = categories
     },
-
     SET_CURRENT_CATEGORY (state, { category }) {
       state.current = category
     },
-
     DELETE_CATEGORY (state, { categorySlug }) {
       state.all = state.all.filter(
         category => category.slug !== categorySlug

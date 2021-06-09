@@ -42,10 +42,6 @@
         ></i>
       </div>
     </router-link>
-    <router-link
-          v-if="isLoggedIn && currentUser.can('categories:write')"
-        >
-    </router-link>
   </div>
 </template>
 

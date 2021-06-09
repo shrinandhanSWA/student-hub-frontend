@@ -3,7 +3,7 @@ import axios from 'axios'
 const request = async (method, url, requestData) => {
   try {
     const { data } = await axios({
-      baseURL: process.env.VUE_APP_API_SERVER_BASE_URL,
+      baseURL: process.env.VUE_APP_SERVER_URL,
       method,
       url,
       data: requestData,
@@ -104,6 +104,6 @@ export default {
   },
 
   deleteUserGroup (categorySlug) {
-    return request('put', `groups-remove/${categorySlug}`, {})
+    return request('delete', `groups-remove/${categorySlug}`)
   }
 }
