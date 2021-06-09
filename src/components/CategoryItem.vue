@@ -63,7 +63,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateCurrentUserGroups']),
+    ...mapActions(['updateCurrentUserGroups'])
   }
 }
 </script>

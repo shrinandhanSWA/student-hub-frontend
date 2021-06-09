@@ -50,6 +50,10 @@ export default {
     async updateCurrentUserGroups ({ commit }, { categorySlug }) {
       await apiClient.addUserGroup(categorySlug)
       return categorySlug
+    },
+
+    async deleteCurrentUserGroup ({ commit }, { categorySlug }) {
+      await apiClient.deleteUserGroup(categorySlug)
     }
   },
 

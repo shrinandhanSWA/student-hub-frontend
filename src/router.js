@@ -86,7 +86,7 @@ export default new Router({
       path: '/c/:categorySlug',
       name: 'Category',
       component: Category
-    },  
+    },
     {
       path: '/t/:topicId',
       name: 'Topic',
