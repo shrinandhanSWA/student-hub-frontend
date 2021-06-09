@@ -28,8 +28,6 @@
           {{ reply.createdAt | humanizeDate }}
         </span>
       </div>
-          v-model="content"
-          :disabled="loading"
   </div>
   <p class="reply-content">
     <template v-if="!editing">
