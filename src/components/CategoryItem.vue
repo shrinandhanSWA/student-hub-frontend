@@ -8,9 +8,10 @@
       @confirm="updateCurrentUserGroups({ categorySlug: category.slug })"
     >
       <template #title>
-        Do you want to join {{category.title}} ?
+        Do you want to join '{{category.title}}' ?
       </template>
       <template #default>
+        By clicking Join, '{{category.title}}' will be in 'my groups'
       </template>
     </base-confirm-dialog>
 

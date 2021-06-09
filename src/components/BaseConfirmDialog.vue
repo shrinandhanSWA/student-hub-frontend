@@ -75,7 +75,7 @@ export default {
   padding: 10px 20px
   margin: 0
   width: 100%
-  background: $primaryColor
+  background: $buttonColor
   color: #FFF
   font-size: 25px
   font-weight: 300
