@@ -1,6 +1,6 @@
 <template>
   <div class="category-item">
-    <base-confirm-dialog
+    <base-confirm-dialog id="joinBlock"
       v-if="showConfirmDialog"
       confirm-button-title="join"
       dismiss-button-title="cancel"
@@ -13,6 +13,22 @@
       <template #default>
       </template>
     </base-confirm-dialog>
+
+    <base-confirm-dialog id="delBlock"
+      v-if="showConfirmDelete"
+      confirm-button-title="delete"
+      dismiss-button-title="cancel"
+      @dismiss="showConfirmDelete = false"
+      @confirm="deleteCategory({ categorySlug: category.slug })"
+    >
+      <template #title>
+        Do you really want to delete the group {{category.title}} ?
+      </template>
+      <template #default>
+        You cannot undo this action.
+      </template>
+    </base-confirm-dialog>
+
     <router-link
       class="category-item-link"
       :to="{ name: 'Category', params: { categorySlug: category.slug } }"
@@ -35,10 +51,15 @@
             class="action-button fas fa-pencil-alt"
           ></i>
         </router-link>
-        <i
+        <i id="joinBlock"
           v-if="isLoggedIn"
           class="action-button fas fa-plus"
           @click.prevent.stop="showConfirmDialog = true"
+        ></i>
+        <i id="delBlock"
+          v-if="isLoggedIn && currentUser.can('categories:write')"
+          class="action-button fas fa-trash-alt"
+          @click.prevent.stop="showConfirmDelete = true"
         ></i>
       </div>
     </router-link>
@@ -58,12 +79,13 @@ export default {
 
   data () {
     return {
-      showConfirmDialog: false
+      showConfirmDialog: false,
+      showConfirmDelete: false
     }
   },
 
   methods: {
-    ...mapActions(['updateCurrentUserGroups'])
+    ...mapActions(['updateCurrentUserGroups', 'deleteCategory'])
   }
 }
 </script>
