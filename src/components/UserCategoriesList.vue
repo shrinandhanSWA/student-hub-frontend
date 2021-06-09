@@ -40,7 +40,10 @@ export default {
 
   async mounted () {
     try {
-      await this.loadUserCategories({ data: this.computed }) // need to change this to pass through user data
+      await this.loadUserCategories({  data: {
+          email: this.currentUser.email
+        }
+      })
       this.loading = false
     } catch (err) {
       this.loading = false

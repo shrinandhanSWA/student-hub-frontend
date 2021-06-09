@@ -2,7 +2,7 @@
   <div class="app-page home-page">
     <div class="header">
       <span class="title">
-        My Groups
+        Groups
       </span>
       <base-button
         v-if="isLoggedIn && currentUser.can('categories:write')"

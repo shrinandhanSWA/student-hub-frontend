@@ -24,7 +24,7 @@ export default {
     return request('get', 'categories')
   },
   getUserCategories (data) {
-    return request('get', 'user-categories', data)
+    return request('put', 'user-categories', data)
   },
 
   getCategory (categorySlug) {

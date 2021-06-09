@@ -34,17 +34,13 @@
           <i
             class="action-button fas fa-pencil-alt"
           ></i>
-          <i
+        </router-link>
+        <i
           v-if="isLoggedIn"
           class="action-button fas fa-plus"
           @click.prevent.stop="showConfirmDialog = true"
         ></i>
-        </router-link>
       </div>
-    </router-link>
-    <router-link
-          v-if="isLoggedIn && currentUser.can('categories:write')"
-        >
     </router-link>
   </div>
 </template>
@@ -67,7 +63,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['updateCurrentUserGroups'])
+    ...mapActions(['updateCurrentUserGroups']),
   }
 }
 </script>

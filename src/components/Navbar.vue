@@ -19,7 +19,7 @@
     <div class>
       <router-link
         class="logo"
-        :to="{ name: 'MyGroups' }"
+        :to="{ name: 'MyGroups'}"
       >
         My Groups
       </router-link>
@@ -53,10 +53,11 @@ export default {
 
 <style lang="stylus" scoped>
 .navbar
+  font-size : 20px
   display: flex
   justify-content: space-between
   align-items: center
-  background: #FFF
+  background: #a301ff
   padding: 10px 15px
   box-shadow: 0 1px 4px 0 hsla(0, 0, 0, 0.1)
 
@@ -66,5 +67,5 @@ export default {
 
 .logo
   text-decoration none
-  color: #000
+  color: #eaf1f1
 </style>

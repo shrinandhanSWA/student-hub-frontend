@@ -63,17 +63,17 @@ export default {
 
 // Primary
 .base-button:not(.disabled).primary
-  background: $primaryColor
+  background: $buttonColor
   color: #FFF
 
 .base-button:not(.disabled).primary:hover
-  background: lighten($primaryColor, 7%)
+  background: lighten( $buttonColor, 7%)
 
 // Borderless
 .base-button:not(.disabled).borderless
   background: transparent
-  color: $primaryColor
+  color:  $buttonColor
 
 .base-button:not(.disabled).borderless:hover
-  background: lighten($primaryColor, 90%)
+  background: lighten( $buttonColor, 90%)
 </style>
