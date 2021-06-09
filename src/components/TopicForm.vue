@@ -21,7 +21,7 @@
       v-if="categoryOptions"
       class="field"
     >
-      <label class="label">Category</label>
+      <label class="label">Group</label>
       <base-select-input
         v-model="category"
         :options="categoryOptions"

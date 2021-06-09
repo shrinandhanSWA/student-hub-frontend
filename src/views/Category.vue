@@ -15,7 +15,7 @@
           :to="{ name: 'CreateTopic' }"
         >
           <i class="fas fa-plus plus-icon"></i>
-          New Topic
+          New Post
         </base-button>
       </div>
       <topics-list/>

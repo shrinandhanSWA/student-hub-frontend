@@ -2,7 +2,7 @@
   <div class="app-page create-category-page">
     <div class="page-form-container">
       <h1 class="page-form-title">
-        New Category
+        New Group
       </h1>
       <category-form/>
     </div>

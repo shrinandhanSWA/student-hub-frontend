@@ -49,7 +49,7 @@ export default new Router({
       }
     },
     {
-      path: '/new-category',
+      path: '/new-group',
       name: 'CreateCategory',
       component: CreateCategory,
       meta: {
@@ -86,14 +86,14 @@ export default new Router({
       path: '/c/:categorySlug',
       name: 'Category',
       component: Category
-    },
+    },  
     {
       path: '/t/:topicId',
       name: 'Topic',
       component: Topic
     },
     {
-      path: '/c/:categorySlug/new-topic',
+      path: '/c/:categorySlug/new-post',
       name: 'CreateTopic',
       component: CreateTopic,
       meta: { auth: true }

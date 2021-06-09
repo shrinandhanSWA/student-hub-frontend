@@ -4,7 +4,7 @@
       v-if="topics.length === 0"
       class="message"
     >
-      This category contains no topics yet. Be the first one to write the first topic.
+      This group contains no posts yet. Be the first one to write a post.
     </div>
     <div
       v-else
