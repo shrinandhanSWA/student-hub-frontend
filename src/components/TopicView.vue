@@ -14,7 +14,23 @@
         You cannot undo this action.
       </template>
     </base-confirm-dialog>
+
     <h1 class="title">
+     <div class="action-buttons">
+        <i id="upvoteBlock"
+          v-if="isLoggedIn"
+          class="action-button fa fa-chevron-up"
+          @click = upvote()
+          :class="{disabled: upvoted}"
+        ></i>    
+        <span class="label label-primary">{{ votes }}</span>
+         <i id="upvoteBlock"
+          v-if="isLoggedIn"
+          class="action-button fa fa-chevron-down"
+          @click = downvote()
+          :class="{disabled: downvoted}"
+        ></i> 
+      </div>
       {{ topic.title }}
     </h1>
     <div class="author">
@@ -90,12 +106,14 @@ export default {
 
   data () {
     return {
-      showConfirmDialog: false
+      showConfirmDialog: false,
+      upvoted: false,
+      downvoted: false
     }
   },
 
   methods: {
-    ...mapActions(['setNextRoute']),
+    ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic']),
     onReply () {
       if (this.isLoggedIn) {
         this.$emit('reply')
@@ -103,9 +121,50 @@ export default {
         this.setNextRoute({ route: this.$route.fullPath })
         this.$router.push({ name: 'Login' })
       }
-    }
+    },
+
+     upvote: function () {
+      
+      if (!this.upvoted) {
+          this.upvoteTopic({ topicId: this.topic._id }) 
+      } else {
+        this.downvoteTopic({ topicId: this.topic._id })
+      }
+      if (this.downvoted) {
+        this.upvoteTopic({ topicId: this.topic._id }) 
+      }
+      this.upvoted = !this.upvoted
+      this.downvoted = false
+
+    },
+    
+    downvote: function () {
+
+      if (!this.downvoted) {
+        this.downvoteTopic({ topicId: this.topic._id })
+      } else {
+        this.upvoteTopic({ topicId: this.topic._id }) 
+      }
+
+      if (this.upvoted) {
+          this.downvoteTopic({ topicId: this.topic._id })
+      }
+      
+      this.downvoted = !this.downvoted
+      this.upvoted = false
+    },
+    
+  },
+
+  computed: {
+
+   votes: function() {
+     return this.topic.upvotes
   }
 }
+}
+
+
 </script>
 
 <style lang="stylus" scoped>
@@ -174,4 +233,8 @@ export default {
 .reply
   border-top: 1px solid #F0F0F0
   padding: 30px 0
+
+.disabled 
+  color: orange
+
 </style>

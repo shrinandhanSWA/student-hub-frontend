@@ -27,6 +27,10 @@
         <i class="fas fa-comment icon"></i>
       </span>
       <span class="views">
+        {{ topic.upvotes }}
+        <i class="fa fa-chevron-up"></i>
+      </span>
+      <span class="views">
         {{ topic.views }}
         <i class="fas fa-eye icon"></i>
       </span>

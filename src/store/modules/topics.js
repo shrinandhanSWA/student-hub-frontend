@@ -12,9 +12,19 @@ export default {
       const topics = await apiClient.getTopics(filters)
       commit('SET_TOPICS_LIST', { topics })
     },
-
+    
     async loadCurrentTopic ({ commit }, { topicId }) {
       const topic = await apiClient.getTopic(topicId)
+      commit('SET_CURRENT_TOPIC', { topic })
+    },
+
+    async upvoteTopic ({ commit }, { topicId }) {
+      const topic = await apiClient.upvoteTopic(topicId)
+      commit('SET_CURRENT_TOPIC', { topic })
+    },
+
+    async downvoteTopic ({ commit }, { topicId }) {
+      const topic = await apiClient.downvoteTopic(topicId)
       commit('SET_CURRENT_TOPIC', { topic })
     },
 
