@@ -16,21 +16,6 @@
     </base-confirm-dialog>
 
     <h1 class="title">
-     <div class="action-buttons">
-        <i id="upvoteBlock"
-          v-if="isLoggedIn"
-          class="action-button fa fa-chevron-up"
-          @click = upvote()
-          :class="{disabled: upvoted}"
-        ></i>    
-        <span class="label label-primary">{{ votes }}</span>
-         <i id="upvoteBlock"
-          v-if="isLoggedIn"
-          class="action-button fa fa-chevron-down"
-          @click = downvote()
-          :class="{disabled: downvoted}"
-        ></i> 
-      </div>
       {{ topic.title }}
     </h1>
     <div class="author">
@@ -52,6 +37,11 @@
       {{ topic.content }}
     </p>
     <div class="topic-footer">
+      <div class="topic-footer-reply">
+        <i v-if="isLoggedIn" class="glyphicon glyphicon-chevron-up fa-2x" @click="upvote" :class="{upvoted_color: upvoted}"></i>
+        <span class="votes">{{ votes }}</span>
+        <i v-if="isLoggedIn" class="glyphicon glyphicon-chevron-down fa-2x" @click="downvote" :class="{downvoted_color: downvoted}"></i>
+      </div>
       <div class="topic-footer-reply">
         <h2 class="topic-footer-reply-title">
           {{ topic.replies && topic.replies.length ? topic.replies.length : 'No' }} Replies
@@ -123,47 +113,44 @@ export default {
       }
     },
 
-     upvote: function () {
-      
+    upvote: function () {
       if (!this.upvoted) {
-          this.upvoteTopic({ topicId: this.topic._id }) 
+        this.upvoteTopic({ topicId: this.topic._id })
       } else {
         this.downvoteTopic({ topicId: this.topic._id })
       }
       if (this.downvoted) {
-        this.upvoteTopic({ topicId: this.topic._id }) 
+        this.upvoteTopic({ topicId: this.topic._id })
       }
       this.upvoted = !this.upvoted
       this.downvoted = false
-
     },
-    
-    downvote: function () {
 
+
+    downvote: function () {
       if (!this.downvoted) {
         this.downvoteTopic({ topicId: this.topic._id })
       } else {
-        this.upvoteTopic({ topicId: this.topic._id }) 
+        this.upvoteTopic({ topicId: this.topic._id })
       }
 
       if (this.upvoted) {
-          this.downvoteTopic({ topicId: this.topic._id })
+        this.downvoteTopic({ topicId: this.topic._id })
       }
-      
+
       this.downvoted = !this.downvoted
       this.upvoted = false
-    },
-    
+    }
+
   },
 
   computed: {
 
-   votes: function() {
-     return this.topic.upvotes
+    votes: function () {
+      return this.topic.upvotes
+    }
   }
 }
-}
-
 
 </script>
 
@@ -234,7 +221,19 @@ export default {
   border-top: 1px solid #F0F0F0
   padding: 30px 0
 
-.disabled 
-  color: orange
+.votes {
+  display: inline-block;
+  text-align: center;
+  width: 1.8em;
+  font-size: 25 px
+}
+
+.upvoted_color {
+  color: #FF8B60;
+}
+
+.downvoted_color {
+  color: #9494FF;
+}
 
 </style>

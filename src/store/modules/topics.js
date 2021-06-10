@@ -12,7 +12,7 @@ export default {
       const topics = await apiClient.getTopics(filters)
       commit('SET_TOPICS_LIST', { topics })
     },
-    
+
     async loadCurrentTopic ({ commit }, { topicId }) {
       const topic = await apiClient.getTopic(topicId)
       commit('SET_CURRENT_TOPIC', { topic })
@@ -56,6 +56,18 @@ export default {
       await apiClient.updateReply(state.current._id, replyId, data)
       commit('UPDATE_REPLY', { replyId, data })
       return replyId
+    },
+
+    async upvoteReply ({ state, commit }, { replyId, data }) {
+      await apiClient.upvoteReply(state.current._id, replyId, data)
+      commit('UPDATE_REPLY', { replyId, data })
+      return replyId
+    },
+
+    async downvoteReply ({ state, commit }, { replyId, data }) {
+      await apiClient.downvoteReply(state.current._id, replyId, data)
+      commit('UPDATE_REPLY', { replyId, data })
+      return replyId
     }
   },
 
@@ -82,9 +94,11 @@ export default {
     },
 
     UPDATE_REPLY (state, { replyId, data }) {
-      const replyIndex = state.current.replies.map(reply => reply._id).indexOf(replyId)
+      const replyIndex = state.current.replies.map(reply => reply._id).indexOf(
+        replyId)
       if (replyIndex !== -1) {
-        Vue.set(state.current.replies, replyIndex, { ...state.current.replies[replyIndex], ...data })
+        Vue.set(state.current.replies, replyIndex,
+          { ...state.current.replies[replyIndex], ...data })
       }
     }
   }
