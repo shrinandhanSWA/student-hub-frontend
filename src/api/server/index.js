@@ -3,7 +3,7 @@ import axios from 'axios'
 const request = async (method, url, requestData) => {
   try {
     const { data } = await axios({
-      baseURL: process.env.VUE_APP_API_SERVER_BASE_URL,
+      baseURL: process.env.VUE_APP_SERVER_URL,
       method,
       url,
       data: requestData,
@@ -67,7 +67,11 @@ export default {
     return request('put', `topics/${topicId}`, data)
   },
   upvoteTopic (topicId,data) {
-    return request('put', `topic-upvote/${topicId}`,data)
+    return request('put', `topic-upvote/${topicId}`, data)
+  },
+
+  checkUpvoted (topicId, data) {
+    return request('put', `topic-check/${topicId}`, data)
   },
 
   deleteTopic (topicId) {

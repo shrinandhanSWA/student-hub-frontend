@@ -84,6 +84,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Reply from './Reply'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   components: { Reply },
@@ -94,16 +95,19 @@ export default {
     }
   },
 
-  data () {
-    return {
-      showConfirmDialog: false,
-      upvoted: false,
-      downvoted: false
-    }
+  validations: {
+    email: { required, email },
+    name: { required }
   },
 
+   mounted () {
+    this.name = this.currentUser.name
+    this.email = this.currentUser.email
+  },
+
+  
   methods: {
-    ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic']),
+    ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic', 'checkUpvoted']),
     onReply () {
       if (this.isLoggedIn) {
         this.$emit('reply')
@@ -111,6 +115,22 @@ export default {
         this.setNextRoute({ route: this.$route.fullPath })
         this.$router.push({ name: 'Login' })
       }
+    },
+
+     checkUpvoteddd() {
+      //AAYUSH. Need a way to pass the correct email.
+      // this.currentUser.email does NOT work for some reason
+      // I suspect it's because this page was viewable without loggin in in the original code.
+      // I have changed this now, so to view a Topic, you need to log in
+      // But I still cannot access user info. LMK what you find.
+
+      return this.checkUpvoted({ 
+        topicId: this.topic._id ,
+        data: {
+          email: this.email
+        }
+        })
+
     },
 
     upvote: function () {
@@ -166,7 +186,17 @@ export default {
       this.downvoted = !this.downvoted
       this.upvoted = false
     }
+  },
 
+   data () {
+     var self = this
+
+     return {
+
+            showConfirmDialog: false,
+            upvoted: self.checkUpvoteddd(),
+            downvoted: false
+        }
   },
 
   computed: {

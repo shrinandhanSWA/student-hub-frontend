@@ -90,7 +90,8 @@ export default new Router({
     {
       path: '/t/:topicId',
       name: 'Topic',
-      component: Topic
+      component: Topic,
+      meta: { auth: true }
     },
     {
       path: '/c/:categorySlug/new-post',

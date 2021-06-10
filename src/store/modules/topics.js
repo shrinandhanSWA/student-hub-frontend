@@ -38,6 +38,10 @@ export default {
       commit('SET_CURRENT_TOPIC', { topic })
     },
 
+    async checkUpvoted ({ commit }, { topicId, data }) {
+      return (await apiClient.checkUpvoted(topicId, data).then((result) => {return result}))
+    },
+
     async deleteTopic ({ commit }, { topicId }) {
       await apiClient.deleteTopic(topicId)
     },
