@@ -99,13 +99,33 @@ export default {
     email: { required, email },
     name: { required }
   },
+  data () {
+    // var self = this
 
-   mounted () {
-    this.name = this.currentUser.name
-    this.email = this.currentUser.email
+    return {
+      showConfirmDialog: false,
+      upvoted: false,
+      downvoted: false
+    }
   },
-
-  
+  async mounted () {
+    try {
+      this.upvoted = await this.checkUpvoted({
+        topicId: this.topic._id,
+        data: {
+          email: this.currentUser.email
+        }
+      })
+    } catch (err) {
+      this.loading = false
+      this.error = true
+    }
+  },
+  computed: {
+    votes: function () {
+      return this.topic.upvotes
+    }
+  },
   methods: {
     ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic', 'checkUpvoted']),
     onReply () {
@@ -115,22 +135,6 @@ export default {
         this.setNextRoute({ route: this.$route.fullPath })
         this.$router.push({ name: 'Login' })
       }
-    },
-
-     checkUpvoteddd() {
-      //AAYUSH. Need a way to pass the correct email.
-      // this.currentUser.email does NOT work for some reason
-      // I suspect it's because this page was viewable without loggin in in the original code.
-      // I have changed this now, so to view a Topic, you need to log in
-      // But I still cannot access user info. LMK what you find.
-
-      return this.checkUpvoted({ 
-        topicId: this.topic._id ,
-        data: {
-          email: this.email
-        }
-        })
-
     },
 
     upvote: function () {
@@ -185,24 +189,6 @@ export default {
 
       this.downvoted = !this.downvoted
       this.upvoted = false
-    }
-  },
-
-   data () {
-     var self = this
-
-     return {
-
-            showConfirmDialog: false,
-            upvoted: self.checkUpvoteddd(),
-            downvoted: false
-        }
-  },
-
-  computed: {
-
-    votes: function () {
-      return this.topic.upvotes
     }
   }
 }

@@ -53,10 +53,10 @@
           ></i>
         </router-link>
         <i id="joinBlock"
-          v-if="isLoggedIn"
-          class="action-button fas fa-plus"
-          @click.prevent.stop="showConfirmDialog = true"
-        ></i>
+           v-if="isLoggedIn"
+           class="join-button"
+           @click.prevent.stop="showConfirmDialog= true"
+        >Join</i>
         <i id="delBlock"
           v-if="isLoggedIn && currentUser.can('categories:write')"
           class="action-button fas fa-trash-alt"
@@ -80,6 +80,7 @@ export default {
 
   data () {
     return {
+      join: false,
       showConfirmDialog: false,
       showConfirmDelete: false
     }
@@ -126,6 +127,52 @@ export default {
   margin-left: 15px
   color: $primaryColor
   cursor: pointer
+
+
+.join-button {
+  display: inline-block;
+  padding: .3rem 1rem;
+  margin-left: 1.3em;
+  font-style : normal;
+  border-radius: 10rem;
+  color: #fff;
+  font-size: 1rem;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $primaryColor;
+    border-radius: 10rem;
+    z-index: -2;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: darken($primaryColor, 15%);
+    transition: all .3s;
+    border-radius: 10rem;
+    z-index: -1;
+  }
+  &:hover {
+    color: #fff;
+    &:before {
+      width: 100%;
+    }
+  }
+}
+
 
 .action-button:hover
   color: lighten($primaryColor, 20%)

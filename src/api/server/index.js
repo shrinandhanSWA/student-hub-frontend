@@ -66,7 +66,7 @@ export default {
   updateTopic (topicId, data) {
     return request('put', `topics/${topicId}`, data)
   },
-  upvoteTopic (topicId,data) {
+  upvoteTopic (topicId, data) {
     return request('put', `topic-upvote/${topicId}`, data)
   },
 

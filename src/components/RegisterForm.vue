@@ -147,7 +147,7 @@ export default {
             }
           })
           this.loading = false
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'Login' })
         } catch (err) {
           this.serverErrorMessage = err.data.message
           this.loading = false

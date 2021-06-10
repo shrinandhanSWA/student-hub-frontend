@@ -39,7 +39,8 @@ export default {
     },
 
     async checkUpvoted ({ commit }, { topicId, data }) {
-      return (await apiClient.checkUpvoted(topicId, data).then((result) => {return result}))
+      const result = await apiClient.checkUpvoted(topicId, data)
+      return result
     },
 
     async deleteTopic ({ commit }, { topicId }) {
