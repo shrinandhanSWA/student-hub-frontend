@@ -55,12 +55,8 @@ export default {
     return request('get', `topics/${topicId}`)
   },
 
-  upvoteTopic (topicId) {
-    return request('get', `topic-upvote/${topicId}`)
-  },
-
-  downvoteTopic (topicId) {
-    return request('get', `topic-downvote/${topicId}`)
+  downvoteTopic (topicId, data) {
+    return request('put', `topic-downvote/${topicId}`, data)
   },
 
   createTopic (data) {
@@ -69,6 +65,9 @@ export default {
 
   updateTopic (topicId, data) {
     return request('put', `topics/${topicId}`, data)
+  },
+  upvoteTopic (topicId,data) {
+    return request('put', `topic-upvote/${topicId}`,data)
   },
 
   deleteTopic (topicId) {

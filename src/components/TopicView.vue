@@ -38,9 +38,9 @@
     </p>
     <div class="topic-footer">
       <div class="topic-footer-reply">
-        <i v-if="isLoggedIn" class="glyphicon glyphicon-chevron-up fa-2x" @click="upvote" :class="{upvoted_color: upvoted}"></i>
+        <i v-if="isLoggedIn" class="fa fa-angle-up fa-2x" @click="upvote" :class="{upvoted_color: upvoted}"></i>
         <span class="votes">{{ votes }}</span>
-        <i v-if="isLoggedIn" class="glyphicon glyphicon-chevron-down fa-2x" @click="downvote" :class="{downvoted_color: downvoted}"></i>
+        <i v-if="isLoggedIn" class="fa fa-angle-down fa-2x" @click="downvote" :class="{downvoted_color: downvoted}"></i>
       </div>
       <div class="topic-footer-reply">
         <h2 class="topic-footer-reply-title">
@@ -115,27 +115,52 @@ export default {
 
     upvote: function () {
       if (!this.upvoted) {
-        this.upvoteTopic({ topicId: this.topic._id })
+        this.upvoteTopic({
+          topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realUpvote: true
+          }
+        })
       } else {
-        this.downvoteTopic({ topicId: this.topic._id })
+        this.downvoteTopic({ topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realDownvote: false
+          } })
       }
       if (this.downvoted) {
-        this.upvoteTopic({ topicId: this.topic._id })
+        this.upvoteTopic({ topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realUpvote: true
+          } })
       }
       this.upvoted = !this.upvoted
       this.downvoted = false
     },
 
-
     downvote: function () {
       if (!this.downvoted) {
-        this.downvoteTopic({ topicId: this.topic._id })
+        this.downvoteTopic({ topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realDownvote: true
+          } })
       } else {
-        this.upvoteTopic({ topicId: this.topic._id })
+        this.upvoteTopic({ topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realUpvote: false
+          } })
       }
 
       if (this.upvoted) {
-        this.downvoteTopic({ topicId: this.topic._id })
+        this.downvoteTopic({ topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email,
+            realDownvote: true
+          } })
       }
 
       this.downvoted = !this.downvoted

@@ -18,13 +18,8 @@ export default {
       commit('SET_CURRENT_TOPIC', { topic })
     },
 
-    async upvoteTopic ({ commit }, { topicId }) {
-      const topic = await apiClient.upvoteTopic(topicId)
-      commit('SET_CURRENT_TOPIC', { topic })
-    },
-
-    async downvoteTopic ({ commit }, { topicId }) {
-      const topic = await apiClient.downvoteTopic(topicId)
+    async downvoteTopic ({ commit }, { topicId, data }) {
+      const topic = await apiClient.downvoteTopic(topicId, data)
       commit('SET_CURRENT_TOPIC', { topic })
     },
 
@@ -36,6 +31,11 @@ export default {
     async updateTopic ({ commit }, { topicId, data }) {
       await apiClient.updateTopic(topicId, data)
       return topicId
+    },
+
+    async upvoteTopic ({ commit }, { topicId, data }) {
+      const topic = await apiClient.upvoteTopic(topicId, data)
+      commit('SET_CURRENT_TOPIC', { topic })
     },
 
     async deleteTopic ({ commit }, { topicId }) {
