@@ -28,7 +28,7 @@
       </div>
       <div class="actions">
         <router-link
-          v-if="isLoggedIn && currentUser.can('categories:write')"
+          v-if="isLoggedIn && currentUser.can('categories:delete')"
           :to="{ name: 'EditCategory', params: { categorySlug: category.slug } }"
         >
           <i

@@ -116,6 +116,13 @@ export default {
           email: this.currentUser.email
         }
       })
+
+      this.downvoted = await this.checkDownvoted({
+        topicId: this.topic._id,
+        data: {
+          email: this.currentUser.email
+        }
+      })
     } catch (err) {
       this.loading = false
       this.error = true
@@ -127,7 +134,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic', 'checkUpvoted']),
+    ...mapActions(['setNextRoute', 'upvoteTopic', 'downvoteTopic', 'checkUpvoted', 'checkDownvoted']),
     onReply () {
       if (this.isLoggedIn) {
         this.$emit('reply')

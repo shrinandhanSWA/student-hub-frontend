@@ -97,9 +97,8 @@ export default {
 
     roleOptions () {
       return [
-        { key: 'user', title: 'User' },
-        { key: 'moderator', title: 'Moderator' },
-        { key: 'admin', title: 'Admin' }
+        { key: 'user', title: 'Student' },
+        { key: 'moderator', title: 'Alumni' }
       ]
     },
 

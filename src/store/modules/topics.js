@@ -43,6 +43,11 @@ export default {
       return result
     },
 
+    async checkDownvoted ({ commit }, { topicId, data }) {
+      const result = await apiClient.checkDownvoted(topicId, data)
+      return result
+    },
+
     async deleteTopic ({ commit }, { topicId }) {
       await apiClient.deleteTopic(topicId)
     },

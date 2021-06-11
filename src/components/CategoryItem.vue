@@ -45,7 +45,7 @@
       </div>
       <div class="actions">
         <router-link
-          v-if="isLoggedIn && currentUser.can('categories:write')"
+          v-if="isLoggedIn && currentUser.can('categories:delete')"
           :to="{ name: 'EditCategory', params: { categorySlug: category.slug } }"
         >
           <i
@@ -58,7 +58,7 @@
            @click.prevent.stop="showConfirmDialog= true"
         >Join</i>
         <i id="delBlock"
-          v-if="isLoggedIn && currentUser.can('categories:write')"
+          v-if="isLoggedIn && currentUser.can('categories:delete')"
           class="action-button fas fa-trash-alt"
           @click.prevent.stop="showConfirmDelete = true"
         ></i>
