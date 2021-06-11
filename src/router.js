@@ -13,6 +13,7 @@ import AccountSettings from './views/AccountSettings.vue'
 import NotFound from './views/NotFound.vue'
 import allGroups from './views/AllGroups'
 import MyGroups from './views/MyGroups'
+import NewestPosts from './views/NewestPosts'
 
 Vue.use(Router)
 
@@ -86,6 +87,11 @@ export default new Router({
       path: '/c/:categorySlug',
       name: 'Category',
       component: Category
+    },
+    {
+      path: '/c/:categorySlug/newest',
+      name: 'NewestPosts',
+      component: NewestPosts
     },
     {
       path: '/t/:topicId',

@@ -22,11 +22,7 @@
       </p>
     </div>
     <div class="numbers">
-      <span class="replies">
-        {{ topic.numberOfReplies }}
-        <i class="fas fa-comment icon"></i>
-      </span>
-      <span class="views">
+       <span class="upvotes">
         {{ topic.upvotes }}
         <i class="fa fa-chevron-up"></i>
       </span>
@@ -34,6 +30,11 @@
         {{ topic.views }}
         <i class="fas fa-eye icon"></i>
       </span>
+      <span class="replies">
+        {{ topic.numberOfReplies }}
+        <i class="fas fa-comment icon"></i>
+      </span>
+
     </div>
   </router-link>
 </template>
@@ -79,7 +80,11 @@ export default {
   font-size: 14px
 
 .views
-  margin-left: 15px
+  margin-left: 4px
+  margin-right: 10px
+
+.upvotes
+  margin-right: 4px
 
 .icon
   margin-left: 2px

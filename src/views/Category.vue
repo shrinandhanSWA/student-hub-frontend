@@ -9,17 +9,14 @@
         <span class="title">
           {{ currentCategory.title }}
         </span>
-        <div class="header2">
-        
-          <div class="dropdown">
-            <button class="basic-button">Sort By</button>
-              <div class="dropdown-content">
-                <a href="#">Popularity</a>
-                <a href="#">Newest</a>
-                <a href="#">Most Viewed</a>
-              </div>
-          </div>
-
+        <div class="right-header">
+          <base-button
+            v-if="isLoggedIn"
+            class="sort-by-button"
+            :to="{ name: 'NewestPosts' }"
+          >
+            View Latest
+          </base-button>
           <base-button
             v-if="isLoggedIn && currentUser.can('own_topics:write')"
             class="new-topic-button"
@@ -37,14 +34,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 
+import { mapState, mapActions } from 'vuex'
 import TopicsList from '@/components/TopicsList'
+import BaseButton from '../components/BaseButton'
 
 export default {
-  components: { TopicsList },
+  components: { BaseButton, TopicsList },
   data () {
     return {
+      voteSort: true,
       loading: false
     }
   },
@@ -62,11 +61,11 @@ export default {
         this.loading = true
         try {
           await this.loadCurrentCategory({ categorySlug })
-          await this.loadTopics({ filters: { categorySlug } ,
-             data: {
-               voteSort: true
-             }
-             })
+          await this.loadTopics({ filters: { categorySlug },
+            data: {
+              voteSort: this.voteSort
+            }
+          })
           this.loading = false
         } catch (err) {
           this.$router.push({ name: 'Home' })
@@ -81,6 +80,12 @@ export default {
       'loadTopics',
       'loadCurrentCategory'
     ])
+    // newest: function () {
+    //   this.voteSort = false
+    // },
+    // mostPopular: function () {
+    //   this.voteSort = true
+    // }
   }
 }
 </script>
@@ -92,26 +97,10 @@ export default {
   align-items: center
   margin-bottom: 10px
 
-.header2
+.right-header
   justify-content: space-between
   align-items: center
   margin-bottom: 10px
-
-button {
-  border: 0
-  padding: 8.5px 12px
-  border-radius: 2px
-  outline: none
-  cursor: pointer
-  background-color: $buttonColor
-  transition: 0.2s background ease-out
-  text-decoration: none
-  display: inline-block
-  text-align: center
-  color: white
-  margin-right: 20px
-}
-
 
 .plus-icon
   margin-right: 5px
@@ -128,7 +117,6 @@ button {
 }
 
 .dropdown {
-  position: relative;
   display: inline-block;
 }
 
@@ -155,6 +143,14 @@ button {
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 .new-topic-button
+  font-size: 14px
+
+.dropdown-button
+  margin-right : 10px
+  font-size: 14px
+
+.sort-by-button
+  margin-right : 10px
   font-size: 14px
 
 </style>

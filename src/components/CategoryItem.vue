@@ -128,7 +128,6 @@ export default {
   color: $primaryColor
   cursor: pointer
 
-
 .join-button {
   display: inline-block;
   padding: .3rem 1rem;
