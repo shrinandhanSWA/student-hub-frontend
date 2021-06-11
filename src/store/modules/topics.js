@@ -8,8 +8,8 @@ export default {
   },
 
   actions: {
-    async loadTopics ({ commit }, { filters }) {
-      const topics = await apiClient.getTopics(filters)
+    async loadTopics ({ commit }, { filters, data }) {
+      const topics = await apiClient.getTopics(filters, data)
       commit('SET_TOPICS_LIST', { topics })
     },
 

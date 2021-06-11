@@ -45,9 +45,9 @@ export default {
     return request('delete', `categories/${categorySlug}`)
   },
 
-  getTopics (filters) {
+  getTopics (filters, data) {
     if (filters.categorySlug) {
-      return request('get', `categories/${filters.categorySlug}/topics`)
+      return request('put', `categories/${filters.categorySlug}/topics`, data)
     }
   },
 
