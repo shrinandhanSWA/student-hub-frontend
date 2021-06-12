@@ -20,16 +20,19 @@
         :name="reply.user.name"
         :src="reply.user.avatarUrl"></base-avatar>
       <div class="author-right">
-        <div class="author-right-name">
+        <router-link class="view-profile"
+                     :to="{ name: 'ViewProfile', params: { username: reply.user.username } }">
+          <div class="author-right-name">
           <span class="author-name">
           {{ reply.user.name }}
         </span>
-          <i class="profile"
-            :class="{student_color: (reply.user.profileType === 'student')}"
-          >
-            {{ reply.user.profileType }}
-          </i>
-        </div>
+            <i class="profile"
+               :class="{student_color: (reply.user.profileType === 'student')}"
+            >
+              {{ reply.user.profileType }}
+            </i>
+          </div>
+        </router-link>
         <span class="date">
           {{ reply.createdAt | humanizeDate }}
         </span>
@@ -41,8 +44,9 @@
       </template>
       <template v-else>
         <base-textarea
-          :min-height="150"
-        />
+          v-model="content"
+          :disabled="loading"
+          :min-height="150"></base-textarea>
         <base-button
           :disabled="loading"
           @click="saveReply"
@@ -157,7 +161,7 @@
     margin: 3px
 
   .profile
-    background-color : #3785ff
+    background-color: #3785ff
     margin-left: 10px
     font-style: normal
     color: white
@@ -191,6 +195,11 @@
   .cancel-button
     margin-left: 5px
 
+  .view-profile {
+    color: #444
+    text-decoration: none
+  }
+
   .student_color
-    background-color : #3e8e41
+    background-color: #3e8e41
 </style>

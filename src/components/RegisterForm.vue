@@ -12,8 +12,15 @@
       </label>
       <base-input
         v-model="name"
-        :errors="$v.name"
-      />
+        :errors="$v.name"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Username
+      </label>
+      <base-input
+        v-model="username"
+        ></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -22,8 +29,7 @@
       <base-input
         v-model="email"
         type="email"
-        :errors="$v.email"
-      />
+        :errors="$v.email"></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -32,8 +38,7 @@
       <base-input
         v-model="password"
         type="password"
-        :errors="$v.password"
-      />
+        :errors="$v.password"></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -104,6 +109,7 @@ export default {
   data () {
     return {
       name: '',
+      username: '',
       email: '',
       password: '',
       role: 'user',
@@ -121,6 +127,7 @@ export default {
 
   validations: {
     name: { required },
+    username : {required},
     email: { required, email },
     password: { required },
     school : {required}
@@ -174,6 +181,7 @@ export default {
           this.loading = true
           await this.registerUser({
             data: {
+              username: this.username,
               name: this.name,
               email: this.email,
               password: this.password,

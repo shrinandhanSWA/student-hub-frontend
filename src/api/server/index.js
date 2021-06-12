@@ -117,8 +117,8 @@ export default {
     return request('get', 'getprofile')
   },
 
-  getPublicProfile(name) {
-    return request('put', `user/${name}`, name)
+  getPublicProfile(username) {
+    return request('put', `user/${username}`, username)
   },
 
   updateUserProfile ({ data }) {

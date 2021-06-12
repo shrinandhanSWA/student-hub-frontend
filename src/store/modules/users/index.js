@@ -50,8 +50,8 @@ export default {
       commit('SET_USER_DATA', { user })
     },
 
-    async getPublicProfile ({commit}, {name}) {
-      const user =  await apiClient.getPublicProfile(name)
+    async getPublicProfile ({commit}, {username}) {
+      const user =  await apiClient.getPublicProfile(username)
       commit('VIEW_CURRENT_PROFILE', {user})
     },
 

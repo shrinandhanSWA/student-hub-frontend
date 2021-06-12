@@ -29,6 +29,13 @@
             </ul>
           </div>
         </div>
+        <div class="col-md-2">
+          <router-link
+            v-if="users.name === currentUser.name"
+            :to="{ name: 'AccountSettings' }">
+            <i class="profile-edit-btn"> Edit profile </i>
+          </router-link>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -97,8 +104,6 @@
                   </p>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -109,9 +114,10 @@
 
 <script>
   import { mapActions, mapState } from 'vuex'
+  import BaseButton from '../components/BaseButton'
 
   export default {
-    components: {},
+    components: { BaseButton },
     data () {
       return {
         loading: false
@@ -125,12 +131,12 @@
     },
 
     watch: {
-      '$route.params.name': {
+      '$route.params.username': {
         immediate: true,
-        async handler (name) {
+        async handler (username) {
           this.loading = true
           try {
-            await this.getPublicProfile({ name })
+            await this.getPublicProfile({ username })
             this.loading = false
           } catch (err) {
             this.$router.push({ name: 'Home' })
@@ -198,10 +204,12 @@
     border: none;
     border-radius: 1.5rem;
     width: 70%;
-    padding: 2%;
+    padding: 4%;
     font-weight: 600;
-    color: #6c757d;
+    color: white;
     cursor: pointer;
+    font-style: normal;
+    background-color: #0062cc;
   }
 
   .proile-rating {

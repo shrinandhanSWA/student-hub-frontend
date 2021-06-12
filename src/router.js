@@ -114,7 +114,7 @@ export default new Router({
       meta: { auth: true }
     },
     {
-      path: '/user/:name',
+      path: '/user/:username',
       name: 'ViewProfile',
       component: ViewProfile
     },

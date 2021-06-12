@@ -25,7 +25,7 @@
         :name="topic.user.name"></base-avatar>
       <div class="author-right">
         <router-link class="view-profile"
-                     :to="{ name: 'ViewProfile', params: { name: topic.user.name } }">
+                     :to="{ name: 'ViewProfile', params: { username: topic.user.username } }">
           <div class="author-right-name">
               <span class="author-name">
           {{ topic.user.name }}
