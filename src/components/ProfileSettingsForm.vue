@@ -6,22 +6,51 @@
         :width="250"
         :height="250"
         :crop="true"
-        @input="avatar = arguments[0]"
-      />
+        @input="avatar = arguments[0]"></base-image-input>
     </div>
     <div class="field">
       <label class="label">Name</label>
       <base-input
         v-model="name"
-        :errors="$v.name"
-      />
+        :errors="$v.name"></base-input>
     </div>
     <div class="field">
       <label class="label">Email</label>
       <base-input
         v-model="email"
-        :errors="$v.email"
-      />
+        :errors="$v.email"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Which school do/did you attend?
+      </label>
+      <base-input
+        v-model="school"
+        :errors="$v.school"></base-input>
+    </div>
+    <div
+      v-if="this.currentUser.role === 'moderator'"
+      class="field"
+    >
+      <label class="label">
+        Which uni do you attend?
+      </label>
+      <base-input
+        v-model="uni"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        What are your top 3 interests? (academic or non-academic)
+      </label>
+      <base-input
+        v-model="interests"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        What are your top 3 hobbies?
+      </label>
+      <base-input
+        v-model="hobbies"></base-input>
     </div>
     <div class="submit-field">
       <span
@@ -58,6 +87,10 @@ export default {
       success: false,
       email: '',
       name: '',
+      school:'',
+      uni:'',
+      interests:'',
+      hobbies:'',
       avatar: null
     }
   },
@@ -70,6 +103,10 @@ export default {
   mounted () {
     this.name = this.currentUser.name
     this.email = this.currentUser.email
+    this.school = this.currentUser.school
+    this.uni = this.currentUser.uni
+    this.interests = this.currentUser.interests
+    this.hobbies = this.currentUser.hobbies
   },
 
   methods: {
@@ -83,7 +120,10 @@ export default {
             data: {
               name: this.name,
               email: this.email,
-              ...(this.avatar !== null ? { avatar: this.avatar } : {})
+              school : this.school,
+              uni: this.uni,
+              interests: this.interests,
+              hobbies: this.hobbies
             }
           })
           this.loading = false

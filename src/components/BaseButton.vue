@@ -48,7 +48,7 @@ export default {
 .base-button
   border: 0
   padding: 10px 15px
-  border-radius: 2px
+  border-radius: 6px
   outline: none
   cursor: pointer
   transition: 0.2s background ease-out

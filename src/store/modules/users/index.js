@@ -3,13 +3,20 @@ import permissionCheckers from './permissionCheckers'
 
 export default {
   state: {
-    currentUser: null
+    currentUser: null,
+    current: {}
   },
 
   actions: {
     async registerUser ({ state }, { data }) {
       const user = await apiClient.registerUser(data)
       return user
+    },
+
+    async updateExtraUserInfo({state}, {data}) {
+      const { token, user } = await apiClient.updateExtraUserInfo(data)
+      localStorage.setItem('auth_token', token)
+      commit('SET_USER_DATA', { user })
     },
 
     async login ({ commit }, { email, password }) {
@@ -43,6 +50,11 @@ export default {
       commit('SET_USER_DATA', { user })
     },
 
+    async getPublicProfile ({commit}, {name}) {
+      const user =  await apiClient.getPublicProfile(name)
+      commit('VIEW_CURRENT_PROFILE', {user})
+    },
+
     async updateCurrentUserPassword ({ commit }, { data }) {
       await apiClient.updateUserPassword({ data })
     },
@@ -52,10 +64,13 @@ export default {
       return categorySlug
     }
 
-
   },
 
   mutations: {
+    VIEW_CURRENT_PROFILE(state, {user}) {
+      state.current = user
+    },
+
     SET_USER_DATA (state, { user }) {
       state.currentUser = {
         ...user,

@@ -18,23 +18,29 @@
       <base-avatar
         class="author-left"
         :name="reply.user.name"
-        :src="reply.user.avatarUrl"
-      />
+        :src="reply.user.avatarUrl"></base-avatar>
       <div class="author-right">
-        <span class="author-name">
+        <div class="author-right-name">
+          <span class="author-name">
           {{ reply.user.name }}
         </span>
+          <i class="profile"
+            :class="{student_color: (reply.user.profileType === 'student')}"
+          >
+            {{ reply.user.profileType }}
+          </i>
+        </div>
         <span class="date">
           {{ reply.createdAt | humanizeDate }}
         </span>
       </div>
-  </div>
-  <p class="reply-content">
-    <template v-if="!editing">
-      {{ reply.content }}
-    </template>
-    <template v-else>
-      <base-textarea
+    </div>
+    <p class="reply-content">
+      <template v-if="!editing">
+        {{ reply.content }}
+      </template>
+      <template v-else>
+        <base-textarea
           :min-height="150"
         />
         <base-button
@@ -71,97 +77,120 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
 
-export default {
-  props: {
-    reply: {
-      type: Object,
-      default: () => ({})
+  export default {
+    props: {
+      reply: {
+        type: Object,
+        default: () => ({})
+      },
+
+      categorySlug: {
+        type: String,
+        default: ''
+      }
     },
 
-    categorySlug: {
-      type: String,
-      default: ''
-    }
-  },
-
-  data () {
-    return {
-      showConfirmDialog: false,
-      content: '',
-      editing: false,
-      loading: false
-    }
-  },
-
-  methods: {
-    ...mapActions([
-      'deleteReply',
-      'updateReply'
-    ]),
-
-    editReply () {
-      this.content = this.reply.content
-      this.editing = true
+    data () {
+      return {
+        showConfirmDialog: false,
+        content: '',
+        editing: false,
+        loading: false
+      }
     },
 
-    async saveReply () {
-      this.loading = true
-      try {
-        await this.updateReply({
-          replyId: this.reply._id,
-          data: { content: this.content }
-        })
-        this.editing = false
-        this.loading = false
-      } catch (err) {
-        this.loading = false
+    methods: {
+      ...mapActions([
+        'deleteReply',
+        'updateReply'
+      ]),
+
+      editReply () {
+        this.content = this.reply.content
+        this.editing = true
+      },
+
+      async saveReply () {
+        this.loading = true
+        try {
+          await this.updateReply({
+            replyId: this.reply._id,
+            data: { content: this.content }
+          })
+          this.editing = false
+          this.loading = false
+        } catch (err) {
+          this.loading = false
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
-.title
-  font-size: 25px
-  font-weight: 400
-  color: #222
+  .title
+    font-size: 25px
+    font-weight: 400
+    color: #222
 
-.author
-  display: flex
-  align-items: center
+  .author
+    display: flex
+    align-items: center
 
-.author-right
-  margin-left: 15px
-  display: flex
-  flex-direction: column
+  .author-right-name
+    margin-left: 0px
+    display: flex
+    flex-direction: row
 
-.author-name
-  color: #444
+  .author-right
+    margin-left: 15px
+    display: flex
+    flex-direction: column
 
-.date
-  color: #999
-  font-size: 13px
-  margin-top: 3px
+  .author-name
+    color: #444
 
-.reply-content
-  line-height: 1.7
-  color: #333
-  margin-top: 20px
-  font-size: 16px
+  .profileType
+    background-color: #3e8e41
+    margin: 3px
 
-.actions
-  display: flex
-  justify-content: flex-end
-  align-items: center
+  .profile
+    background-color : #3785ff
+    margin-left: 10px
+    font-style: normal
+    color: white
+    border-radius: 4px
+    padding-top: 1px
+    padding-left: 3px
+    padding-right: 3px
+    padding-bottom: 1px
 
-.action-button
-  margin-left: 15px
-  color: $primaryColor
-  cursor: pointer
+  .date
+    color: #999
+    font-size: 13px
+    margin-top: 3px
 
-.cancel-button
-  margin-left: 5px
+  .reply-content
+    line-height: 1.7
+    color: #333
+    margin-top: 20px
+    font-size: 16px
+
+  .actions
+    display: flex
+    justify-content: flex-end
+    align-items: center
+
+  .action-button
+    margin-left: 15px
+    color: $primaryColor
+    cursor: pointer
+
+  .cancel-button
+    margin-left: 5px
+
+  .student_color
+    background-color : #3e8e41
 </style>

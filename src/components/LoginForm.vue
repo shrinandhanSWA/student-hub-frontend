@@ -62,6 +62,7 @@ export default {
           await this.login({ email: this.email, password: this.password })
           this.loading = false
           this.$router.push({ name: 'Home' })
+
         } catch (err) {
           this.serverErrorMessage = err.data.message
           this.loading = false
