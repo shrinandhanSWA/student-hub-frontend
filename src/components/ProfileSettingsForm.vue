@@ -52,6 +52,22 @@
       <base-input
         v-model="hobbies"></base-input>
     </div>
+    <div class="field">
+      <label class="label">
+        What are you looking for?
+      </label>
+      <base-input
+        v-model="lookingFor"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Bio
+      </label>
+    </div>
+      <textarea
+        style="width: 450px; height: 150px;"
+        maxlength="275"
+        v-model="bio"></textarea>
     <div class="submit-field">
       <span
         v-if="errorMessage"
@@ -91,6 +107,8 @@ export default {
       uni:'',
       interests:'',
       hobbies:'',
+      lookingFor:'',
+      bio:'',
       avatar: null
     }
   },
@@ -107,6 +125,9 @@ export default {
     this.uni = this.currentUser.uni
     this.interests = this.currentUser.interests
     this.hobbies = this.currentUser.hobbies
+    this.lookingFor = this.currentUser.lookingFor
+    this.bio = this.currentUser.bio
+
   },
 
   methods: {
@@ -123,7 +144,9 @@ export default {
               school : this.school,
               uni: this.uni,
               interests: this.interests,
-              hobbies: this.hobbies
+              hobbies: this.hobbies,
+              lookingFor: this.lookingFor,
+              bio: this.bio
             }
           })
           this.loading = false
@@ -169,5 +192,8 @@ export default {
   color: $successColor
   text-align: left
   flex: 1
+
+.big-box
+  size="sm"
 
 </style>

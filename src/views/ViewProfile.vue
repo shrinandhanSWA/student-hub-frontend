@@ -45,8 +45,7 @@
             <a href=""> <i class="logo-view fab fa-facebook-square"></i> Facebook</a><br/>
             <a href=""> <i class="logo-view fab fa-linkedin"></i> LinkedIn</a>
             <p>CONTACT INFO</p>
-            <a href="">+66 7503 22245</a><br/>
-            <a href="">{{users.email}}</a><br/>
+            <a>{{users.email}}</a><br/>
           </div>
         </div>
         <div class="col-md-8">
@@ -82,15 +81,15 @@
                   <label>Hobbies</label>
                 </div>
                 <div class="col-md-6">
-                  <p>{{users.interests === '' ? 'N/A': users.hobbies}}</p>
+                  <p>{{users.hobbies === '' ? 'N/A': users.hobbies}}</p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <label>Looking to</label>
+                  <label>Looking for</label>
                 </div>
                 <div class="col-md-6">
-                  <p> help school students and a bit of fun really</p>
+                  <p> {{users.lookingFor === '' ? 'N/A': users.lookingFor}}</p>
                 </div>
               </div>
               <div class="row">
@@ -98,10 +97,7 @@
                   <label>Bio</label>
                 </div>
                 <div class="col-md-6">
-                  <p> Hey Im admin I study maths at Imperial and am looking to make friends, chat
-                    and just answer general questions about my degree, how Imperial is etc.. Hit me
-                    up lads and lasses!!!
-                  </p>
+                  <p> {{users.bio === '' ? 'N/A': users.bio}}</p>
                 </div>
               </div>
             </div>
