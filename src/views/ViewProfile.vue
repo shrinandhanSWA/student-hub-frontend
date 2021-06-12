@@ -41,9 +41,8 @@
         <div class="col-md-4">
           <div class="profile-work">
             <p>FOLLOW ME ON</p>
-            <a href=""> <i class="logo-view fab fa-instagram"></i> Instagram </a><br/>
-            <a href=""> <i class="logo-view fab fa-facebook-square"></i> Facebook</a><br/>
-            <a href=""> <i class="logo-view fab fa-linkedin"></i> LinkedIn</a>
+            <a> <i class="logo-view fab fa-instagram"></i> {{currentUser.instaName}} </a><br/>
+            <a> <i class="logo-view fab fa-snapchat"></i> {{currentUser.snapName}} </a><br/>
             <p>CONTACT INFO</p>
             <a>{{users.email}}</a><br/>
           </div>
@@ -123,7 +122,11 @@
     computed: {
       ...mapState({
         users: state => state.users.current
-      })
+      }),
+
+      openPage: function() {
+        location.href = currentUser.instaName;
+}
     },
 
     watch: {

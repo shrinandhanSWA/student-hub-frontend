@@ -61,6 +61,20 @@
     </div>
     <div class="field">
       <label class="label">
+        Instagram username:
+      </label>
+      <base-input
+        v-model="instaName"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Snapchat username:
+      </label>
+      <base-input
+        v-model="snapName"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
         Bio
       </label>
     </div>
@@ -109,7 +123,9 @@ export default {
       hobbies:'',
       lookingFor:'',
       bio:'',
-      avatar: null
+      avatar: null,
+      snapName: '',
+      instaName: '@'
     }
   },
 
@@ -127,6 +143,8 @@ export default {
     this.hobbies = this.currentUser.hobbies
     this.lookingFor = this.currentUser.lookingFor
     this.bio = this.currentUser.bio
+    this.instaName = this.currentUser.instaName
+    this.snapName = this.currentUser.snapName
 
   },
 
@@ -146,7 +164,9 @@ export default {
               interests: this.interests,
               hobbies: this.hobbies,
               lookingFor: this.lookingFor,
-              bio: this.bio
+              bio: this.bio,
+              instaName: this.instaName,
+              snapName: this.snapName
             }
           })
           this.loading = false
