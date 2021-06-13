@@ -35,8 +35,7 @@
         :src="imageToCropData"
         :crop-width="width"
         :crop-height="height"
-        @crop="onCrop"
-      />
+        @crop="onCrop"></base-image-cropper>
     </base-modal>
   </div>
 </template>

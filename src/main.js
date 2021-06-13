@@ -6,8 +6,22 @@ import Vuelidate from 'vuelidate'
 import VueClosable from 'vue-closable'
 import humanizeDate from './filters/humanizeDate'
 import authMixin from './mixins/authMixin'
+import firebase from "firebase";
 
 Vue.config.productionTip = false
+
+
+var firebaseConfig = {
+  apiKey: 'AIzaSyDMgs6YfR36REw8BhFIvBHR1TnZ6a4ks_I',
+  authDomain: 'drp-project-database.firebaseapp.com',
+  projectId: 'drp-project-database',
+  storageBucket: 'drp-project-database.appspot.com',
+  messagingSenderId: '911564541141',
+  appId: '1:911564541141:web:fe92871bc0962cef88a65c',
+  measurementId: 'G-M2T3QEHXDC'
+};
+
+firebase.initializeApp(firebaseConfig);
 
 Vue.use(Vuelidate)
 Vue.use(VueClosable)
@@ -64,5 +78,6 @@ router.beforeEach(async (to, from, next) => {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+
 }).$mount('#app')

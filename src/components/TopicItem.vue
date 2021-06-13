@@ -5,8 +5,7 @@
   >
     <base-avatar
       :name="topic.user.name"
-      :src="topic.user.avatarUrl"
-    />
+      :src="topic.user.avatarLocation"></base-avatar>
     <div class="main">
       <h1 class="title">
         {{ topic.title }}

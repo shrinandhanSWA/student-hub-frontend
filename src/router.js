@@ -124,6 +124,7 @@ export default new Router({
       component: MoreInformation,
       meta: {auth: true}
     },
+
     {
       path: '*',
       name: 'NotFound',

@@ -18,7 +18,7 @@
       <base-avatar
         class="author-left"
         :name="reply.user.name"
-        :src="reply.user.avatarUrl"></base-avatar>
+        :src="reply.user.avatarLocation"></base-avatar>
       <div class="author-right">
         <router-link class="view-profile"
                      :to="{ name: 'ViewProfile', params: { username: reply.user.username } }">

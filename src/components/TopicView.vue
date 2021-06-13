@@ -21,7 +21,7 @@
     <div class="author">
       <base-avatar
         class="author-left"
-        :src="topic.user.avatarUrl"
+        :src="topic.user.avatarLocation"
         :name="topic.user.name"></base-avatar>
       <div class="author-right">
         <router-link class="view-profile"
