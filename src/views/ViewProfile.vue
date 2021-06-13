@@ -5,12 +5,8 @@
         <div class="col-md-4">
           <div class="profile-img">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+              :src="currentUser.avatarLocation"
               alt=""/>
-            <div class="file btn btn-lg btn-primary">
-              Change Photo
-              <input type="file" name="file"/>
-            </div>
           </div>
         </div>
         <div class="col-md-6">
@@ -171,6 +167,7 @@
   .profile-img img {
     width: 70%;
     height: 100%;
+    border-radius: 10px;
   }
 
   .profile-img .file {
@@ -211,11 +208,6 @@
     background-color: #0062cc;
   }
 
-  .proile-rating {
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
-  }
 
   .proile-rating span {
     color: #495057;

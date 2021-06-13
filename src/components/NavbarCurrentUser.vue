@@ -19,7 +19,7 @@
     computed: {
       options () {
         return [
-          { key: 'settings', title: 'Settings' },
+          { key: 'profile', title: 'Profile' },
           { key: 'logout', title: 'Log out' }
         ]
       },
@@ -31,8 +31,8 @@
         if (optionKey === 'logout') {
           this.logout()
           this.$router.push({ name: 'Home' })
-        } else if (optionKey === 'settings') {
-          this.$router.push({ name: 'AccountSettings' })
+        } else if (optionKey === 'profile') {
+          this.$router.push({ name: 'ViewProfile' , params: {username: this.currentUser.username }})
         }
       }
     }

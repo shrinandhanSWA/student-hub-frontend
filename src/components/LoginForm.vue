@@ -61,6 +61,18 @@ export default {
         try {
           await this.login({ email: this.email, password: this.password })
           this.loading = false
+            // const apiKey = process.env.VUE_APP_COMETCHAT_API_KEY
+            // this.loggingIn = true
+            // CometChat.login(this.username, apiKey)
+            // .then(() => {
+            //   this.loggingIn = false
+            //   this.$router.push({ name: 'chat' })
+            // })
+            // .catch(error => {
+            //   this.loggingIn = false
+            //   console.log('error', error)
+            // })
+
           this.$router.push({ name: 'Home' })
 
         } catch (err) {

@@ -7,14 +7,18 @@
 <!--        :height="250"-->
 <!--        :crop="true"-->
 <!--        @input="avatar = arguments[0]"></base-image-input>-->
-      <input type="file" @change="previewImage" accept="image/*">
-      <p>Progress: {{uploadValue.toFixed()+'%'}}
-        <progress id="progress" :value="uploadValue" max="100"></progress>
-      </p>
+      <img class="preview" :src="currentUser.avatarLocation" alt="no avatar">
+    </div>
+    <div class="choose-design">
+      <div class="choose-file-design">
+        Change Avatar
+        <input class="hide_file" type="file" @change="previewImage" accept="image/*">
+      </div>
       <div v-if="imageData!=null">
-        <img class="preview" :src="picture">
+        <p> Progress: {{uploadValue.toFixed()+'%'}}</p>
+        <progress id="progress" :value="uploadValue" max="100"></progress>
         <br>
-        <button @click="onUpload">Upload</button>
+        <base-button @click="onUpload">Upload</base-button>
       </div>
     </div>
     <div class="field">
@@ -106,7 +110,7 @@
       </span>
       <base-button
         :disabled="loading"
-        @click="onSubmit"
+        @click="onSubmit()"
       >
         {{ loading ? 'Saving...' : 'Save' }}
       </base-button>
@@ -256,6 +260,39 @@
 
   img.preview {
     width: 200px;
+    height: auto;
+    border-radius: 10%
+  }
+
+  .choose-design{
+    text-align: center
+  }
+
+  .choose-file-design{
+    border: 0
+    padding: 10px 15px
+    border-radius: 6px
+    outline: none
+    cursor: pointer
+    transition: 0.2s background ease-out
+    text-decoration: none
+    display: inline-block
+    text-align: center
+    background:$buttonColor;
+    position:relative;
+    color:#fff;
+  }
+  .hide_file {
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    font-size: 24px;
+    width: 100%;
+
   }
 
 </style>
