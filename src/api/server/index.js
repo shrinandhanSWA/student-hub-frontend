@@ -41,6 +41,14 @@ export default {
     return request('put', `categories/${categorySlug}`, data)
   },
 
+  updateUserCategoryPostsSeen (categorySlug, data) {
+    return request('put', `categories-posts/${categorySlug}`, data)
+  },
+
+  checkNewPosts (categorySlug, data) {
+    return request('put', `categories-newposts/${categorySlug}`, data)
+  },
+
   deleteCategory (categorySlug) {
     return request('delete', `categories/${categorySlug}`)
   },

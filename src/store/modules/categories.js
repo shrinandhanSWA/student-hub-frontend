@@ -27,6 +27,15 @@ export default {
       return categorySlug
     },
 
+    async updateUserCategoryPostsSeen ({ commit }, { categorySlug, data }) {
+      await apiClient.updateUserCategoryPostsSeen(categorySlug, data)
+    },
+
+    async checkNewPosts ({ commit }, { categorySlug, data }) {
+      const ret = await apiClient.checkNewPosts(categorySlug, data)
+      return ret
+    },
+
     async deleteCategory ({ commit }, { categorySlug }) {
       await apiClient.deleteCategory(categorySlug)
       commit('DELETE_CATEGORY', { categorySlug })

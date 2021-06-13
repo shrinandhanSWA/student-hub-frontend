@@ -60,12 +60,18 @@ export default {
       async handler (categorySlug) {
         this.loading = true
         try {
-          await this.loadCurrentCategory({ categorySlug })
+          await this.loadCurrentCategory({ categorySlug }),
           await this.loadTopics({ filters: { categorySlug },
             data: {
               voteSort: this.voteSort
             }
           })
+          await this.updateUserCategoryPostsSeen({
+              categorySlug: categorySlug,
+              data: {
+                email: this.currentUser.email
+              }
+            })
           this.loading = false
         } catch (err) {
           this.$router.push({ name: 'Home' })
@@ -78,14 +84,9 @@ export default {
   methods: {
     ...mapActions([
       'loadTopics',
-      'loadCurrentCategory'
+      'loadCurrentCategory',
+      'updateUserCategoryPostsSeen'
     ])
-    // newest: function () {
-    //   this.voteSort = false
-    // },
-    // mostPopular: function () {
-    //   this.voteSort = true
-    // }
   }
 }
 </script>
