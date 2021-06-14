@@ -14,6 +14,8 @@ import NotFound from './views/NotFound.vue'
 import allGroups from './views/AllGroups'
 import MyGroups from './views/MyGroups'
 import NewestPosts from './views/NewestPosts'
+import MoreInformation from './views/MoreInformation'
+import ViewProfile from './views/ViewProfile'
 
 Vue.use(Router)
 
@@ -111,6 +113,18 @@ export default new Router({
       component: EditTopic,
       meta: { auth: true }
     },
+    {
+      path: '/user/:username',
+      name: 'ViewProfile',
+      component: ViewProfile
+    },
+    {
+      path: '/moreInfo',
+      name: 'MoreInformation',
+      component: MoreInformation,
+      meta: {auth: true}
+    },
+
     {
       path: '*',
       name: 'NotFound',

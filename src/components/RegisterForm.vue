@@ -12,8 +12,15 @@
       </label>
       <base-input
         v-model="name"
-        :errors="$v.name"
-      />
+        :errors="$v.name"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Username
+      </label>
+      <base-input
+        v-model="username"
+        ></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -22,8 +29,7 @@
       <base-input
         v-model="email"
         type="email"
-        :errors="$v.email"
-      />
+        :errors="$v.email"></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -32,8 +38,7 @@
       <base-input
         v-model="password"
         type="password"
-        :errors="$v.password"
-      />
+        :errors="$v.password"></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -41,22 +46,52 @@
       </label>
       <base-select-input
         v-model="role"
-        :options="roleOptions"
-      />
+        :options="roleOptions"></base-select-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        Which school do/did you attend?
+      </label>
+      <base-input
+        v-model="school"
+        :errors="$v.school"></base-input>
     </div>
     <div
       v-if="role === 'moderator'"
       class="field"
     >
       <label class="label">
-        Moderates category
+        Which uni do you attend?
+      </label>
+      <base-input
+        v-model="uni"></base-input>
+    </div>
+    <div
+      v-if="role === 'moderator'"
+      class="field"
+    >
+      <label class="label">
+        Which group do you want to moderate?
       </label>
       <base-select-input
         v-model="moderateCategory"
         y-direction="above"
         :loading-options="loadingCategories"
-        :options="categoryOptions"
-      />
+        :options="categoryOptions"></base-select-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        What are your top 3 interests? (academic or non-academic)
+      </label>
+      <base-input
+        v-model="interests"></base-input>
+    </div>
+    <div class="field">
+      <label class="label">
+        What are your top 3 hobbies?
+      </label>
+      <base-input
+        v-model="hobbies"></base-input>
     </div>
     <base-button
       :disabled="loading"
@@ -74,9 +109,15 @@ export default {
   data () {
     return {
       name: '',
+      username: '',
       email: '',
       password: '',
       role: 'user',
+      profileType: 'student',
+      school:'',
+      uni:'',
+      interests:'',
+      hobbies:'',
       moderateCategory: '',
       serverErrorMessage: '',
       loading: false,
@@ -86,8 +127,10 @@ export default {
 
   validations: {
     name: { required },
+    username : {required},
     email: { required, email },
-    password: { required }
+    password: { required },
+    school : {required}
   },
 
   computed: {
@@ -138,11 +181,16 @@ export default {
           this.loading = true
           await this.registerUser({
             data: {
+              username: this.username,
               name: this.name,
               email: this.email,
               password: this.password,
               role: this.role,
-              moderateCategory: this.moderateCategory
+              moderateCategory: this.moderateCategory,
+              school : this.school,
+              uni: this.uni,
+              interests: this.interests,
+              hobbies: this.hobbies
             }
           })
           this.loading = false
