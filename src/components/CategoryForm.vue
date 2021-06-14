@@ -110,7 +110,8 @@ export default {
             categorySlug = await this.createCategory({
               data: {
                 title: this.title,
-                description: this.description
+                description: this.description,
+                posts: 0
               }
             })
           }

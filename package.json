@@ -9,7 +9,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@cometchat-pro/chat": "^2.3.0",
+    "@cometchat-pro/chat": "^2.3.6",
     "axios": "^0.18.0",
     "connect-history-api-fallback": "^1.6.0",
     "date-fns": "^1.30.1",

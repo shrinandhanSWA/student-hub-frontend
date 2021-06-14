@@ -13,8 +13,8 @@ export default {
       commit('SET_TOPICS_LIST', { topics })
     },
 
-    async loadCurrentTopic ({ commit }, { topicId }) {
-      const topic = await apiClient.getTopic(topicId)
+    async loadCurrentTopic ({ commit }, { topicId, data }) {
+      const topic = await apiClient.getTopic(topicId, data)
       commit('SET_CURRENT_TOPIC', { topic })
     },
 
@@ -50,6 +50,11 @@ export default {
 
     async deleteTopic ({ commit }, { topicId }) {
       await apiClient.deleteTopic(topicId)
+    },
+
+    async checkUnseen ({ commit }, { topicId, data }) {
+      const result = await apiClient.checkUnseen(topicId, data)
+      return result
     },
 
     async addReply ({ state, commit }, { data }) {

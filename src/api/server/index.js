@@ -41,6 +41,14 @@ export default {
     return request('put', `categories/${categorySlug}`, data)
   },
 
+  updateUserCategoryPostsSeen (categorySlug, data) {
+    return request('put', `categories-posts/${categorySlug}`, data)
+  },
+
+  checkNewPosts (categorySlug, data) {
+    return request('put', `categories-newposts/${categorySlug}`, data)
+  },
+
   deleteCategory (categorySlug) {
     return request('delete', `categories/${categorySlug}`)
   },
@@ -51,8 +59,8 @@ export default {
     }
   },
 
-  getTopic (topicId) {
-    return request('get', `topics/${topicId}`)
+  getTopic (topicId, data) {
+    return request('put', `topico/${topicId}`, data)
   },
 
   downvoteTopic (topicId, data) {
@@ -80,6 +88,10 @@ export default {
 
   deleteTopic (topicId) {
     return request('delete', `topics/${topicId}`)
+  },
+
+  checkUnseen (topicId, data) {
+    return request('put', `topics-check/${topicId}`, data)
   },
 
   addReply (topicId, data) {

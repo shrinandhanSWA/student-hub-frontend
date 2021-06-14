@@ -27,6 +27,12 @@
         </p>
       </div>
       <div class="actions">
+        <router-link class="link"
+          v-if="newPosts"
+          :to="{ name: 'Category', params: { categorySlug: category.slug } }"
+        >
+        <div class="circle">{{ this.missingPosts }}</div>
+        </router-link>
         <router-link
           v-if="isLoggedIn && currentUser.can('categories:delete')"
           :to="{ name: 'EditCategory', params: { categorySlug: category.slug } }"
@@ -58,13 +64,32 @@ export default {
 
   data () {
     return {
-      showConfirmDialog: false
+      showConfirmDialog: false,
+      newPosts: false,
+      missingPosts: 0
     }
   },
 
   methods: {
-    ...mapActions(['deleteCurrentUserGroup'])
-  }
+    ...mapActions(['deleteCurrentUserGroup', 'checkNewPosts'])
+  },
+
+  async mounted () {
+      try {
+        const {out, diff} = await this.checkNewPosts({
+        categorySlug: this.category.slug,
+          data: {
+            email: this.currentUser.email
+          }
+        })
+        this.newPosts = out
+        this.missingPosts = diff
+       
+      } catch (err) {
+        this.loading = false
+        this.error = true
+      }
+    }
 }
 </script>
 
@@ -80,6 +105,21 @@ export default {
   display: flex
   text-decoration: none
   justify-content: space-between
+
+.circle {
+  width: 30px
+  height: 30px
+  line-height: 30px
+  border-radius: 50%
+  font-size: 15px
+  color: black
+  text-align: center
+  background: #00cc00
+}
+
+.link {
+  text-decoration: none
+}
 
 .category-item:hover
   background: #F9F9F9
