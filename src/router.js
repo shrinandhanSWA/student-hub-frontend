@@ -17,6 +17,7 @@ import NewestPosts from './views/NewestPosts'
 import MoreInformation from './views/MoreInformation'
 import ViewProfile from './views/ViewProfile'
 import MostViewed from './views/MostViewed'
+import SuggestedGroups from './views/SuggestedGroups'
 
 Vue.use(Router)
 
@@ -73,6 +74,14 @@ export default new Router({
       path: '/my-groups',
       name: 'MyGroups',
       component: MyGroups,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/suggested-groups',
+      name: 'SuggestedGroups',
+      component: SuggestedGroups,
       meta: {
         auth: true
       }
