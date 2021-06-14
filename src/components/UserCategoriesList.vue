@@ -10,6 +10,14 @@
     >
       An error occured while fetching the categories.<br>Try to reload the page.
     </div>
+
+    <div
+      v-if="userCategories.length === 0"
+      class="message"
+    >
+      You have not joined any groups. Click <a href="/all-groups">here</a> to browse all groups
+    </div>
+
     <user-category-item
       v-else
       v-for="category in userCategories"
@@ -66,6 +74,14 @@ export default {
   font-weight 400
 
 .error-message
+  text-align: center
+  font-size: 20px
+  color: #888
+  font-weight: 500
+  line-height: 1.5
+  margin-top: 50px
+
+.message
   text-align: center
   font-size: 20px
   color: #888
