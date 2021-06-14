@@ -10,13 +10,17 @@
           {{ currentCategory.title }}
         </span>
         <div class="right-header">
-          <base-button
-            v-if="isLoggedIn"
-            class="sort-by-button"
-            :to="{ name: 'Category' }"
-          >
-            View Popular
-          </base-button>
+          <div class="dropdown">
+            <button class="dropbtn"
+              v-if="isLoggedIn">Sort By 
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="popular">Most Popular</a>
+              <a href="">Most Recent</a>
+              <a href="most-viewed">Most Views</a>
+            </div>
+          </div> 
           <base-button
             v-if="isLoggedIn && currentUser.can('own_topics:write')"
             class="new-topic-button"
@@ -63,7 +67,8 @@ export default {
           await this.loadCurrentCategory({ categorySlug })
           await this.loadTopics({ filters: { categorySlug },
             data: {
-              voteSort: this.voteSort
+              voteSort: this.voteSort,
+              voteViews: false
             }
           })
           this.loading = false
@@ -80,12 +85,6 @@ export default {
       'loadTopics',
       'loadCurrentCategory'
     ])
-    // newest: function () {
-    //   this.voteSort = false
-    // },
-    // mostPopular: function () {
-    //   this.voteSort = true
-    // }
   }
 }
 </script>
@@ -108,10 +107,12 @@ export default {
 .title
   color: #666
 
+// AAYUSH: this looks dodgy bro ngl to you
 .dropbtn {
-  background-color: #04AA6D;
+  background-color: $buttonColor;
   color: white;
   padding: 16px;
+  margin-right: 20px;
   font-size: 16px;
   border: none;
 }
@@ -140,7 +141,8 @@ export default {
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+// AAYUSH: this needs to be the color when you hover
+.dropdown:hover .dropbtn {background-color: #270145;}
 
 .new-topic-button
   font-size: 14px

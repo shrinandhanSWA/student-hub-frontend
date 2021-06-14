@@ -16,6 +16,7 @@ import MyGroups from './views/MyGroups'
 import NewestPosts from './views/NewestPosts'
 import MoreInformation from './views/MoreInformation'
 import ViewProfile from './views/ViewProfile'
+import MostViewed from './views/MostViewed'
 
 Vue.use(Router)
 
@@ -86,7 +87,7 @@ export default new Router({
       }
     },
     {
-      path: '/c/:categorySlug',
+      path: '/c/:categorySlug/popular',
       name: 'Category',
       component: Category
     },
@@ -94,6 +95,11 @@ export default new Router({
       path: '/c/:categorySlug/newest',
       name: 'NewestPosts',
       component: NewestPosts
+    },
+    {
+      path: '/c/:categorySlug/most-viewed',
+      name: 'MostViewed',
+      component: MostViewed
     },
     {
       path: '/t/:topicId',

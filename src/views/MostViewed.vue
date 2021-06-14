@@ -16,9 +16,9 @@
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-              <a href="">Most Popular</a>
+              <a href="popular">Most Popular</a>
               <a href="newest">Most Recent</a>
-              <a href="most-viewed">Most Views </a>
+              <a href="">Most Views</a>
             </div>
           </div> 
           <base-button
@@ -47,7 +47,6 @@ export default {
   components: { BaseButton, TopicsList },
   data () {
     return {
-      voteSort: true,
       loading: false
     }
   },
@@ -67,8 +66,8 @@ export default {
           await this.loadCurrentCategory({ categorySlug }),
           await this.loadTopics({ filters: { categorySlug },
             data: {
-              voteSort: this.voteSort,
-              voteViews: false
+              voteSort: false,
+              voteViews: true
             }
           })
           this.loading = false
