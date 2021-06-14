@@ -66,12 +66,6 @@ export default {
               voteSort: this.voteSort
             }
           })
-          await this.updateUserCategoryPostsSeen({
-              categorySlug: categorySlug,
-              data: {
-                email: this.currentUser.email
-              }
-            })
           this.loading = false
         } catch (err) {
           this.$router.push({ name: 'Home' })

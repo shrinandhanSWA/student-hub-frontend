@@ -48,7 +48,12 @@ export default {
       async handler () {
         this.loading = true
         try {
-          await this.loadCurrentTopic({ topicId: this.$route.params.topicId })
+          await this.loadCurrentTopic({
+            topicId: this.$route.params.topicId,
+            data: {
+              email: this.currentUser.email
+            }
+         })
         } catch (err) {
           this.$router.push({ name: 'Home' })
         }

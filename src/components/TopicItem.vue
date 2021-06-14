@@ -21,6 +21,8 @@
       </p>
     </div>
     <div class="numbers">
+      <div class="circle"
+      v-if="unseen"></div>
        <span class="upvotes">
         {{ topic.upvotes }}
         <i class="fa fa-chevron-up"></i>
@@ -39,13 +41,37 @@
 </template>
 
 <script>
+
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     topic: {
       type: Object,
       default: () => ({})
     }
-  }
+  },
+  data () {
+    return {
+      unseen: true
+    }
+  },
+  methods: {
+    ...mapActions(['checkUnseen'])
+  },
+  async mounted () {
+      try {       
+        this.unseen = !(await this.checkUnseen({
+          topicId: this.topic._id,
+          data: {
+            email: this.currentUser.email
+          }
+        }))
+      } catch (err) {
+        this.loading = false
+        this.error = true
+      }
+    }
 }
 </script>
 
@@ -87,6 +113,15 @@ export default {
 
 .icon
   margin-left: 2px
+
+.circle {
+  width: 10px
+  height: 10px
+  line-height: 30px
+  border-radius: 50%
+  background: #00cc00
+  margin-right: 10px
+}
 
 .meta
   margin: 3px 0 0
