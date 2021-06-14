@@ -16,6 +16,9 @@ import MyGroups from './views/MyGroups'
 import NewestPosts from './views/NewestPosts'
 import MoreInformation from './views/MoreInformation'
 import ViewProfile from './views/ViewProfile'
+import CometChat from './views/CometChat'
+import CometChatConversationListWithMessages
+  from './cometchat-pro-vue-ui-kit/src/components/Chats/CometChatConversationListWithMessages/CometChatConversationListWithMessages'
 
 Vue.use(Router)
 
@@ -122,6 +125,16 @@ export default new Router({
       path: '/moreInfo',
       name: 'MoreInformation',
       component: MoreInformation,
+      meta: {auth: true}
+    },
+    {
+      path: '/messages',
+      component: CometChatConversationListWithMessages
+    },
+    {
+      path: '/chat',
+      name: 'CometChat',
+      component: CometChat,
       meta: {auth: true}
     },
 

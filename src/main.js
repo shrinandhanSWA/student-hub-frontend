@@ -7,9 +7,39 @@ import VueClosable from 'vue-closable'
 import humanizeDate from './filters/humanizeDate'
 import authMixin from './mixins/authMixin'
 import firebase from 'firebase'
-import { CometChat } from '@cometchat-pro/chat'
+import {CometChat} from '@cometchat-pro/chat'
+
+
+const region = 'eu'
+const appId = '189119fbac83871a'
+const appSetting = new CometChat.AppSettingsBuilder()
+.subscribePresenceForAllUsers()
+.setRegion(region)
+.build();
 
 Vue.config.productionTip = false
+
+
+CometChat.init(appId, appSetting).then(
+  () => {
+    console.log('Initialization completed successfully')
+    // You can now call login function.
+
+    const apiKey = '580d74794fec8e5081b569798bfa13348203de9f'
+    const uid = 'SUPERHERO1';
+     CometChat.login(uid, apiKey)
+    .then((user) => {
+      console.log('Login Successful:', { user });
+    })
+    .catch(error => {
+      console.log('error', error)
+    })
+  },
+  error => {
+    console.log('Initialization failed with error:', error)
+    // Check the reason for error and take appropriate action.
+  })
+
 
 var firebaseConfig = {
   apiKey: 'AIzaSyDMgs6YfR36REw8BhFIvBHR1TnZ6a4ks_I',
@@ -22,23 +52,6 @@ var firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
-
-// const region = 'eu'
-// const appSetting = new CometChat.AppSettingsBuilder()
-// .subscribePresenceForAllUsers()
-// .setRegion(region)
-// .build()
-//
-// CometChat.init(process.env.VUE_APP_COMETCHAT_APP_ID, appSetting).then(
-//   () => {
-//     console.log('Initialization completed successfully')
-//     // You can now call login function.
-//   },
-//   error => {
-//     console.log('Initialization failed with error:', error)
-//     // Check the reason for error and take appropriate action.
-//   }
-// )
 
 Vue.use(Vuelidate)
 Vue.use(VueClosable)
@@ -99,3 +112,10 @@ new Vue({
   render: h => h(App),
 
 }).$mount('#app')
+
+
+
+
+
+
+
