@@ -7,7 +7,6 @@ import VueClosable from 'vue-closable'
 import humanizeDate from './filters/humanizeDate'
 import authMixin from './mixins/authMixin'
 import firebase from 'firebase'
-import { CometChat } from '@cometchat-pro/chat'
 
 Vue.config.productionTip = false
 
@@ -22,23 +21,6 @@ var firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
-
-// const region = 'eu'
-// const appSetting = new CometChat.AppSettingsBuilder()
-// .subscribePresenceForAllUsers()
-// .setRegion(region)
-// .build()
-//
-// CometChat.init(process.env.VUE_APP_COMETCHAT_APP_ID, appSetting).then(
-//   () => {
-//     console.log('Initialization completed successfully')
-//     // You can now call login function.
-//   },
-//   error => {
-//     console.log('Initialization failed with error:', error)
-//     // Check the reason for error and take appropriate action.
-//   }
-// )
 
 Vue.use(Vuelidate)
 Vue.use(VueClosable)
