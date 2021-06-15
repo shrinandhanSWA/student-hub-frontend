@@ -10,18 +10,16 @@
           {{ currentCategory.title }}
         </span>
         <div class="right-header">
-          <div class="dropdown">
-            <button class="dropbtn"
+            <base-button class="dropdown-design"
               v-if="isLoggedIn">Sort By 
               <i class="fa fa-caret-down"></i>
-            </button>
+            </base-button>
             <div class="dropdown-content">
               <a href="">Most Popular</a>
               <a href="newest">Most Recent</a>
               <a href="most-viewed">Most Views </a>
             </div>
-          </div> 
-          <base-button
+           <base-button
             v-if="isLoggedIn && currentUser.can('own_topics:write')"
             class="new-topic-button"
             :to="{ name: 'CreateTopic' }"
@@ -64,7 +62,7 @@ export default {
       async handler (categorySlug) {
         this.loading = true
         try {
-          await this.loadCurrentCategory({ categorySlug }),
+          await this.loadCurrentCategory({ categorySlug })
           await this.loadTopics({ filters: { categorySlug },
             data: {
               voteSort: this.voteSort,
@@ -83,8 +81,7 @@ export default {
   methods: {
     ...mapActions([
       'loadTopics',
-      'loadCurrentCategory',
-      'updateUserCategoryPostsSeen'
+      'loadCurrentCategory'
     ])
   }
 }
@@ -97,6 +94,18 @@ export default {
   align-items: center
   margin-bottom: 10px
 
+.dropdown-design
+  border: 0
+  margin-right: 40px
+  padding: 11px 15px
+  border-radius: 6px
+  outline: none
+  cursor: pointer
+  transition: 0.2s background ease-out
+  text-decoration: none
+  display: inline-block
+  text-align: center
+
 .right-header
   justify-content: space-between
   align-items: center
@@ -108,14 +117,15 @@ export default {
 .title
   color: #666
 
-// AAYUSH: this looks dodgy bro ngl to you
 .dropbtn {
   background-color: $buttonColor;
   color: white;
   padding: 16px;
   margin-right: 20px;
+  height: 40px;
   font-size: 16px;
   border: none;
+  
 }
 
 .dropdown {
@@ -142,7 +152,6 @@ export default {
 
 .dropdown:hover .dropdown-content {display: block;}
 
-// AAYUSH: this needs to be the color when you hover
 .dropdown:hover .dropbtn {background-color: #270145;}
 
 .new-topic-button
