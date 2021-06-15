@@ -281,6 +281,7 @@
     line-height: 1.7
     color: #333
     margin-top: 20px
+    white-space: pre-line;
 
   .topic-footer
     display: flex
