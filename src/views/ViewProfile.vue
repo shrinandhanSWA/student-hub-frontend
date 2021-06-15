@@ -37,8 +37,7 @@
         <div class="col-md-4">
           <div class="profile-work">
             <p>FOLLOW ME ON</p>
-            <a href="https://www.instagram.com/"
-               onclick="location.href=this.href+ val ;return false;"> <i
+            <a> <i
               class="logo-view fab fa-instagram"></i> {{users.instaName}} </a><br/>
 
             <a> <i class="logo-view fab fa-snapchat"></i> {{users.snapName}} </a><br/>

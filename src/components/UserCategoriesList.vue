@@ -4,18 +4,23 @@
       v-if="loading"
       class="page-spinner"
     />
+    <div v-else-if="!isLoggedIn"
+         class="error-message">
+      Login or Sign up to view this page
+    </div>
     <div
-      v-else-if="error"
+      v-else-if="error && isLoggedIn"
       class="error-message"
     >
       An error occured while fetching the categories.<br>Try to reload the page.
     </div>
 
     <div
-      v-if="userCategories.length === 0"
+      v-if="userCategories.length === 0 && isLoggedIn"
       class="message"
     >
-      You have not joined any groups. Click <a href="/all-groups">here</a> to browse all groups
+      You have not joined any groups. Click <a href="/suggested-groups">here</a> to browse suggested
+      groups or <a href="/all-groups">here</a> to browse all groups
     </div>
 
     <user-category-item
@@ -28,64 +33,65 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import UserCategoryItem from './UserCategoryItem'
+  import { mapActions, mapState } from 'vuex'
+  import UserCategoryItem from './UserCategoryItem'
 
-export default {
-  components: { UserCategoryItem },
-  data () {
-    return {
-      loading: true,
-      error: false
-    }
-  },
-  computed: {
-    ...mapState({
-      userCategories: state => state.userCategories.all
-    })
-  },
-
-  async mounted () {
-    try {
-      await this.loadUserCategories({ data: {
-        email: this.currentUser.email
+  export default {
+    components: { UserCategoryItem },
+    data () {
+      return {
+        loading: true,
+        error: false
       }
+    },
+    computed: {
+      ...mapState({
+        userCategories: state => state.userCategories.all
       })
-      this.loading = false
-    } catch (err) {
-      this.loading = false
-      this.error = true
-    }
-  },
+    },
 
-  methods: {
-    ...mapActions(['loadUserCategories'])
+    async mounted () {
+      try {
+        await this.loadUserCategories({
+          data: {
+            email: this.currentUser.email
+          }
+        })
+        this.loading = false
+      } catch (err) {
+        this.loading = false
+        this.error = true
+      }
+    },
+
+    methods: {
+      ...mapActions(['loadUserCategories'])
+    }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
-.category-item
-  margin-bottom: 20px
+  .category-item
+    margin-bottom: 20px
 
-.user-categories-list-title
-  font-size: 18px
-  color: #777
-  font-weight 400
+  .user-categories-list-title
+    font-size: 18px
+    color: #777
+    font-weight 400
 
-.error-message
-  text-align: center
-  font-size: 20px
-  color: #888
-  font-weight: 500
-  line-height: 1.5
-  margin-top: 50px
+  .error-message
+    text-align: center
+    font-size: 20px
+    color: #888
+    font-weight: 500
+    line-height: 1.5
+    margin-top: 50px
 
-.message
-  text-align: center
-  font-size: 20px
-  color: #888
-  font-weight: 500
-  line-height: 1.5
-  margin-top: 50px
+  .message
+    text-align: center
+    font-size: 20px
+    color: #888
+    font-weight: 500
+    line-height: 1.5
+    margin-top: 50px
 </style>
