@@ -30,10 +30,19 @@
               <span class="author-name">
           {{ topic.user.name }}
         </span>
-            <i class="profile"
-               :class="{student_color: (topic.user.profileType === 'student')}">
+            <i class="alumni-profile"
+              v-if="topic.user.profileType === 'alumni'"
+            >
               {{ topic.user.profileType }}
             </i>
+            <i
+              v-if="topic.user.profileType === 'student'"
+              class="student-profile"
+            >
+              {{ topic.user.profileType }}
+            </i>
+
+
           </div>
         </router-link>
         <span class="date">
@@ -115,7 +124,7 @@
       return {
         showConfirmDialog: false,
         upvoted: false,
-        downvoted: false
+        downvoted: false,
       }
     },
     async mounted () {
@@ -252,17 +261,27 @@
   .author-name
     color: #444
 
-  .profileType
-    background-color: #3785ff
-    margin: 3px
+  .alumni_color
+    color: #3785ff
 
   .view-profile {
     color: #444
-    text-decoration : none
+    text-decoration: none
   }
 
-  .profile
+  .student-profile
     background-color: #3e8e41
+    margin-left: 10px
+    font-style: normal
+    color: white
+    border-radius: 4px
+    padding-top: 1px
+    padding-left: 3px
+    padding-right: 3px
+    padding-bottom: 1px
+
+  .alumni-profile
+    background-color: #3785ff
     margin-left: 10px
     font-style: normal
     color: white
