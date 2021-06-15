@@ -18,6 +18,7 @@ import MoreInformation from './views/MoreInformation'
 import ViewProfile from './views/ViewProfile'
 import MostViewed from './views/MostViewed'
 import SuggestedGroups from './views/SuggestedGroups'
+import Chat from './views/Chat'
 
 Vue.use(Router)
 
@@ -139,7 +140,12 @@ export default new Router({
       component: MoreInformation,
       meta: {auth: true}
     },
-
+    {
+      path: '/chat/:id',
+      name: 'Chat',
+      component: Chat,
+      meta: {auth: true}
+    },
     {
       path: '*',
       name: 'NotFound',

@@ -151,5 +151,9 @@ export default {
 
   deleteUserGroup (categorySlug) {
     return request('delete', `groups-remove/${categorySlug}`)
+  },
+
+  getChatId(data) {
+    return request('post', 'getChatId', data)
   }
 }

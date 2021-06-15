@@ -4,6 +4,7 @@ import categories from './modules/categories'
 import topics from './modules/topics'
 import users from './modules/users'
 import userCategories from './modules/userCategories'
+import chats from './modules/chats'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     categories,
     userCategories,
+    chats,
     topics,
     users
   },

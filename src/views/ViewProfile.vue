@@ -31,6 +31,12 @@
             :to="{ name: 'AccountSettings' }">
             <i class="profile-edit-btn"> Edit profile </i>
           </router-link>
+          <router-link
+            :to="{ name: 'Chat' , params: { id: this.chatId }}">
+            <i class="profile-edit-btn"> Message </i>
+          </router-link>
+
+
         </div>
       </div>
       <div class="row">
@@ -108,23 +114,28 @@
 <script>
   import { mapActions, mapState } from 'vuex'
   import BaseButton from '../components/BaseButton'
+  import chats from '../store/modules/chats'
 
   export default {
     components: { BaseButton },
     data () {
       return {
         loading: false,
+        chatId: null
       }
     },
 
     computed: {
       ...mapState({
         users: state => state.users.current
-      })
+      }),
+
+
     },
 
-    mounted() {
-    },
+    async mounted()  {
+
+      },
 
     watch: {
       '$route.params.username': {
@@ -133,6 +144,11 @@
           this.loading = true
           try {
             await this.getPublicProfile({ username })
+            this.chatId = await this.createChatId({
+              data: {
+                chatUsernames: [username, this.currentUser.username]
+              }
+            })
             this.loading = false
           } catch (err) {
             this.$router.push({ name: 'Home' })
@@ -143,7 +159,8 @@
     },
 
     methods: {
-      ...mapActions(['getPublicProfile'])
+      ...mapActions(['getPublicProfile', 'createChatId']),
+
     }
   }
 </script>
