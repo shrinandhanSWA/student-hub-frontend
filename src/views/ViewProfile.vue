@@ -5,7 +5,7 @@
         <div class="col-md-4">
           <div class="profile-img">
             <img
-              :src="currentUser.avatarLocation"
+              :src="users.avatarLocation"
               alt=""/>
           </div>
         </div>
@@ -37,8 +37,11 @@
         <div class="col-md-4">
           <div class="profile-work">
             <p>FOLLOW ME ON</p>
-            <a> <i class="logo-view fab fa-instagram"></i> {{currentUser.instaName}} </a><br/>
-            <a> <i class="logo-view fab fa-snapchat"></i> {{currentUser.snapName}} </a><br/>
+            <a href="https://www.instagram.com/"
+               onclick="location.href=this.href+ val ;return false;"> <i
+              class="logo-view fab fa-instagram"></i> {{users.instaName}} </a><br/>
+
+            <a> <i class="logo-view fab fa-snapchat"></i> {{users.snapName}} </a><br/>
             <p>CONTACT INFO</p>
             <a>{{users.email}}</a><br/>
           </div>
@@ -111,18 +114,17 @@
     components: { BaseButton },
     data () {
       return {
-        loading: false
+        loading: false,
       }
     },
 
     computed: {
       ...mapState({
         users: state => state.users.current
-      }),
+      })
+    },
 
-      openPage: function() {
-        location.href = currentUser.instaName;
-}
+    mounted() {
     },
 
     watch: {
@@ -165,8 +167,8 @@
   }
 
   .profile-img img {
-    width: 70%;
-    height: 100%;
+    width: auto;
+    height: 150px;
     border-radius: 10px;
   }
 

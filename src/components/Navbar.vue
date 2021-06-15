@@ -76,4 +76,7 @@ export default {
 .logo
   text-decoration none
   color: #eaf1f1
+
+.logo:hover
+  color:black
 </style>
