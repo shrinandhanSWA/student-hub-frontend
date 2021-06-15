@@ -19,6 +19,10 @@ export default {
     async loadSuggestedUserCategories ({ commit }, { data }) {
       const suggestedCategories = await apiClient.getSuggestedCategories(data)
       commit('SET_SUGGESTED_CATEGORIES', { suggestedCategories })
+    },
+    async joinSuggestedCategory ({ commit }, { categorySlug }) {
+      await apiClient.addUserGroup(categorySlug)
+      commit('REMOVE_SUGGESTED_GROUP', { categorySlug })
     }
   },
 
@@ -33,6 +37,11 @@ export default {
     },
     SET_SUGGESTED_CATEGORIES (state, { suggestedCategories }) {
       state.suggested = suggestedCategories
-    }
+    },
+    REMOVE_SUGGESTED_GROUP (state, { categorySlug }) {
+      state.suggested = state.suggested.filter(
+        userCategory => userCategory.slug !== categorySlug
+      )
+    },
   }
 }

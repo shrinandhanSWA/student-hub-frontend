@@ -1,5 +1,19 @@
 <template>
   <div class="category-item">
+    <base-confirm-dialog id="joinBlock"
+                         v-if="showConfirmDialog"
+                         confirm-button-title="join"
+                         dismiss-button-title="cancel"
+                         @dismiss="showConfirmDialog = false"
+                         @confirm="joinSuggestedCategory({ categorySlug: category.slug })"
+    >
+      <template #title>
+        Do you want to join '{{category.title}}' ?
+      </template>
+      <template #default>
+        By clicking Join, '{{category.title}}' will be in 'my groups'
+      </template>
+    </base-confirm-dialog>
     <router-link
       class="category-item-link"
       :to="{ name: 'Category', params: { categorySlug: category.slug } }"
@@ -13,6 +27,11 @@
           {{ category.description }}
         </p>
       </div>
+      <i id="joinBlock"
+           v-if="isLoggedIn"
+           class="join-button"
+           @click.prevent.stop="showConfirmDialog= true"
+        >Join</i>
     </router-link>
   </div>
 </template>
@@ -37,7 +56,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['deleteCurrentUserGroup', 'checkNewPosts'])
+    ...mapActions(['joinSuggestedCategory'])
   },
 
   async mounted () {
@@ -113,7 +132,7 @@ export default {
 .action-button:hover
   color: lighten($primaryColor, 20%)
 
-.leave-button {
+.join-button {
   display: inline-block;
   padding: .3rem 1rem;
   margin-left: 1.3em;
@@ -151,9 +170,6 @@ export default {
   }
   &:hover {
     color: #fff;
-    &:before {
-      width: 100%;
-    }
   }
 }
 

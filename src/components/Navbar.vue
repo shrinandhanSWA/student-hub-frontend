@@ -24,6 +24,14 @@
         My Groups
       </router-link>
     </div>
+    <div class>
+      <router-link
+        class="logo"
+        :to="{ name: 'SuggestedGroups'}"
+      >
+        Suggested Groups
+      </router-link>
+    </div>
 
     <div class="right">
       <navbar-current-user v-if="isLoggedIn"/>

@@ -40,9 +40,6 @@ export default {
 
   async mounted () {
     try {
-      // if(this.currentUser.school === ''){
-      //   this.$router.push({ name: 'MoreInformation' })
-      // }
       await this.loadCategories()
       this.loading = false
     } catch (err) {
