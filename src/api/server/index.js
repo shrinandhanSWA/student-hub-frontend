@@ -29,6 +29,10 @@ export default {
     return request('put', 'user-categories', data)
   },
 
+  getSuggestedCategories (data) {
+    return request('put', 'suggested-categories', data)
+  },
+
   getCategory (categorySlug) {
     return request('get', `categories/${categorySlug}`)
   },

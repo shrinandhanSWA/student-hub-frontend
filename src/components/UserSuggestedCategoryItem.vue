@@ -1,18 +1,5 @@
 <template>
   <div class="category-item">
-    <base-confirm-dialog
-      v-if="showConfirmDialog"
-      confirm-button-title="Leave"
-      dismiss-button-title="cancel"
-      @dismiss="showConfirmDialog = false"
-      @confirm="deleteCurrentUserGroup({ categorySlug: category.slug })"
-    >
-      <template #title>
-        Do you want to leave {{category.title}} ?
-      </template>
-      <template #default>
-      </template>
-    </base-confirm-dialog>
     <router-link
       class="category-item-link"
       :to="{ name: 'Category', params: { categorySlug: category.slug } }"
@@ -25,27 +12,6 @@
         <p class="description">
           {{ category.description }}
         </p>
-      </div>
-      <div class="actions">
-        <router-link class="link"
-          v-if="newPosts"
-          :to="{ name: 'Category', params: { categorySlug: category.slug } }"
-        >
-        <div class="circle">{{ this.missingPosts }}</div>
-        </router-link>
-        <router-link
-          v-if="isLoggedIn && currentUser.can('categories:delete')"
-          :to="{ name: 'EditCategory', params: { categorySlug: category.slug } }"
-        >
-          <i
-            class="action-button fas fa-pencil-alt"
-          ></i>
-        </router-link>
-        <i id="leaveBlock"
-           v-if="isLoggedIn"
-           class="leave-button"
-           @click.prevent.stop="showConfirmDialog= true"
-        >Leave</i>
       </div>
     </router-link>
   </div>

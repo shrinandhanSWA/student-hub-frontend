@@ -1,5 +1,5 @@
 <template>
-  <div class="user-categories-list">
+  <div class="user-suggested-categories-list">
     <base-spinner
       v-if="loading"
       class="page-spinner"
@@ -12,15 +12,15 @@
     </div>
 
     <div
-      v-if="userCategories.length === 0"
+      v-if="suggestedCategories.length === 0"
       class="message"
     >
       You have not joined any groups. Click <a href="/all-groups">here</a> to browse all groups
     </div>
 
-    <user-category-item
+    <user-suggested-category-item
       v-else
-      v-for="category in userCategories"
+      v-for="category in suggestedCategories"
       :key="category._id"
       :category="category"
     />
@@ -29,10 +29,10 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import UserCategoryItem from './UserCategoryItem'
+import UserSuggestedCategoryItem from './UserSuggestedCategoryItem'
 
 export default {
-  components: { UserCategoryItem },
+  components: { UserSuggestedCategoryItem },
   data () {
     return {
       loading: true,
@@ -41,13 +41,13 @@ export default {
   },
   computed: {
     ...mapState({
-      userCategories: state => state.userCategories.all
+      suggestedCategories: state => state.userCategories.suggested
     })
   },
 
   async mounted () {
     try {
-      await this.loadUserCategories({ data: {
+      await this.loadSuggestedUserCategories({ data: {
         email: this.currentUser.email
       }
       })
@@ -59,7 +59,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['loadUserCategories'])
+    ...mapActions(['loadSuggestedUserCategories'])
   }
 }
 </script>

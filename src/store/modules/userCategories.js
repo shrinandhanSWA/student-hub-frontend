@@ -3,6 +3,7 @@ import apiClient from 'api-client'
 export default {
   state: {
     all: [],
+    suggested: [],
     current: {}
   },
 
@@ -14,6 +15,10 @@ export default {
     async deleteCurrentUserGroup ({ commit }, { categorySlug }) {
       await apiClient.deleteUserGroup(categorySlug)
       commit('DELETE_CATEGORY_FROM_USER', { categorySlug })
+    },
+    async loadSuggestedUserCategories ({ commit }, { data }) {
+      const suggestedCategories = await apiClient.getSuggestedCategories(data)
+      commit('SET_SUGGESTED_CATEGORIES', { suggestedCategories })
     }
   },
 
@@ -25,6 +30,9 @@ export default {
       state.all = state.all.filter(
         userCategory => userCategory.slug !== categorySlug
       )
+    },
+    SET_SUGGESTED_CATEGORIES (state, { suggestedCategories }) {
+      state.suggested = suggestedCategories
     }
   }
 }

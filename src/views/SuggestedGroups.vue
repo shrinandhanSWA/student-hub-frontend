@@ -2,7 +2,7 @@
   <div class="app-page home-page">
     <div class="header">
       <span class="title">
-        My Groups
+        Suggested Groups
       </span>
     </div>
     <user-suggested-categories-list/>
