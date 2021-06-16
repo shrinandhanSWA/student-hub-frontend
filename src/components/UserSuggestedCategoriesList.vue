@@ -2,8 +2,7 @@
   <div class="user-suggested-categories-list">
     <base-spinner
       v-if="loading"
-      class="page-spinner"
-    />
+      class="page-spinner"></base-spinner>
     <div
       v-else-if="error"
       class="error-message"
