@@ -197,7 +197,7 @@
                 interests: this.interests,
                 hobbies: this.hobbies,
                 schoolId: this.schoolId,
-                yearOfGrad: this.yearOfGrad,
+                yearOfGrad: this.yearOfGrad, 
                 ...(this.school === 'HWSF' ? { school : this.school } : {school : this.otherSchool})
               }
             })
