@@ -166,8 +166,8 @@
 
       roleOptions () {
         return [
-          { key: 'user', title: 'Student' },
-          { key: 'moderator', title: 'Alumni' }
+          { key: 'user', title: 'School Student' },
+          { key: 'moderator', title: 'University Student' }
         ]
       },
       schoolOptions () {
