@@ -6,9 +6,11 @@ import Vuelidate from 'vuelidate'
 import VueClosable from 'vue-closable'
 import humanizeDate from './filters/humanizeDate'
 import authMixin from './mixins/authMixin'
-import firebase from 'firebase'
+import VueChatScroll from 'vue-chat-scroll'
+import firebase from 'firebase';
 
 Vue.config.productionTip = false
+
 
 var firebaseConfig = {
   apiKey: 'AIzaSyDMgs6YfR36REw8BhFIvBHR1TnZ6a4ks_I',
@@ -20,10 +22,12 @@ var firebaseConfig = {
   measurementId: 'G-M2T3QEHXDC'
 }
 
-firebase.initializeApp(firebaseConfig)
+ firebase.initializeApp(firebaseConfig);
+
 
 Vue.use(Vuelidate)
 Vue.use(VueClosable)
+Vue.use(VueChatScroll)
 
 Vue.filter('humanizeDate', humanizeDate)
 

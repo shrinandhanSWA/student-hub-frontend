@@ -322,6 +322,7 @@
     text-align: center;
     width: 1.8em;
     font-size: 25px
+    margin-right: 8px
   }
 
   .upvoted_color {

@@ -2,14 +2,16 @@
   <div id="app">
     <navbar v-if="$route.name"/>
     <router-view/>
+    <sidebar/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
+import Sidebar from './components/Sidebar'
 
 export default {
-  components: { Navbar }
+  components: { Navbar, Sidebar }
 }
 </script>
 
