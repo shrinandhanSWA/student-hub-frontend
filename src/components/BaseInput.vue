@@ -119,7 +119,7 @@ export default {
   width: 100%
   border: 1px solid #AEAEAE
   padding: 10px
-  border-radius: 2px
+  border-radius: 20px
   outline: none
   color: #000
   transition: 0.2s all

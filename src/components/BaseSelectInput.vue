@@ -170,7 +170,7 @@ export default {
   border: 1px solid #AEAEAE
   cursor: pointer
   user-select: none
-  border-radius: 2px
+  border-radius: 20px
   background: #FFF
   color: #000
 

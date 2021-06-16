@@ -2,7 +2,7 @@
   <div class="app-page home-page">
     <div class="header">
       <span class="title">
-        All Groups
+        Results 
       </span>
         <base-input class="search-query"
         v-model="query"
@@ -13,24 +13,16 @@
       >
         <i class="search-icon fas fa-search fa-lg"></i>
       </router-link>
-      <base-button
-        v-if="isLoggedIn && currentUser.can('categories:write')"
-        class="new-category-button"
-        :to="{ name: 'CreateCategory' }"
-        >
-        <i class="fas fa-plus plus-icon"></i>
-        New Group
-      </base-button>
       </div>
     </div>
-    <categories-list/>
+    <search-categories-list/>
   </div>
 </template>
 
 <script>
-import CategoriesList from '@/components/CategoriesList'
+import SearchCategoriesList from '@/components/SearchCategoriesList'
 export default {
-  components: { CategoriesList },
+  components: { SearchCategoriesList },
 
   data () {
       return {
@@ -56,9 +48,10 @@ export default {
 .search-icon
   color: $buttonColor
   margin-right: 150px
+  margin-left: -30px
 
 .search-query
-  margin-left: 370px
+  margin-left: 500px
 
 .new-topic-button
   font-size: 14px

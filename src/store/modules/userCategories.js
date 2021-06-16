@@ -4,6 +4,7 @@ export default {
   state: {
     all: [],
     suggested: [],
+    search: [],
     current: {}
   },
 
@@ -19,6 +20,10 @@ export default {
     async loadSuggestedUserCategories ({ commit }, { data }) {
       const suggestedCategories = await apiClient.getSuggestedCategories(data)
       commit('SET_SUGGESTED_CATEGORIES', { suggestedCategories })
+    },
+    async loadSearchCategories ({ commit }, { data }) {
+      const searchedCategories = await apiClient.getSearchCategories(data)
+      commit('SET_SEARCHED_CATEGORIES', { searchedCategories })
     },
     async joinSuggestedCategory ({ commit }, { categorySlug }) {
       await apiClient.addUserGroup(categorySlug)
@@ -37,6 +42,9 @@ export default {
     },
     SET_SUGGESTED_CATEGORIES (state, { suggestedCategories }) {
       state.suggested = suggestedCategories
+    },
+    SET_SEARCHED_CATEGORIES (state, { searchedCategories }) {
+      state.search = searchedCategories
     },
     REMOVE_SUGGESTED_GROUP (state, { categorySlug }) {
       state.suggested = state.suggested.filter(

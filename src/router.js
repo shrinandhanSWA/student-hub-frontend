@@ -18,6 +18,7 @@ import MoreInformation from './views/MoreInformation'
 import ViewProfile from './views/ViewProfile'
 import MostViewed from './views/MostViewed'
 import SuggestedGroups from './views/SuggestedGroups'
+import SearchCategory from './views/SearchCategory'
 
 Vue.use(Router)
 
@@ -66,6 +67,14 @@ export default new Router({
       path: '/all-groups',
       name: 'allGroups',
       component: allGroups,
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/search/:query',
+      name: 'SearchCategory',
+      component: SearchCategory,
       meta: {
         auth: true
       }

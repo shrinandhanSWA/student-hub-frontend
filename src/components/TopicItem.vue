@@ -77,7 +77,7 @@ export default {
 
 <style lang="stylus" scoped>
 .topic-item
-  background: #FFF
+  background: white
   padding: 15px
   cursor: pointer
   transition: 0.2s background ease-out
@@ -85,6 +85,7 @@ export default {
   text-decoration none
   display: flex
   align-items: center
+  border-radius:10px
 
 .topic-item:hover
   background: #F9F9F9

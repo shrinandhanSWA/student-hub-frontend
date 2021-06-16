@@ -92,7 +92,7 @@
       </label>
     </div>
     <textarea
-      style="width: 450px; height: 150px;"
+      style="width: 450px; height: 150px; border-radius:10px;"
       maxlength="275"
       v-model="bio"></textarea>
     <div class="submit-field">
