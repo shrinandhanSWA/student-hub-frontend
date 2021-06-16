@@ -53,14 +53,14 @@ export default {
   },
   data () {
     return {
-      unseen: true
+      unseen: false
     }
   },
   methods: {
     ...mapActions(['checkUnseen'])
   },
   async mounted () {
-      try {       
+      try {
         this.unseen = !(await this.checkUnseen({
           topicId: this.topic._id,
           data: {

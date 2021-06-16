@@ -2,8 +2,7 @@
   <div class="app-page category-page">
     <base-spinner
       v-if="loading"
-      class="page-spinner"
-    />
+      class="page-spinner"></base-spinner>
     <template v-else>
       <div class="header">
         <span class="title">
@@ -12,7 +11,7 @@
         <div class="right-header">
            <div class="dropdown">
             <button class="dropdown-button"
-              v-if="isLoggedIn">Sort By 
+              v-if="isLoggedIn">Sort By
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
@@ -127,7 +126,7 @@ export default {
   height: 40px;
   font-size: 16px;
   border: none;
-  
+
 }
 
 .dropdown {

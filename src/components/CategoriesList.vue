@@ -11,7 +11,7 @@
       An error occured while fetching the categories.<br>Try to reload the page.
     </div>
     <category-item
-      v-else
+      v-else-if="isLoggedIn"
       v-for="category in categories"
       :key="category._id"
       :category="category"

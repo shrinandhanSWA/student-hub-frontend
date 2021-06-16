@@ -4,24 +4,27 @@
       <span class="title">
         All Groups
       </span>
+      <div class="search">
         <base-input class="search-query"
-        v-model="query"
-        placeholder="search..."></base-input>
-      <div>
-      <router-link
-      :to="{ name: 'SearchCategory', params: { query: this.query }}"
-      >
-        <i class="search-icon fas fa-search fa-lg"></i>
-      </router-link>
+                    v-model="query"
+                    placeholder="search..."></base-input>
+        <router-link
+          :to="{ name: 'SearchCategory', params: { query: this.query }}"
+        >
+          <i class="search-icon fas fa-search fa-lg"></i>
+        </router-link>
+      </div>
+
       <base-button
         v-if="isLoggedIn && currentUser.can('categories:write')"
         class="new-category-button"
         :to="{ name: 'CreateCategory' }"
-        >
+      >
         <i class="fas fa-plus plus-icon"></i>
         New Group
       </base-button>
-      </div>
+
+
     </div>
     <categories-list/>
   </div>
@@ -53,12 +56,16 @@ export default {
 .title
   color: #666
 
+.search
+  display :flex
+  align-items : center
+
 .search-icon
   color: $buttonColor
-  margin-right: 150px
+  margin-left: 10px
 
 .search-query
-  margin-left: 370px
+  margin-left: 350px
 
 .new-topic-button
   font-size: 14px
