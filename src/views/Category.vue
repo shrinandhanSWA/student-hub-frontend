@@ -10,14 +10,16 @@
           {{ currentCategory.title }}
         </span>
         <div class="right-header">
-            <base-button class="dropdown-design"
+           <div class="dropdown">
+            <button class="dropdown-button"
               v-if="isLoggedIn">Sort By 
               <i class="fa fa-caret-down"></i>
-            </base-button>
+            </button>
             <div class="dropdown-content">
               <a href="">Most Popular</a>
               <a href="newest">Most Recent</a>
               <a href="most-viewed">Most Views </a>
+            </div>
             </div>
            <base-button
             v-if="isLoggedIn && currentUser.can('own_topics:write')"
@@ -158,8 +160,19 @@ export default {
   font-size: 14px
 
 .dropdown-button
-  margin-right : 10px
+  margin-right : 40px
   font-size: 14px
+  border: 0
+  padding: 12px 15px
+  border-radius: 6px
+  outline: none
+  cursor: pointer
+  transition: 0.2s background ease-out
+  text-decoration: none
+  display: inline-block
+  text-align: center
+  color: white
+  background-color: $buttonColor
 
 .sort-by-button
   margin-right : 10px

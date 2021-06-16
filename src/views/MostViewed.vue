@@ -11,7 +11,7 @@
         </span>
         <div class="right-header">
           <div class="dropdown">
-            <button class="dropbtn"
+            <button class="dropdown-button"
               v-if="isLoggedIn">Sort By 
               <i class="fa fa-caret-down"></i>
             </button>
@@ -107,7 +107,6 @@ export default {
 .title
   color: #666
 
-// AAYUSH: this looks dodgy bro ngl to you
 .dropbtn {
   background-color: $buttonColor;
   color: white;
@@ -116,6 +115,21 @@ export default {
   font-size: 16px;
   border: none;
 }
+
+.dropdown-button
+  margin-right : 40px
+  font-size: 14px
+  border: 0
+  padding: 12px 15px
+  border-radius: 6px
+  outline: none
+  cursor: pointer
+  transition: 0.2s background ease-out
+  text-decoration: none
+  display: inline-block
+  text-align: center
+  color: white
+  background-color: $buttonColor
 
 .dropdown {
   display: inline-block;
@@ -141,14 +155,9 @@ export default {
 
 .dropdown:hover .dropdown-content {display: block;}
 
-// AAYUSH: this needs to be the color when you hover
 .dropdown:hover .dropbtn {background-color: #270145;}
 
 .new-topic-button
-  font-size: 14px
-
-.dropdown-button
-  margin-right : 10px
   font-size: 14px
 
 .sort-by-button
