@@ -12,10 +12,16 @@
     </div>
 
     <div
-      v-if="suggestedCategories.length === 0"
+      v-if="suggestedCategories.length === 0 && isLoggedIn"
       class="message"
     >
-      You have not joined any groups. Click <a href="/all-groups">here</a> to browse all groups
+      You have not joined any groups. Click
+      <router-link
+        v-if="isLoggedIn"
+        :to="{ name: 'allGroups'}"
+      > here</router-link>
+
+      to browse all groups
     </div>
 
     <user-suggested-category-item

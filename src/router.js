@@ -67,9 +67,9 @@ export default new Router({
       path: '/all-groups',
       name: 'allGroups',
       component: allGroups,
-      meta: {
+     meta: {
         auth: true
-      }
+     }
     },
     {
       path: '/search/:query',

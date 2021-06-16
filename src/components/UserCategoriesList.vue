@@ -19,8 +19,19 @@
       v-if="userCategories.length === 0 && isLoggedIn"
       class="message"
     >
-      You have not joined any groups. Click <a href="/suggested-groups">here</a> to browse suggested
-      groups or <a href="/all-groups">here</a> to browse all groups
+      You have not joined any groups. Click
+      <router-link
+        v-if="isLoggedIn"
+        :to="{ name: 'SuggestedGroups'}"
+      > here</router-link>
+
+       to browse suggested groups, or click
+      <router-link
+        v-if="isLoggedIn"
+        :to="{ name: 'allGroups'}"
+      > here</router-link>
+       to browse all groups.
+
     </div>
 
     <user-category-item
