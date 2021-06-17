@@ -2,17 +2,17 @@
   <div class="app-page">
     <div class="header">
       <span class="title">
-        My Groups
+        Dashboard
       </span>
     </div>
-    <user-categories-list/>
+    <dashboard-list/>
   </div>
 </template>
 
 <script>
-  import UserCategoriesList from '@/components/UserCategoriesList'
+  import DashboardList from '@/components/DashboardList'
   export default {
-    components: { UserCategoriesList },
+    components: { DashboardList },
   }
 </script>
 

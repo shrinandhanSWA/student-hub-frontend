@@ -4,25 +4,47 @@
     <nav class="main-menu">
       <ul>
         <li>
-          <a href="/my-groups">
+          <a href="/">
             <i class="fa fa-home fa-3x"></i>
-            <span class="nav-text">My groups</span>
+            <span class="nav-text">Home </span>
           </a>
         </li>
 
         <li class="has-subnav">
           <a href="/all-groups">
-            <i class="fa fa-laptop fa-3x"></i>
+            <i class="fa fa-database"></i>
             <span class="nav-text">All groups</span>
+          </a>
+
+        <li class="has-subnav">
+          <a href="/my-groups">
+            <i class="fa fa-layer-group"></i>
+            <span class="nav-text">My groups</span>
           </a>
 
         </li>
         <li class="has-subnav">
           <a href="/suggested-groups">
-            <i class="fa fa-list fa-4x"></i>
+            <i class="fa fa-stream"></i>
             <span class="nav-text">Suggested groups</span>
           </a>
         </li>
+        <li class="has-subnav">
+          <a href="/search/''">
+            <i class="fa fa-search"></i>
+            <span class="nav-text">Search groups</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="logout">
+        <li class="has-subnav">
+          <a href="/account-settings">
+            <i class="fa fa-cog"></i>
+            <span class="nav-text">Settings</span>
+          </a>
+        </li>
+
       </ul>
     </nav>
   </div>
@@ -44,7 +66,6 @@
 </script>
 
 <style lang="stylus">
-  @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
   @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300');
 
   .fa-2x {

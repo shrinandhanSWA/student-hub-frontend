@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <navbar v-if="$route.name"/>
-      <router-view/>
-      <sidebar/>
+    <navbar v-if="$route.name"/>
+    <sidebar/>
+    <router-view/>
 
   </div>
 </template>
@@ -18,13 +18,14 @@
 
 <style lang="stylus">
   @import '../node_modules/normalize.css/normalize.css'
+  @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300');
 
   *
     box-sizing: border-box
 
   body
     background: #F5F5F5
-    font-family: 'Lato', sans-serif
+    font-family: 'Titillium Web', sans-serif;
 
   body.no-scroll
     overflow: hidden

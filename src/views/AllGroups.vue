@@ -8,12 +8,11 @@
         <base-input class="search-query"
                     v-model="query"
                     placeholder="search..."></base-input>
-        <router-link
-          :to="{ name: 'SearchCategory', params: { query: this.query }}"
-        >
-          <i class="search-icon fas fa-search fa-lg"></i>
-        </router-link>
-      </div>
+
+          <router-link :to="{ name: 'SearchCategory', params: { query: this.query }}">
+            <i class="search-icon fas fa-search fa-lg"></i>
+          </router-link>
+        </div>
 
       <base-button
         v-if="isLoggedIn && currentUser.can('categories:write')"
@@ -66,9 +65,14 @@ export default {
   color: $buttonColor
   margin-left: 10px
 
+.search-icon:hover{
+  color: lighten($buttonColor, 30%)
+}
+
 .search-query
   margin-left: 350px
-  width: 300px
+  width: 370px
+
 
 .new-topic-button
   font-size: 14px

@@ -18,9 +18,9 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'SuggestedGroups' }">
-              <i class=" icon fas fa-stream"></i>
-              Suggested groups
+            <router-link class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} ">
+              <i class="icon fas fa-user-circle"></i>
+              Profile
             </router-link>
           </li>
         </ul>
