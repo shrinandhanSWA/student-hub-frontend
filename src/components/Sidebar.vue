@@ -1,103 +1,46 @@
 <template>
 
   <div style="height: 100%; overflow: hidden">
-  <nav class="main-menu">
-    <ul>
-      <li>
-        <a href="http://justinfarrow.com">
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text">
-                            Dashboard
-                        </span>
-        </a>
+    <nav class="main-menu">
+      <ul>
+        <li>
+          <a href="/my-groups">
+            <i class="fa fa-home fa-3x"></i>
+            <span class="nav-text">My groups</span>
+          </a>
+        </li>
 
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-laptop fa-2x"></i>
-          <span class="nav-text">
-                            Stars Components
-                        </span>
-        </a>
+        <li class="has-subnav">
+          <a href="/all-groups">
+            <i class="fa fa-laptop fa-3x"></i>
+            <span class="nav-text">All groups</span>
+          </a>
 
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-list fa-2x"></i>
-          <span class="nav-text">
-                            Forms
-                        </span>
-        </a>
-
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-folder-open fa-2x"></i>
-          <span class="nav-text">
-                            Pages
-                        </span>
-        </a>
-
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-bar-chart-o fa-2x"></i>
-          <span class="nav-text">
-                            Graphs and Statistics
-                        </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-font fa-2x"></i>
-          <span class="nav-text">
-                           Quotes
-                        </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-table fa-2x"></i>
-          <span class="nav-text">
-                            Tables
-                        </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-map-marker fa-2x"></i>
-          <span class="nav-text">
-                            Maps
-                        </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-info fa-2x"></i>
-          <span class="nav-text">
-                            Documentation
-                        </span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="logout">
-      <li>
-        <a href="#">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text">
-                            Logout
-                        </span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+        </li>
+        <li class="has-subnav">
+          <a href="/suggested-groups">
+            <i class="fa fa-list fa-4x"></i>
+            <span class="nav-text">Suggested groups</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
-<script>
-export default{
 
-}
+<script>
+  import { mapActions } from 'vuex'
+
+  export default {
+
+    methods: {
+      ...mapActions(['logout']),
+      logoutUser () {
+        this.logout()
+        this.$router.push({ name: 'allGroups' })
+      }
+    }
+  }
 </script>
 
 <style lang="stylus">
@@ -120,17 +63,16 @@ export default{
 
 
   .main-menu:hover, nav.main-menu.expanded {
-    width: 250px;
+    width: 243px;
     overflow: visible;
   }
 
   .main-menu {
     background: darken(#5161ce, 80%);
     border-right: 1px solid #e5e5e5;
-    position: absolute;
+    position: fixed;
     top: 69px;
-    bottom: 0;
-    height: auto
+    height: 653px
     left: 0;
     width: 60px;
     overflow: hidden;
@@ -147,10 +89,26 @@ export default{
   .main-menu li {
     position: relative;
     display: block;
-    width: 250px;
+    margin-bottom: 20px;
+    width: 243px;
   }
 
   .main-menu li > a {
+    position: relative;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #999;
+    font-family: arial;
+    font-size: 18px;
+    text-decoration: none;
+    -webkit-transform: translateZ(0) scale(1, 1);
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+
+  }
+
+  .sidebar-item {
     position: relative;
     display: table;
     border-collapse: collapse;
@@ -162,8 +120,8 @@ export default{
     -webkit-transform: translateZ(0) scale(1, 1);
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
-
   }
+
 
   .main-menu .nav-icon {
     position: relative;

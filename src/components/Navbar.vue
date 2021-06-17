@@ -1,38 +1,50 @@
 <template>
-  <nav class="navbar navbar-expand-custom navbar-mainbg">
-    <a class="navbar-brand navbar-logo" href="/"> Ease In  </a>
+  <div class="header-design">
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+      <a class="navbar-brand navbar-logo" href="/"> Ease In </a>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i>Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/all-groups"><i class="far fa-address-book"></i>All groups</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/my-groups"><i class="far fa-clone"></i>my groups</a>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'Home' }">
+                <i class="icon fas fa-home"></i>
+                Home
+              </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'allGroups' }">
+              <i class="icon fas fa-database"></i>
+              All groups
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'SuggestedGroups' }">
+              <i class=" icon fas fa-stream"></i>
+              Suggested groups
+            </router-link>
+          </li>
+        </ul>
 
-    </div>
+      </div>
 
-    <div class = "avatar-item">
-      <navbar-current-user v-if="isLoggedIn"/>
-      <template v-else>
-        <button class="nav-button"
-                :to="{ name: 'Register' }"
-        >
-          Sign Up
-        </button>
-        <button class="nav-button"
-                :to="{ name: 'Login' }"
-        >
-          Log In
-        </button>
-      </template>
-    </div>
-  </nav>
+      <div class="avatar-item">
+        <navbar-current-user v-if="isLoggedIn"/>
+        <template v-else>
+          <button class="nav-button"
+                  :to="{ name: 'Register' }"
+          >
+            Sign Up
+          </button>
+          <button class="nav-button"
+                  :to="{ name: 'Login' }"
+          >
+            Log In
+          </button>
+        </template>
+      </div>
+    </nav>
+  </div>
+
 </template>
 
 <script>
@@ -45,9 +57,11 @@
 
 <style lang="stylus">
   @import url('https://fonts.googleapis.com/css?family=Roboto');
+  @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300');
+
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
   }
 
   * {
@@ -55,9 +69,10 @@
     padding: 0;
   }
 
-  i {
-    margin-right: 10px;
+  .icon {
+    margin-right : 3px
   }
+
 
   /*----------multi-level-accordian-menu------------*/
 
@@ -66,10 +81,18 @@
     color: #fff;
   }
 
+  .nav-link {
+    font-family: 'Titillium Web', sans-serif;
+  }
+
   .navbar-mainbg {
-    position:sticky
     background-color: #5161ce;
     padding: 0px;
+  }
+
+  .header-design {
+    position: sticky
+    top: 0
   }
 
   .nav-item {
@@ -95,10 +118,9 @@
     text-align: center
   }
 
-  .nav-button:hover{
+  .nav-button:hover {
     background-color: darken(#5161ce, 80%);
   }
-
 
 
   #navbarSupportedContent ul {
@@ -125,7 +147,6 @@
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: relative;
   }
-
 
 
   @media (min-width: 992px) {

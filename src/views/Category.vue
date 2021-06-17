@@ -10,9 +10,9 @@
         </span>
         <div class="right-header">
           <div class="dropdown">
-            <button class="dropdown-button"
-                    v-if="isLoggedIn">Sort By
-              <i class="fa fa-caret-down"></i>
+            <button class="dropdown-button" v-if="isLoggedIn">
+              <i class="fas fa-caret-down fa-lg"></i>
+              Sort By
             </button>
             <div class="dropdown-content">
               <a href="">Most Popular</a>
@@ -90,6 +90,11 @@
 </script>
 
 <style lang="stylus" scoped>
+
+  .title{
+    margin-left : 125px
+  }
+
   .header
     display: flex
     justify-content: space-between
@@ -112,6 +117,8 @@
     justify-content: space-between
     align-items: center
     margin-bottom: 10px
+    margin-right: -100px
+    display: flex
 
   .plus-icon
     margin-right: 5px
@@ -131,7 +138,6 @@
   }
 
   .dropdown {
-    display: inline-block;
   }
 
   .dropdown-content {
@@ -175,7 +181,6 @@
     cursor: pointer
     transition: 0.2s background ease-out
     text-decoration: none
-    display: inline-block
     text-align: center
     color: white
     background-color: $buttonColor

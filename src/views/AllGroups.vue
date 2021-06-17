@@ -1,5 +1,5 @@
 <template>
-  <div class="app-page home-page">
+  <div class="app-page all-groups">
     <div class="header">
       <span class="title">
         All Groups
@@ -45,6 +45,7 @@ export default {
 
 <style lang="stylus" scoped>
 .header
+  margin-right : -50px
   display: flex
   justify-content: space-between
   align-items: center
@@ -55,6 +56,7 @@ export default {
 
 .title
   color: #666
+  margin-left: 125px
 
 .search
   display :flex
@@ -66,6 +68,7 @@ export default {
 
 .search-query
   margin-left: 350px
+  width: 300px
 
 .new-topic-button
   font-size: 14px

@@ -1,5 +1,5 @@
 <template>
-  <div class="topic-view">
+  <div class="app-page topic-view">
     <base-confirm-dialog
       v-if="showConfirmDialog"
       confirm-button-title="delete"
@@ -46,10 +46,11 @@
     </p>
     <div class="topic-footer">
       <div class="topic-footer-reply">
-        <i v-if="isLoggedIn" class="fa fa-angle-up fa-2x" @click="upvote"
+        <i v-if="isLoggedIn" class="vote-icon fa fa-angle-up" @click="upvote"
            :class="{upvoted_color: upvoted}"></i>
         <span class="votes">{{ votes }}</span>
-        <i v-if="isLoggedIn" class="fa fa-angle-down fa-2x" @click="downvote"
+
+        <i v-if="isLoggedIn" class="vote-icon fa fa-angle-down" @click="downvote"
            :class="{downvoted_color: downvoted}"></i>
       </div>
       <div class="topic-footer-reply">
@@ -60,7 +61,7 @@
           class="reply-button"
           @click="onReply"
         >
-          <i class="fas fa-reply reply-icon"></i>
+          <i class="fas fa-reply-all reply-icon"></i>
           Reply
         </base-button>
       </div>
@@ -224,9 +225,14 @@
 </script>
 
 <style lang="stylus" scoped>
+
+  .vote-icon {
+    font-size : 35px
+  }
+
   .topic-view
     background: #FFF
-    border-radius: 3px
+    border-radius: 20px
     padding: 10px 25px
 
   .title
@@ -318,11 +324,7 @@
 
 
   .votes {
-    display: inline-block;
-    text-align: center;
-    width: 1.8em;
-    font-size: 25px
-    margin-right: 8px
+    font-size: 25px;
   }
 
   .upvoted_color {

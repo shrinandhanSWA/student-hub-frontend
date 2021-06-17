@@ -17,6 +17,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
+  .title{
+    margin-left: 120px
+  }
+
   .header
     display: flex
     justify-content: space-between

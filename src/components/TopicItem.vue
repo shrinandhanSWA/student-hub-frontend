@@ -25,7 +25,7 @@
       v-if="unseen"></div>
        <span class="upvotes">
         {{ topic.upvotes }}
-        <i class="fa fa-chevron-up"></i>
+        <i class="fas fa-chevron-up"></i>
       </span>
       <span class="views">
         {{ topic.views }}

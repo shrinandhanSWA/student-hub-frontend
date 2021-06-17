@@ -38,7 +38,7 @@ export default {
 
     size: {
       type: Number,
-      default: 40
+      default: 50
     }
   },
 
@@ -61,7 +61,6 @@ export default {
   background-position 50% 50%
   background-size cover
   background-repeat no-repeat
-  position: relative
 
 .base-avatar.name
   display flex

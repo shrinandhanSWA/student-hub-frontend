@@ -1,5 +1,5 @@
 <template>
-  <div class="topics-list">
+  <div class="app-page topics-list">
     <div
       v-if="topics.length === 0"
       class="message"

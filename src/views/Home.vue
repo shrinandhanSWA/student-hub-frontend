@@ -1,5 +1,5 @@
 <template>
-  <div class="app-page home-page">
+  <div class="app-page">
     <div class="header">
       <span class="title">
         My Groups
@@ -17,6 +17,11 @@
 </script>
 
 <style lang="stylus" scoped>
+
+  .title{
+    margin-left: 125px
+  }
+
   .header
     display: flex
     justify-content: space-between
