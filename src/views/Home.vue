@@ -13,6 +13,12 @@
   import DashboardList from '@/components/DashboardList'
   export default {
     components: { DashboardList },
+    mounted() {
+      if (!isLoggedIn) {
+         this.$router.push({ name: 'Login' })
+      }
+   }
+
   }
 </script>
 

@@ -30,7 +30,7 @@
       onSelect (optionKey) {
         if (optionKey === 'logout') {
           this.logout()
-          this.$router.push({ name: 'allGroups' })
+          this.$router.push({ name: 'Login' })
         } else if (optionKey === 'settings') {
           this.$router.push({ name: 'AccountSettings'})
         }
