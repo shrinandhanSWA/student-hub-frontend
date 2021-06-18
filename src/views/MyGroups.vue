@@ -28,6 +28,7 @@ export default {
 
   .title
     color: #666
+    margin-left: 125px
 
   .new-topic-button
     font-size: 14px

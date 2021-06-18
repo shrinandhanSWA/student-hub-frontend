@@ -1,5 +1,5 @@
 <template>
-  <div class="reply-form">
+  <div class="app-page reply-form">
     <base-textarea
       v-model="content"
       ref="input"
@@ -63,7 +63,7 @@ export default {
   display: flex
   justify-content: center
   flex-direction: column
-  margin: 30px auto
+  margin: 30px 200px
   width: 80%
 
 .reply-button

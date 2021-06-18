@@ -1,35 +1,18 @@
 <template>
   <div class="category-item">
-    <base-confirm-dialog id="joinBlock"
-                         v-if="showConfirmDialog"
-                         confirm-button-title="join"
-                         dismiss-button-title="cancel"
-                         @dismiss="showConfirmDialog = false"
-                         @confirm="updateCurrentUserGroups({ categorySlug: category.slug })"
+    <base-confirm-dialog
+      v-if="showConfirmDialog"
+      confirm-button-title="Leave"
+      dismiss-button-title="cancel"
+      @dismiss="showConfirmDialog = false"
+      @confirm="deleteCurrentUserGroup({ categorySlug: category.slug })"
     >
       <template #title>
-        Do you want to join '{{category.title}}' ?
+        Do you want to leave {{category.title}} ?
       </template>
       <template #default>
-        By clicking Join, '{{category.title}}' will be in 'my groups'
       </template>
     </base-confirm-dialog>
-
-    <base-confirm-dialog id="delBlock"
-                         v-if="showConfirmDelete"
-                         confirm-button-title="delete"
-                         dismiss-button-title="cancel"
-                         @dismiss="showConfirmDelete = false"
-                         @confirm="deleteCategory({ categorySlug: category.slug })"
-    >
-      <template #title>
-        Do you really want to delete the group {{category.title}} ?
-      </template>
-      <template #default>
-        You cannot undo this action.
-      </template>
-    </base-confirm-dialog>
-
     <router-link
       class="category-item-link"
       :to="{ name: 'Category', params: { categorySlug: category.slug } }"
@@ -44,6 +27,12 @@
         </p>
       </div>
       <div class="actions">
+        <router-link class="link"
+                     v-if="newPosts"
+                     :to="{ name: 'Category', params: { categorySlug: category.slug } }"
+        >
+          <div class="circle">{{ this.missingPosts }}</div>
+        </router-link>
         <router-link
           v-if="isLoggedIn && currentUser.can('categories:delete')"
           :to="{ name: 'EditCategory', params: { categorySlug: category.slug } }"
@@ -52,16 +41,11 @@
             class="action-button fas fa-pencil-alt"
           ></i>
         </router-link>
-        <i id="joinBlock"
+        <i id="leaveBlock"
            v-if="isLoggedIn"
-           class="join-button"
+           class="leave-button"
            @click.prevent.stop="showConfirmDialog= true"
-        >Join</i>
-        <i id="delBlock"
-           v-if="isLoggedIn && currentUser.can('categories:delete')"
-           class="action-button fas fa-trash-alt"
-           @click.prevent.stop="showConfirmDelete = true"
-        ></i>
+        >Leave</i>
       </div>
     </router-link>
   </div>
@@ -80,14 +64,31 @@
 
     data () {
       return {
-        join: false,
         showConfirmDialog: false,
-        showConfirmDelete: false
+        newPosts: false,
+        missingPosts: 0
       }
     },
 
     methods: {
-      ...mapActions(['updateCurrentUserGroups', 'deleteCategory'])
+      ...mapActions(['deleteCurrentUserGroup', 'checkNewPosts'])
+    },
+
+    async mounted () {
+      try {
+        const {out, diff} = await this.checkNewPosts({
+          categorySlug: this.category.slug,
+          data: {
+            email: this.currentUser.email
+          }
+        })
+        this.newPosts = out
+        this.missingPosts = diff
+
+      } catch (err) {
+        this.loading = false
+        this.error = true
+      }
     }
   }
 </script>
@@ -104,6 +105,21 @@
     display: flex
     text-decoration: none
     justify-content: space-between
+
+  .circle {
+    width: 30px
+    height: 30px
+    line-height: 30px
+    border-radius: 50%
+    font-size: 15px
+    color: black
+    text-align: center
+    background: #00cc00
+  }
+
+  .link {
+    text-decoration: none
+  }
 
   .category-item:hover
     background: #F9F9F9
@@ -128,7 +144,10 @@
     color: $primaryColor
     cursor: pointer
 
-  .join-button {
+  .action-button:hover
+    color: lighten($primaryColor, 20%)
+
+  .leave-button {
     margin-left: 15px
     color: white
     cursor: pointer
@@ -139,12 +158,9 @@
     border-radius : 10px
   }
 
-  .join-button:hover{
+  .leave-button:hover{
     background-color: lighten($primaryColor, 20%)
   }
 
-
-  .action-button:hover
-    color: lighten($primaryColor, 20%)
 
 </style>

@@ -1,9 +1,8 @@
 <template>
-  <div class="user-suggested-categories-list">
+  <div class="app-page user-suggested-categories-list">
     <base-spinner
       v-if="loading"
-      class="page-spinner"
-    />
+      class="page-spinner"></base-spinner>
     <div
       v-else-if="error"
       class="error-message"
@@ -15,7 +14,7 @@
       v-if="suggestedCategories.length === 0 && isLoggedIn"
       class="message"
     >
-      You have not joined any groups. Click
+      You have joined all Suggested Groups. Click
       <router-link
         v-if="isLoggedIn"
         :to="{ name: 'allGroups'}"

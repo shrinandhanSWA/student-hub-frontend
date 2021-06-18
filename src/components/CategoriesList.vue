@@ -1,5 +1,5 @@
 <template>
-  <div class="categories-list">
+  <div class="app-page categories-list">
     <base-spinner
       v-if="loading"
       class="page-spinner"

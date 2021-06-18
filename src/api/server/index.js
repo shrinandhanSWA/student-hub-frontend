@@ -37,6 +37,10 @@ export default {
     return request('put', 'search-categories', data)
   },
 
+  getDashboardCategories (data){
+    return request('put', 'dashboard-categories', data)
+  },
+
   getCategory (categorySlug) {
     return request('get', `categories/${categorySlug}`)
   },
