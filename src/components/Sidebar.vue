@@ -4,45 +4,47 @@
     <nav class="main-menu">
       <ul>
         <li>
-          <a href="/">
-            <i class="fa fa-home fa-3x"></i>
-            <span class="nav-text">Home </span>
-          </a>
+          <router-link class="nav-text" :to="{ name: 'Home' }">
+            <i class="nav-icon fa fa-home fa-3x"></i>
+            <span class="nav-text">Home</span>
+          </router-link>
         </li>
 
-        <li class="has-subnav">
-          <a href="/all-groups">
-            <i class="fa fa-database"></i>
-            <span class="nav-text">All groups</span>
-          </a>
-
-        <li class="has-subnav">
-          <a href="/my-groups">
-            <i class="fa fa-layer-group"></i>
+        <li>
+          <router-link class="nav-text" :to="{ name: 'MyGroups' }">
+            <i class="nav-icon fa fa-users fa-3x"></i>
             <span class="nav-text">My groups</span>
-          </a>
+          </router-link>
+        </li>
 
+        <li>
+          <router-link class="nav-text" :to="{ name: 'allGroups' }">
+            <i class="nav-icon fa fa-database fa-3x"></i>
+            <span class="nav-text">All groups</span>
+          </router-link>
         </li>
-        <li class="has-subnav">
-          <a href="/suggested-groups">
-            <i class="fa fa-stream"></i>
-            <span class="nav-text">Suggested groups</span>
-          </a>
+
+        <li>
+          <router-link class="nav-text" :to="{ name: 'SuggestedGroups' }">
+            <i class="nav-icon fa fa-swatchbook fa-3x"></i>
+            <span class="nav-text">Groups for you</span>
+          </router-link>
         </li>
-        <li class="has-subnav">
-          <a href="/search/''">
-            <i class="fa fa-search"></i>
+
+        <li>
+          <router-link class="nav-text" :to="{ name: 'SearchCategory', params : { query: ' ' } }">
+            <i class="nav-icon fa fa-search fa-3x"></i>
             <span class="nav-text">Search groups</span>
-          </a>
+          </router-link>
         </li>
       </ul>
 
       <ul class="logout">
-        <li class="has-subnav">
-          <a href="/account-settings">
-            <i class="fa fa-cog"></i>
-            <span class="nav-text">Settings</span>
-          </a>
+        <li>
+          <router-link class="nav-text" :to="{ name: 'AccountSettings'}">
+            <i class="nav-icon fa fa-cog fa-3x"></i>
+            <span class="nav-text">Settings </span>
+          </router-link>
         </li>
 
       </ul>
@@ -130,24 +132,14 @@
   }
 
   .sidebar-item {
-    position: relative;
-    display: table;
-    border-collapse: collapse;
-    border-spacing: 0;
-    color: #999;
-    font-family: arial;
-    font-size: 14px;
-    text-decoration: none;
-    -webkit-transform: translateZ(0) scale(1, 1);
-    -webkit-transition: all .1s linear;
-    transition: all .1s linear;
+    margin-top: 30px
   }
 
 
   .main-menu .nav-icon {
     position: relative;
     display: table-cell;
-    width: 60px;
+    width: 100px;
     height: 36px;
     text-align: center;
     vertical-align: middle;
@@ -155,10 +147,11 @@
   }
 
   .main-menu .nav-text {
+    text-decoration : none
     position: relative;
     display: table-cell;
     vertical-align: middle;
-    width: 190px;
+    width: 250px;
     font-family: 'Titillium Web', sans-serif;
   }
 
