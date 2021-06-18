@@ -1,15 +1,24 @@
 <template>
   <div class="header-design">
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-      <a class="navbar-brand navbar-logo" href="/"> Ease In </a>
+      <a class="navbar-brand navbar-logo" href="/">
+        <img
+          class="navbar-logo"
+          src="https://firebasestorage.googleapis.com/v0/b/drp-project-database.appspot.com/o/output-onlinepngtools%20(1).png?alt=media&token=dacac529-6b8a-43a7-99f6-14ab0cd844d5"
+          alt="In the Loop"
+          width="140"
+          height="50"
+        >
+
+      </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'Home' }">
-                <i class="icon fas fa-home"></i>
-                Home
-              </router-link>
+            <router-link class="nav-link" :to="{ name: 'Home' }">
+              <i class="icon fas fa-home"></i>
+              Home
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'allGroups' }">
@@ -18,7 +27,8 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} ">
+            <router-link class="nav-link"
+                         :to="{ name: 'ViewProfile', params: { username: currentUser.username }} ">
               <i class="icon fas fa-user-circle"></i>
               Profile
             </router-link>
@@ -70,14 +80,15 @@
   }
 
   .icon {
-    margin-right : 3px
+    margin-right: 3px
   }
 
 
   /*----------multi-level-accordian-menu------------*/
 
   .navbar-logo {
-    padding: 15px;
+    margin-left: 4px
+    padding: 1px;
     color: #fff;
   }
 
