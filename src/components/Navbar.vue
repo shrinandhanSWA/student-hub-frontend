@@ -12,17 +12,21 @@
               </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'allGroups' }">
-              <i class="icon fas fa-database"></i>
-              All groups
+            <router-link class="nav-link" :to="{ name: 'HowToUse' }">
+              <i class="icon fas fa-question"></i>
+              How To Use
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} ">
+            <router-link 
+             v-if = "isLoggedIn"
+             :class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} "
+             >
               <i class="icon fas fa-user-circle"></i>
               Profile
             </router-link>
           </li>
+          
         </ul>
 
       </div>
@@ -30,16 +34,16 @@
       <div class="avatar-item">
         <navbar-current-user v-if="isLoggedIn"/>
         <template v-else>
-          <button class="nav-button"
+          <router-link class="nav-button"
                   :to="{ name: 'Register' }"
           >
             Sign Up
-          </button>
-          <button class="nav-button"
+          </router-link>
+          <router-link class="nav-button"
                   :to="{ name: 'Login' }"
           >
             Log In
-          </button>
+          </router-link>
         </template>
       </div>
     </nav>
@@ -120,6 +124,7 @@
 
   .nav-button:hover {
     background-color: darken(#5161ce, 80%);
+    color: white
   }
 
 

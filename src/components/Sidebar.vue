@@ -41,6 +41,12 @@
 
       <ul class="logout">
         <li>
+          <router-link class="nav-text" :to="{ name: 'ContactUs'}">
+            <i class="nav-icon fa fa-phone fa-3x"></i>
+            <span class="nav-text">Contact Us </span>
+          </router-link>
+        </li>
+        <li>
           <router-link class="nav-text" :to="{ name: 'AccountSettings'}">
             <i class="nav-icon fa fa-cog fa-3x"></i>
             <span class="nav-text">Settings </span>

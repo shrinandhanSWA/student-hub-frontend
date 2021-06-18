@@ -114,6 +114,11 @@
       <base-input
         v-model="hobbies"></base-input>
     </div>
+    <div class="honour-code">
+      <label class="label">
+           By signing up, you agree to abide by our <a href="honour-code" target="_blank">honour code </a>
+      </label>
+    </div>
     <base-button
       :disabled="loading"
     >
@@ -216,6 +221,10 @@
 <style lang="stylus" scoped>
   .field
     margin-bottom: 20px
+      
+  .honour-code
+    margin-bottom: 30px
+    margin-left: 30px
 
   .label
     display: block
@@ -223,6 +232,7 @@
 
   .base-button
     width: 100%
+    margin-top: 30px
 
   .error-message
     text-align: center
