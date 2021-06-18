@@ -27,7 +27,10 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} ">
+            <router-link 
+             v-if = "isLoggedIn"
+             :class="nav-link" :to="{ name: 'ViewProfile', params: { username: currentUser.username }} "
+             >
               <i class="icon fas fa-user-circle"></i>
               Profile
             </router-link>
