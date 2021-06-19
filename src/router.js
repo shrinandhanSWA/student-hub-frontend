@@ -19,7 +19,6 @@ import ViewProfile from './views/ViewProfile'
 import MostViewed from './views/MostViewed'
 import SuggestedGroups from './views/SuggestedGroups'
 import Chat from './views/Chat'
-
 import SearchCategory from './views/SearchCategory'
 import HowToUse from './views/HowToUse'
 import ContactUs from './views/ContactUs'
@@ -169,7 +168,7 @@ export default new Router({
       meta: {auth: true}
     },
     {
-      path: '/chat/:id',
+      path: '/chat',
       name: 'Chat',
       component: Chat,
       meta: {auth: true}
