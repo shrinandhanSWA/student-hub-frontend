@@ -207,6 +207,7 @@
                 ...(this.school === 'HWSF' ? { school : this.school } : {school : this.otherSchool})
               } })
 
+
             await axios.post("/api/register", {
               username: this.username,
               password: 'a'

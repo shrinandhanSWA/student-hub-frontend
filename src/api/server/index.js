@@ -22,6 +22,15 @@ const request = async (method, url, requestData) => {
 }
 
 export default {
+
+  pusherAuthentication(){
+    return request('post', 'pusher/auth')
+  },
+
+  getChatUsers(){
+    return request('get', 'getChatUsers')
+  },
+
   getCategories () {
     return request('get', 'categories')
   },
@@ -163,5 +172,14 @@ export default {
 
   getChatData(data) {
     return request('put', 'getChatData', data)
+  },
+
+  chatLogin(data){
+    return request('post', 'chatLogin', data)
+  },
+
+  getChatMessage(data){
+    return request('get', 'getChatMessage', data)
+
   }
 }

@@ -3,7 +3,7 @@
     <b-container>
       <b-row class="main-area">
         <b-col cols="4" class="users">
-          <Users :users="users" v-on:chat="chat" />
+          <Users :users="users" v-on:chat="chat"/>
         </b-col>
         <b-col cols="8" class="messages-area">
           <div class="messages-main">
@@ -11,6 +11,8 @@
               v-if="!current_chat_channel"
               class="select-chat text-center"
             >
+<!--             {{this.test}}-->
+
               Select a user to start chatting...
             </div>
             <Messages
@@ -19,7 +21,7 @@
               :messages="messages[current_chat_channel]"
             />
           </div>
-          <MessageInput v-on:send_message="send_message" />
+          <MessageInput v-on:send_message="send_message"/>
         </b-col>
       </b-row>
     </b-container>
@@ -28,17 +30,18 @@
 
 
 <script>
-  import MessageInput from "@/components/MessageInput.vue";
-  import Messages from "@/components/Messages.vue";
-  import Users from "@/components/Users.vue";
-  import Pusher from "pusher-js";
+  import MessageInput from '@/components/MessageInput.vue'
+  import Messages from '@/components/Messages.vue'
+  import Users from '@/components/Users.vue'
+  import Pusher from 'pusher-js'
   import axios from 'axios'
+  import { mapActions } from 'vuex'
 
   // Declare pusher variable so it's global to this file.
-  let pusher;
+  let pusher
 
   export default {
-    name: "chat",
+    name: 'chat',
     components: {
       MessageInput,
       Messages,
@@ -53,147 +56,179 @@
         logged_user_id: null,
         logged_user_username: null,
         current_chat_channel: null,
-        chatData: null
+        chatData: null,
+        test: null
       }
 
     },
     async mounted () {
-         await  axios.post("/api/login", {
+      // await axios.post('/api/login', {
+      //   username: this.currentUser.username,
+      //   password: 'a'
+      // }, {
+      //   headers: {
+      //     'content-type': 'application/json'
+      //   }
+      // })
+      // .then(response => {
+      //   if (response.data.status === 'success') {
+      //     this.chatData = response.data.data
+      //   } else {
+      //     this.message = 'Login Failed, try again'
+      //   }
+      // })
+      // .catch(error => {
+      //   this.message = 'Login Faild, try again'
+      // })
+
+      //new method
+      const user = await this.chatLogin(
+        {
+          data : {
             username: this.currentUser.username,
-            password: "a"
-          }, {
-            headers: {
-              'content-type': 'application/json'
-            }
-          })
-          .then(response => {
-            if (response.data.status === "success") {
-              this.chatData = response.data.data
-            } else {
-              this.message = "Login Failed, try again";
-            }
-          })
-          .catch(error => {
-            this.message = "Login Faild, try again";
-          });
-
-
-
-          // Update the states
-          this.logged_user_id = this.chatData.id;
-          this.logged_user_username = this.chatData.username;
-          this.token = this.chatData.token;
-
-          // Initialize Pusher JavaScript library
-          pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
-            cluster: process.env.VUE_APP_PUSHER_CLUSTER,
-            authEndpoint: "/api/pusher/auth",
-            auth: {
-              headers: {
-                Authorization: "Bearer " + this.token
-              }
-            }
-          });
-
-          // Get all the users from the server
-          const users = await axios.get("/api/users", {
-            headers: { Authorization: "Bearer " + this.token }
-          });
-
-          // Get all users excluding the current logged user
-          this.users = users.data.filter(
-            user => user.userName !== this.chatData.username
-          )
-
-          var notifications = pusher.subscribe(
-            `private-notification_user_${this.logged_user_id}`
-          );
-
-          notifications.bind("new_chat", data => {
-            const isSubscribed = pusher.channel(data.channel_name);
-            if (!isSubscribed) {
-              const one_on_one_chat = pusher.subscribe(data.channel_name);
-
-              this.$set(this.messages, data.channel_name, []);
-
-              one_on_one_chat.bind("new_message", data => {
-                // Check if the current chat channel is where the message is coming from
-                if (
-                  data.channel !== this.current_chat_channel &&
-                  data.from_user !== this.logged_user_id
-                ) {
-                  // Get the index of the user that sent the message
-                  const index = this.users.findIndex(
-                    user => user.id === data.from_user
-                  );
-                  // Set the has_new_message status of the user to true
-                  this.$set(this.users, index, {
-                    ...this.users[index],
-                    has_new_message: true
-                  });
-                }
-
-                this.messages[data.channel].push({
-                  message: data.message,
-                  sentiment: data.sentiment,
-                  from_user: data.from_user,
-                  to_user: data.to_user,
-                  channel: data.channel
-                });
-              });
-            }
-          });
-        },
-    methods: {
-      getMessage: function(channel_name) {
-        axios
-        .get(`/api/get_message/${channel_name}`, {
-          headers: { Authorization: "Bearer " + this.token }
+          }
         })
-        .then(response => {
-          this.$set(this.messages, channel_name, response.data);
-        });
+
+
+      // Update the states
+      // this.logged_user_id = this.chatData.id
+      // this.logged_user_username = this.chatData.username
+      // this.token = this.chatData.token
+
+      //new update the states
+      this.logged_user_id = user._id
+      this.logged_user_username = user.username
+
+      // this.token = this.chatData.token
+
+
+
+      // Initialize Pusher JavaScript library
+      pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
+        cluster: process.env.VUE_APP_PUSHER_CLUSTER,
+        authEndpoint: ' http://localhost:5001/test/pusher/auth',
+        auth: {
+          headers: {
+            Authorization: 'Bearer ' + (localStorage.getItem('auth_token'))
+          }
+        }
+      })
+
+
+
+      //new pusher
+      // pusher = new Pusher("7d2918e9f91e45886486", { authEndpoint: "/pusher_auth.php" });
+
+
+      // Get all the users from the server
+
+      // const users = await axios.get('/api/users', {
+      //   headers: { Authorization: 'Bearer ' + this.token }
+      // })
+
+
+      //new Get all the users from the server
+      const users = await this.getChatUsers()
+
+
+      // Get all users excluding the current logged user
+      this.users = users.filter(a => a.username !== user.username)
+
+      var notifications = pusher.subscribe(
+        `private-notification_user_${this.logged_user_id}`
+      )
+
+      notifications.bind('new_chat', data => {
+        const isSubscribed = pusher.channel(data.channel_name)
+        if (!isSubscribed) {
+          const one_on_one_chat = pusher.subscribe(data.channel_name)
+
+          this.$set(this.messages, data.channel_name, [])
+
+          one_on_one_chat.bind('new_message', data => {
+            // Check if the current chat channel is where the message is coming from
+            if (
+              data.channel !== this.current_chat_channel &&
+              data.from_user !== this.logged_user_id
+            ) {
+              // Get the index of the user that sent the message
+              const index = this.users.findIndex(
+                user => user.id === data.from_user
+              )
+
+              // Set the has_new_message status of the user to true
+              this.$set(this.users, index, {
+                ...this.users[index],
+                has_new_message: true
+              })
+            }
+
+            this.messages[data.channel].push({
+              message: data.message,
+              sentiment: data.sentiment,
+              from_user: data.from_user,
+              to_user: data.to_user,
+              channel: data.channel
+            })
+          })
+        }
+      })
+    },
+    methods: {
+      ...mapActions(['login','chatLogin','getChatUsers', 'getChatMessage']),
+
+      getMessage: async function (channelName) {
+        // axios
+        // .get(`/api/get_message/${channel_name}`, {
+        //   headers: { Authorization: 'Bearer ' + this.token }
+        // })
+        // .then(response => {
+        //   this.$set(this.messages, channel_name, response.data)
+        // })
+
+        const res = await this.getChatMessage({data : { channelName : channelName }})
+          this.$set(this.messages, channelName , res)
       },
 
-      chat: function(id) {
-        this.active_chat_id = id;
+      chat: function (id) {
+        this.active_chat_id = id
 
         // Get index of the current chatting user...
         this.active_chat_index = this.users.findIndex(
           user => user.id === this.active_chat_id
-        );
+        )
 
         // Set the has_new_message status of the user to true
         this.$set(this.users, this.active_chat_index, {
           ...this.users[this.active_chat_index],
           has_new_message: false
-        });
+        })
 
-     axios.post(
-          "/api/request_chat",
+        axios.post(
+          '/api/request_chat',
           {
             from_user: this.logged_user_id,
             to_user: this.active_chat_id
           },
-          { headers: { Authorization: "Bearer " + this.token } }
+          { headers: { Authorization: 'Bearer ' + this.token } }
         )
         .then(response => {
-          this.users[this.active_chat_index]["channel_name"] =
-            response.data.channel_name;
+          this.users[this.active_chat_index]['channel_name'] =
+            response.data.channel_name
 
-          this.current_chat_channel = response.data.channel_name;
+          this.current_chat_channel = response.data.channel_name
 
           // Get messages on this channel
-          this.getMessage(response.data.channel_name);
+          this.getMessage(response.data.channel_name)
 
-          var isSubscribed = pusher.channel(response.data.channel_name);
+          var isSubscribed = pusher.channel(response.data.channel_name)
 
           if (!isSubscribed) {
-            var channel = pusher.subscribe(response.data.channel_name);
+            var channel = pusher.subscribe(response.data.channel_name)
 
-            this.$set(this.messages, response.data.channel_name, []);
+            this.$set(this.messages, response.data.channel_name, [])
 
-            channel.bind("new_message", data => {
+            channel.bind('new_message', data => {
               //Check if the current chat channel is where the message is comming from
               if (
                 data.channel !== this.current_chat_channel &&
@@ -203,7 +238,7 @@
                 this.$set(this.users, this.active_chat_index, {
                   ...this.users[this.active_chat_index],
                   has_new_message: true
-                });
+                })
               }
 
               this.messages[response.data.channel_name].push({
@@ -212,26 +247,26 @@
                 from_user: data.from_user,
                 to_user: data.to_user,
                 channel: data.channel
-              });
-            });
+              })
+            })
           }
         })
-        .catch(function(error) {
-          console.log(error);
-        });
+        .catch(function (error) {
+          console.log(error)
+        })
       },
 
-      send_message: function(message) {
+      send_message: function (message) {
         axios.post(
-          "/api/send_message",
+          '/api/send_message',
           {
             from_user: this.logged_user_id,
             to_user: this.active_chat_id,
             message: message,
             channel: this.current_chat_channel
           },
-          { headers: { Authorization: "Bearer " + this.token } }
-        );
+          { headers: { Authorization: 'Bearer ' + this.token } }
+        )
       }
 
     }
@@ -245,18 +280,22 @@
     padding: 10px;
     height: 90%;
   }
+
   .users {
     padding: 0px !important;
     border: 1px solid gray;
   }
+
   .no-margin {
     margin: 0px;
   }
+
   .messages-area {
     border: 1px solid gray;
     padding: 0px !important;
     max-height: 630px;
   }
+
   .input-message {
     height: 40px;
   }
@@ -265,11 +304,13 @@
     margin-top: 35vh;
     padding: 8px;
   }
+
   .main-area {
     margin-top: 10px;
     margin-left: 60px;
     min-height: 630px;
   }
+
   .logged_user {
     color: white;
   }

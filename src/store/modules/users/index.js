@@ -17,6 +17,7 @@ export default {
       const { token, user } = await apiClient.updateExtraUserInfo(data)
       localStorage.setItem('auth_token', token)
       commit('SET_USER_DATA', { user })
+
     },
 
     async login ({ commit }, { email, password }) {
