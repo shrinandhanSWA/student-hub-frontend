@@ -25,7 +25,7 @@
       v-if="unseen"></div>
        <span class="upvotes">
         {{ topic.upvotes }}
-        <i class="fa fa-chevron-up"></i>
+        <i class="fas fa-chevron-up"></i>
       </span>
       <span class="views">
         {{ topic.views }}
@@ -53,14 +53,14 @@ export default {
   },
   data () {
     return {
-      unseen: true
+      unseen: false
     }
   },
   methods: {
     ...mapActions(['checkUnseen'])
   },
   async mounted () {
-      try {       
+      try {
         this.unseen = !(await this.checkUnseen({
           topicId: this.topic._id,
           data: {
@@ -77,7 +77,7 @@ export default {
 
 <style lang="stylus" scoped>
 .topic-item
-  background: #FFF
+  background: white
   padding: 15px
   cursor: pointer
   transition: 0.2s background ease-out
@@ -85,6 +85,7 @@ export default {
   text-decoration none
   display: flex
   align-items: center
+  border-radius:10px
 
 .topic-item:hover
   background: #F9F9F9

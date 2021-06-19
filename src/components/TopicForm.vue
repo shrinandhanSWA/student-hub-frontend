@@ -181,6 +181,7 @@ export default {
 
 .field
   margin-bottom: 20px
+  border-radius:10px
 
 .label
   margin-bottom: 3px

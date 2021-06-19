@@ -4,9 +4,8 @@ export default {
   state: {
   },
   actions: {
-    async createChatId ({ commit }, { data }) {
-      const user = await apiClient.getChatId(data)
-      console.log(user)
+    async getChat ({ commit }, { data }) {
+      const user = await apiClient.getChatData(data)
       return user
     }
   },

@@ -11,6 +11,15 @@ module.exports = {
     // Automatic imports
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
     types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
+  },
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        ws: false,
+        changeOrigin: true
+      }
+    }
   }
 }
 

@@ -129,18 +129,50 @@
     cursor: pointer
 
   .join-button {
-    margin-left: 15px
-    color: white
-    cursor: pointer
-    background-color: $primaryColor
-    font-style: normal
-    padding-left: 1em
-    padding-right: 1em
-    border-radius : 10px
-  }
+    display: inline-block;
+    padding: .3rem 1rem;
+    margin-left: 1.3em;
+    font-style: normal;
+    border-radius: 10rem;
+    color: #fff;
+    font-size: 1rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 
-  .join-button:hover{
-    background-color: lighten($primaryColor, 20%)
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $primaryColor;
+      border-radius: 10rem;
+      z-index: -2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: darken($primaryColor, 15%);
+      transition: all .3s;
+      border-radius: 10rem;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: #fff;
+
+      &:before {
+        width: 100%;
+      }
+    }
   }
 
 

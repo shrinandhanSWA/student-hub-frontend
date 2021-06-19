@@ -20,6 +20,11 @@ import MostViewed from './views/MostViewed'
 import SuggestedGroups from './views/SuggestedGroups'
 import Chat from './views/Chat'
 
+import SearchCategory from './views/SearchCategory'
+import HowToUse from './views/HowToUse'
+import ContactUs from './views/ContactUs'
+import HonourCode from './views/HonourCode'
+
 Vue.use(Router)
 
 export default new Router({
@@ -37,6 +42,21 @@ export default new Router({
       meta: {
         guest: true
       }
+    },
+    {
+      path: '/how-to-use',
+      name: 'HowToUse',
+      component: HowToUse
+    },
+    {
+      path: '/contact-us',
+      name: 'ContactUs',
+      component: ContactUs
+    },
+    {
+      path: '/honour-code',
+      name: 'HonourCode',
+      component: HonourCode
     },
     {
       path: '/register',
@@ -67,6 +87,14 @@ export default new Router({
       path: '/all-groups',
       name: 'allGroups',
       component: allGroups,
+     meta: {
+        auth: true
+     }
+    },
+    {
+      path: '/search/:query',
+      name: 'SearchCategory',
+      component: SearchCategory,
       meta: {
         auth: true
       }

@@ -20,7 +20,7 @@
       </label>
       <base-input
         v-model="username"
-        ></base-input>
+      ></base-input>
     </div>
     <div class="field">
       <label class="label">
@@ -52,33 +52,54 @@
       <label class="label">
         Which school do/did you attend?
       </label>
-      <base-input
-        v-model="school"
-        :errors="$v.school"></base-input>
-    </div>
-    <div
-      v-if="role === 'moderator'"
-      class="field"
-    >
-      <label class="label">
-        Which uni do you attend?
-      </label>
-      <base-input
-        v-model="uni"></base-input>
-    </div>
-    <div
-      v-if="role === 'moderator'"
-      class="field"
-    >
-      <label class="label">
-        Which group do you want to moderate?
-      </label>
       <base-select-input
-        v-model="moderateCategory"
-        y-direction="above"
-        :loading-options="loadingCategories"
-        :options="categoryOptions"></base-select-input>
+        v-model="school"
+        :options="schoolOptions"
+        :errors="$v.school"></base-select-input>
     </div>
+
+      <div class="field"
+            v-if="this.school === 'HWSF' ">
+        <label class="label">
+          HWSF Number (if known)
+        </label>
+        <base-input
+          v-model="schoolId"
+          :errors="$v.schoolId"></base-input>
+      </div>
+
+      <div class="field"
+           v-if="this.school === 'Other' "
+           v-model="school">
+        <label class="label">
+          Which school do/did you attend?
+        </label>
+        <base-input
+          v-model="otherSchool"
+          :errors="$v.otherSchool"></base-input>
+      </div>
+
+      <div
+        v-if="role === 'moderator'"
+        class="field"
+      >
+        <label class="label">
+          Which uni do you attend?
+        </label>
+        <base-input
+          v-model="uni"></base-input>
+      </div>
+      <div
+        v-if="role === 'moderator'"
+        class="field"
+      >
+        <label class="label">
+          Which year did you graduate?
+        </label>
+        <base-input
+          v-model="yearOfGrad">
+        </base-input>
+      </div>
     <div class="field">
       <label class="label">
         What are your top 3 interests? (academic or non-academic)
@@ -93,6 +114,11 @@
       <base-input
         v-model="hobbies"></base-input>
     </div>
+    <div class="honour-code">
+      <label class="label">
+           By signing up, you agree to abide by our <a href="honour-code" target="_blank">honour code </a>
+      </label>
+    </div>
     <base-button
       :disabled="loading"
     >
@@ -102,129 +128,135 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { required, email } from 'vuelidate/lib/validators'
+  import { mapActions, mapState } from 'vuex'
+  import { email, required } from 'vuelidate/lib/validators'
+  import BaseSelectInput from './BaseSelectInput'
+  import axios from 'axios'
 
-export default {
-  data () {
-    return {
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-      role: 'user',
-      profileType: 'student',
-      school:'',
-      uni:'',
-      interests:'',
-      hobbies:'',
-      moderateCategory: '',
-      serverErrorMessage: '',
-      loading: false,
-      loadingCategories: false
-    }
-  },
-
-  validations: {
-    name: { required },
-    username : {required},
-    email: { required, email },
-    password: { required },
-    school : {required}
-  },
-
-  computed: {
-    ...mapState({
-      categories: state => state.categories.all
-    }),
-
-    roleOptions () {
-      return [
-        { key: 'user', title: 'Student' },
-        { key: 'moderator', title: 'Alumni' }
-      ]
+  export default {
+    components: { BaseSelectInput },
+    data () {
+      return {
+        name: '',
+        username: '',
+        email: '',
+        password: '',
+        role: 'user',
+        profileType: 'student',
+        school: '',
+        uni: '',
+        interests: '',
+        hobbies: '',
+        moderateCategory: '',
+        serverErrorMessage: '',
+        loading: false,
+        loadingCategories: false,
+        schoolId : null,
+        yearOfGrad: null,
+        otherSchool: ''
+      }
     },
 
-    categoryOptions () {
-      return this.loadingCategories
-        ? []
-        : this.categories.map(category => ({
-          key: category.slug,
-          title: category.title
-        }))
-    }
-  },
+    validations: {
+      name: { required },
+      username: { required },
+      email: { required, email },
+      password: { required },
+      school: { required }
+    },
 
-  async mounted () {
-    this.loadingCategories = true
-    await this.loadCategories()
-    this.loadingCategories = false
-    if (this.role === 'moderator') {
-      this.moderateCategory = this.categoryOptions[0].key
-    }
-  },
+    computed: {
+      ...mapState({
+        categories: state => state.categories.all
+      }),
 
-  watch: {
-    role (role) {
-      this.moderateCategory = role === 'moderator'
-        ? this.categoryOptions[0].key
-        : ''
-    }
-  },
+      roleOptions () {
+        return [
+          { key: 'user', title: 'School Student' },
+          { key: 'moderator', title: 'University Student' }
+        ]
+      },
+      schoolOptions () {
+        return [
+          { key: 'HWSF', title: 'HWSF' },
+          { key: 'Other', title: 'Other' }
+        ]
+      }
+    },
 
-  methods: {
-    ...mapActions(['registerUser', 'loadCategories']),
-    async submit () {
-      this.$v.$touch()
-      if (!this.$v.$anyError) {
-        try {
-          this.loading = true
-          await this.registerUser({
-            data: {
+    methods: {
+      ...mapActions(['registerUser']),
+      async submit () {
+        this.$v.$touch()
+        if (!this.$v.$anyError) {
+          try {
+            this.loading = true
+            await this.registerUser({
+              data: {
+                username: this.username,
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                role: this.role,
+                moderateCategory: this.moderateCategory,
+                uni: this.uni,
+                interests: this.interests,
+                hobbies: this.hobbies,
+                schoolId: this.schoolId,
+                yearOfGrad: this.yearOfGrad,
+                ...(this.school === 'HWSF' ? { school : this.school } : {school : this.otherSchool})
+              } })
+
+            await axios.post("/api/register", {
               username: this.username,
-              name: this.name,
-              email: this.email,
-              password: this.password,
-              role: this.role,
-              moderateCategory: this.moderateCategory,
-              school : this.school,
-              uni: this.uni,
-              interests: this.interests,
-              hobbies: this.hobbies
-            }
-          })
-          this.loading = false
-          this.$router.push({ name: 'Login' })
-        } catch (err) {
-          this.serverErrorMessage = err.data.message
-          this.loading = false
+              password: 'a'
+            }, {
+              headers: {
+                'content-type': 'application/json'
+              }
+            })
+            .then(response => {})
+            .catch(error => {
+              this.message = "Login Faild, try again";
+            });
+
+            this.loading = false
+            this.$router.push({ name: 'Login' })
+          } catch (err) {
+            this.serverErrorMessage = err.data.message
+            this.loading = false
+          }
         }
       }
     }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
-.field
-  margin-bottom: 20px
+  .field
+    margin-bottom: 20px
 
-.label
-  display: block
-  margin-bottom: 3px
+  .honour-code
+    margin-bottom: 30px
+    margin-left: 30px
 
-.base-button
-  width: 100%
+  .label
+    display: block
+    margin-bottom: 3px
 
-.error-message
-  text-align: center
-  display: block
-  margin-bottom: 10px
-  color: $errorColor
+  .base-button
+    width: 100%
+    margin-top: 30px
 
-.categories-spinner
-  display: flex
-  justify-content: center
-  align-items: center
-  margin-bottom: 15px
+  .error-message
+    text-align: center
+    display: block
+    margin-bottom: 10px
+    color: $errorColor
+
+  .categories-spinner
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 15px
 </style>

@@ -33,6 +33,14 @@ export default {
     return request('put', 'suggested-categories', data)
   },
 
+  getSearchCategories (data) {
+    return request('put', 'search-categories', data)
+  },
+
+  getDashboardCategories (data){
+    return request('put', 'dashboard-categories', data)
+  },
+
   getCategory (categorySlug) {
     return request('get', `categories/${categorySlug}`)
   },
@@ -153,7 +161,7 @@ export default {
     return request('delete', `groups-remove/${categorySlug}`)
   },
 
-  getChatId(data) {
-    return request('post', 'getChatId', data)
+  getChatData(data) {
+    return request('put', 'getChatData', data)
   }
 }

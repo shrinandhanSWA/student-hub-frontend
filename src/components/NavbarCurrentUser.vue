@@ -19,7 +19,7 @@
     computed: {
       options () {
         return [
-          { key: 'profile', title: 'Profile' },
+          { key: 'settings', title: 'Settings' },
           { key: 'logout', title: 'Log out' }
         ]
       },
@@ -30,9 +30,9 @@
       onSelect (optionKey) {
         if (optionKey === 'logout') {
           this.logout()
-          this.$router.push({ name: 'Home' })
-        } else if (optionKey === 'profile') {
-          this.$router.push({ name: 'ViewProfile' , params: {username: this.currentUser.username }})
+          this.$router.push({ name: 'Login' })
+        } else if (optionKey === 'settings') {
+          this.$router.push({ name: 'AccountSettings'})
         }
       }
     }

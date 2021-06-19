@@ -16,7 +16,7 @@
     </div>
 
     <div
-      v-if="userCategories.length === 0 && isLoggedIn"
+      v-if="DashboardCategories.length === 0 && isLoggedIn"
       class="message"
     >
       You have not joined any groups. Click
@@ -25,18 +25,18 @@
         :to="{ name: 'SuggestedGroups'}"
       > here</router-link>
 
-       to browse suggested groups, or click
+      to browse suggested groups, or click
       <router-link
         v-if="isLoggedIn"
         :to="{ name: 'allGroups'}"
       > here</router-link>
-       to browse all groups.
+      to browse all groups.
 
     </div>
 
     <user-category-item
       v-else
-      v-for="category in userCategories"
+      v-for="category in DashboardCategories"
       :key="category._id"
       :category="category"
     />
@@ -57,13 +57,13 @@
     },
     computed: {
       ...mapState({
-        userCategories: state => state.userCategories.all
+        DashboardCategories: state => state.userCategories.dashboard
       })
     },
 
     async mounted () {
       try {
-        await this.loadUserCategories({
+        await this.loadDashboardCategories({
           data: {
             email: this.currentUser.email
           }
@@ -76,7 +76,7 @@
     },
 
     methods: {
-      ...mapActions(['loadUserCategories'])
+      ...mapActions(['loadDashboardCategories'])
     }
   }
 </script>
