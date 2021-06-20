@@ -179,7 +179,16 @@ export default {
   },
 
   getChatMessage(data){
-    return request('get', 'getChatMessage', data)
+    return request('post', 'getChatMessage', data)
+  },
 
+  requestChat(data){
+    return request('post', 'requestChat', data)
+  },
+
+  sendMessage(data){
+    return request('post', 'sendMessage', data)
   }
+
+
 }
