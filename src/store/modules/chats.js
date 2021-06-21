@@ -22,6 +22,7 @@ export default {
 
     async requestChat ({ commit }, {data }) {
       const res = await apiClient.requestChat(data)
+      console.log(res.data.channel_name)
       return res
     },
 
