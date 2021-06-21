@@ -1,18 +1,15 @@
-from flask import Flask, request, jsonify, render_template, redirect,current_app, url_for
-import os
-import pusher
-
-
+from flask import Flask, request, jsonify, render_template, redirect
 from database import db_session
 from models import User, Channel, Message
 from werkzeug.security import generate_password_hash, check_password_hash
-from textblob import TextBlob
-
 from flask_jwt_extended import (
   JWTManager, jwt_required, create_access_token,
   get_jwt_identity
 )
+from textblob import TextBlob
 
+import os
+import pusher
 
 app = Flask(__name__)
 
@@ -23,13 +20,19 @@ pusher = pusher.Pusher(
   cluster=os.getenv('PUSHER_CLUSTER'),
   ssl=True)
 
-app.config['JWT_SECRET_KEY'] = 'secret'
+app.config['JWT_SECRET_KEY'] = 'secret'  # Change this!
 jwt = JWTManager(app)
 
 
 @app.route('/')
 def index():
   return jsonify("Pong!")
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+  db_session.remove()
+
 
 @app.route('/api/register', methods=["POST"])
 def register():
@@ -51,6 +54,7 @@ def register():
     "status": "success",
     "message": "User added successfully"
   }), 201
+
 
 @app.route('/api/login', methods=["POST"])
 def login():
@@ -119,6 +123,7 @@ def request_chat():
 
   return jsonify(data)
 
+
 @app.route("/api/pusher/auth", methods=['POST'])
 @jwt_required
 def pusher_authentication():
@@ -161,6 +166,7 @@ def send_message():
 
   return jsonify(message)
 
+
 @app.route('/api/users')
 @jwt_required
 def users():
@@ -173,7 +179,7 @@ def users():
 @app.route('/api/get_message/<channel_id>')
 @jwt_required
 def user_messages(channel_id):
-  messages = Message.query.filter( Message.channel_id == channel_id ).all()
+  messages = Message.query.filter(Message.channel_id == channel_id).all()
 
   return jsonify([
     {
@@ -187,14 +193,10 @@ def user_messages(channel_id):
     for message in messages
   ])
 
+
 def getSentiment(message):
   text = TextBlob(message)
-  return {'polarity' : text.polarity }
-
-
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-  db_session.remove()
+  return {'polarity': text.polarity}
 
 # run Flask app
 if __name__ == "__main__":
