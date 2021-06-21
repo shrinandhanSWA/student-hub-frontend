@@ -171,7 +171,7 @@
         for (let i = 0; i < this.users.length; i++) {
           if (this.users[i].id === this.active_chat_id) {
             this.active_user_avatar = this.users[i].avatarLocation
-            this.active_user_name = this.users[i].username
+            this.active_user_name = this.users[i].name
             break;
           }
         }
@@ -236,8 +236,6 @@
               channel: data.channel,
               createdAt: Date.now()
             })
-
-
           })
         }
 

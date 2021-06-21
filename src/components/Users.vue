@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div id="user-item" v-for="(user, id) in users" v-bind:key="id">
+    <div id="box" class="user" v-for="(user, id) in users" v-bind:key="id">
       <chat-avatar class="avatar" :src="user.avatarLocation"></chat-avatar>
       <div
-        v-bind:class="[activeUser === user.id ? 'user active' : 'user']"
+        v-bind:class="[activeUser === user.id ? 'active' : 'non-active']"
         v-on:click="chat(user.id)"
       >
         <h2>{{user.username}}</h2>
@@ -36,48 +36,38 @@
 </script>
 <style scoped>
   .user {
-    margin-bottom: 20px;
+    padding-top:30px;
+    padding-bottom: 50px;
+    width: 250px;
+    height:70px;
     border-bottom: 1px solid gray;
   }
 
-  #user-item {
-    padding: 10px 0;
-  }
-
-  #user-item:hover {
+  .user:hover {
     background-color: #5e616a;
   }
 
-  h2, h3 {
-    margin: 0;
-  }
 
   .avatar {
     border-radius: 50%;
     margin-left: 20px;
-    margin-right: 8px;
+    text-align: center;
   }
 
-  #user-item div {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 12px;
+
+  .active + .user {
+     background-color: #5e616a;
   }
 
-  .active {
-    background-color: #5e616a;
-    color: white;
-
-  }
-
-  .user h2 {
+  h2 {
     font-size: 14px;
     color: #fff;
+    margin-top: -35px;
     font-weight: normal;
-    margin-top:15px
+    margin-left: 85px;
   }
 
-  #user-item h3 {
+   h3 {
     font-size: 12px;
     color: #7e818a;
     font-weight: normal;
