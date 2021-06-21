@@ -31,6 +31,7 @@
         </li>
 
         <Messages
+          v-else
           :active_chat="active_chat_id"
           :active_chat_name="active_user_name"
           :messages="messages[current_chat_channel]"
@@ -89,7 +90,7 @@
       // Initialize Pusher JavaScript library
       pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
         cluster: process.env.VUE_APP_PUSHER_CLUSTER,
-        authEndpoint: 'http://localhost:5001/test/pusher/auth',
+        authEndpoint: 'https://student-alumni-hub-backend.herokuapp.com/test/pusher/auth',
         auth: {
           headers: {
             Authorization: 'Bearer ' + (localStorage.getItem('auth_token'))
@@ -103,7 +104,7 @@
       // Get all users excluding the current logged user
       this.users = users.filter(a => a.username !== this.currentUser.username)
 
-      var notifications = pusher.subscribe(
+      var notifications =  pusher.subscribe(
         `private-notification_user_${this.logged_user_id}`
       )
 
@@ -116,7 +117,7 @@
 
           this.$set(this.messages, data.channel_name, [])
 
-          one_on_one_chat.bind('new_message', data => {
+          one_on_one_chat.bind('new_message', async  (data) => {
 
             // Check if the current chat channel is where the message is coming from
             if (data.channel !== this.current_chat_channel &&
@@ -141,6 +142,10 @@
               channel: data.channel,
               createdAt: Date.now()
             })
+
+            // const temp = data.channel
+            // this.messages[data.channel] = await this.getChatMessage({ data: { channel_name : temp}})
+
           })
         }
       })
@@ -191,7 +196,7 @@
         this.current_chat_channel = response.data.channel_name
 
         // Get messages on this channel
-        this.getMessage(response.data.channel_name)
+        await this.getMessage(response.data.channel_name)
 
         var isSubscribed = pusher.channel(response.data.channel_name)
 
@@ -200,7 +205,7 @@
 
           this.$set(this.messages, response.data.channel_name, [])
 
-          channel.bind('new_message', data => {
+          channel.bind('new_message', async (data) => {
             //Check if the current chat channel is where the message is comming from
             if (
               data.channel !== this.current_chat_channel &&
@@ -213,13 +218,17 @@
               })
             }
 
-            this.messages[response.data.channel_name].push({
+             this.messages[response.data.channel_name].push({
               message: data.message,
               from_user: data.from_user,
               to_user: data.to_user,
               channel: data.channel,
               createdAt: Date.now()
             })
+
+            // const temp = data.channel
+            // this.messages[data.channel] = await this.getChatMessage({ data: { channel_name : temp} })
+
           })
         }
       },
