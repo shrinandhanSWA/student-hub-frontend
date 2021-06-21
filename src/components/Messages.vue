@@ -4,7 +4,7 @@
       <div class="chat-message col-md-5"
            v-bind:class="[(message.fromUser === active_chat) ? 'to-message' : 'from-message offset-md-7']">
         <div class="entete">
-          <h2>{{active_chat_name}}</h2>
+          <h2>{{(message.fromUser === active_chat) ? active_chat_name : currentUser.name}}</h2>
           <h3>{{ message.createdAt | humanizeDate}}</h3>
         </div>
         {{message.message}}
