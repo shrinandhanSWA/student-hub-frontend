@@ -90,7 +90,7 @@
       // Initialize Pusher JavaScript library
       pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
         cluster: process.env.VUE_APP_PUSHER_CLUSTER,
-        authEndpoint: ' http://localhost:5001/test/pusher/auth',
+        authEndpoint: 'https://student-alumni-hub-backend.herokuapp.com/test/pusher/auth',
         auth: {
           headers: {
             Authorization: 'Bearer ' + (localStorage.getItem('auth_token'))
