@@ -90,13 +90,14 @@
       // Initialize Pusher JavaScript library
       pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
         cluster: process.env.VUE_APP_PUSHER_CLUSTER,
-        authEndpoint: 'https://student-alumni-hub-backend.herokuapp.com/test/pusher/auth',
+        authEndpoint: 'http://localhost:5001/test/pusher/auth',
         auth: {
           headers: {
             Authorization: 'Bearer ' + (localStorage.getItem('auth_token'))
           }
         }
       })
+
 
       //new Get all the users from the server
       const users = await this.getChatUsers()
@@ -112,6 +113,7 @@
 
         const isSubscribed = pusher.channel(data.channel_name)
 
+
         if (!isSubscribed) {
           const one_on_one_chat = pusher.subscribe(data.channel_name)
 
@@ -121,11 +123,11 @@
 
             // Check if the current chat channel is where the message is coming from
             if (data.channel !== this.current_chat_channel &&
-              data.from_user !== this.logged_user_id
+              data.fromUser !== this.logged_user_id
             ) {
               // Get the index of the user that sent the message
               const index = this.users.findIndex(
-                user => user.id === data.from_user
+                user => user.id === data.fromUser
               )
 
               // Set the has_new_message status of the user to true
@@ -137,14 +139,11 @@
 
             this.messages[data.channel].push({
               message: data.message,
-              from_user: data.from_user,
-              to_user: data.to_user,
+              fromUser: data.fromUser,
+              toUser: data.toUser,
               channel: data.channel,
               createdAt: Date.now()
             })
-
-            // const temp = data.channel
-            // this.messages[data.channel] = await this.getChatMessage({ data: { channel_name : temp}})
 
           })
         }
@@ -157,17 +156,23 @@
       getMessage: async function (channel_name) {
         const res = await this.getChatMessage({ data: { channel_name } })
         this.messages_length = res.length
-        this.$set(this.messages, channel_name, res)
+
+         this.$set(this.messages, channel_name, res)
+
+        console.log(this.messages[channel_name])
+
       },
 
       chat: async function (id) {
         this.active_chat_id = id
 
+        console.log("the other persons id:" + this.active_chat_id)
+
         for (let i = 0; i < this.users.length; i++) {
           if (this.users[i].id === this.active_chat_id) {
             this.active_user_avatar = this.users[i].avatarLocation
             this.active_user_name = this.users[i].username
-            break
+            break;
           }
         }
 
@@ -185,8 +190,8 @@
         //new
         const response = await this.requestChat({
           data: {
-            from_user: this.logged_user_id,
-            to_user: this.active_chat_id
+            fromUser: this.logged_user_id,
+            toUser: this.active_chat_id
           }
         })
 
@@ -195,10 +200,15 @@
 
         this.current_chat_channel = response.data.channel_name
 
+        console.log("channel name:" + this.current_chat_channel)
+
+
         // Get messages on this channel
         await this.getMessage(response.data.channel_name)
 
+
         var isSubscribed = pusher.channel(response.data.channel_name)
+
 
         if (!isSubscribed) {
           var channel = pusher.subscribe(response.data.channel_name)
@@ -209,7 +219,7 @@
             //Check if the current chat channel is where the message is comming from
             if (
               data.channel !== this.current_chat_channel &&
-              data.from_user !== this.logged_user_id
+              data.fromUser !== this.logged_user_id
             ) {
               // Set the has_new_message status of the user to true
               this.$set(this.users, this.active_chat_index, {
@@ -218,31 +228,33 @@
               })
             }
 
-             this.messages[response.data.channel_name].push({
+
+            this.messages[response.data.channel_name].push({
               message: data.message,
-              from_user: data.from_user,
-              to_user: data.to_user,
+              fromUser: data.fromUser,
+              toUser: data.toUser,
               channel: data.channel,
               createdAt: Date.now()
             })
 
-            // const temp = data.channel
-            // this.messages[data.channel] = await this.getChatMessage({ data: { channel_name : temp} })
 
           })
         }
+
       },
       send_message: async function (message) {
         await this.sendMessage({
           data:
             {
-              from_user: this.logged_user_id,
-              to_user: this.active_chat_id,
+              fromUser: this.logged_user_id,
+              toUser: this.active_chat_id,
               message: message,
               channel: this.current_chat_channel,
               createdAt: Date.now()
             }
         })
+
+
         this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight
           - this.$refs.chatbox.clientHeight
       }

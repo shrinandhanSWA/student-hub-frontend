@@ -5,30 +5,24 @@ export default {
   },
   actions: {
     async getChat ({ commit }, { data }) {
-      const user = await apiClient.getChatData(data)
-      return user
+      return await apiClient.getChatData(data)
     },
     async chatLogin ({ commit }, { data }) {
-      const user = await apiClient.chatLogin(data)
-      return user
+      return await apiClient.chatLogin(data)
     },
     async getChatUsers ({ commit }) {
-      const users =  await apiClient.getChatUsers()
-      return users
+      return await apiClient.getChatUsers()
     },
     async getChatMessage ({ commit }, {data }) {
       return await apiClient.getChatMessage(data)
     },
 
     async requestChat ({ commit }, {data }) {
-      const res = await apiClient.requestChat(data)
-      console.log(res.data.channel_name)
-      return res
+      return await apiClient.requestChat(data)
     },
 
     async sendMessage ({ commit }, {data }) {
-      const res = await apiClient.sendMessage(data)
-      return res
+      return await apiClient.sendMessage(data)
     },
 
   },

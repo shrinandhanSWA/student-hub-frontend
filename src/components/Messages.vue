@@ -2,9 +2,9 @@
   <div>
     <div v-for="(message, id) in messages" v-bind:key="id">
       <div class="chat-message col-md-5"
-           v-bind:class="[(message.fromUser === active_chat) ? 'to-message' : 'from-message offset-md-7']">
+           v-bind:class="[(message.fromUser.toLocaleString().localeCompare(active_chat) === 0) ? 'to-message' : 'from-message offset-md-7']">
         <div class="entete">
-          <h2>{{(message.fromUser === active_chat) ? active_chat_name : currentUser.name}}</h2>
+          <h2>{{(message.fromUser.toLocaleString().localeCompare(active_chat) === 0) ? active_chat_name : currentUser.name}}</h2>
           <h3>{{ message.createdAt | humanizeDate}}</h3>
         </div>
         {{message.message}}
