@@ -2,9 +2,8 @@
   <div>
     <div v-for="(message, id) in messages" v-bind:key="id">
       <div class="chat-message col-md-5"
-           v-bind:class="[(message.from_user === active_chat) ? 'to-message' : 'from-message offset-md-7']">
+           v-bind:class="[(message.fromUser === active_chat) ? 'to-message' : 'from-message offset-md-7']">
         {{message.message}}
-        {{ getSentiment(message.sentiment.polarity) }}
       </div>
     </div>
   </div>
@@ -33,7 +32,7 @@
     },
     props: {
       messages: Array,
-      active_chat: Number
+      active_chat: String
     }
   };
 </script>
