@@ -207,20 +207,6 @@
                 ...(this.school === 'HWSF' ? { school : this.school } : {school : this.otherSchool})
               } })
 
-
-            await axios.post("/api/register", {
-              username: this.username,
-              password: 'a'
-            }, {
-              headers: {
-                'content-type': 'application/json'
-              }
-            })
-            .then(response => {})
-            .catch(error => {
-              this.message = "Login Faild, try again";
-            });
-
             this.loading = false
             this.$router.push({ name: 'Login' })
           } catch (err) {

@@ -4,32 +4,31 @@
       <header>
         <input type="text" placeholder="search">
       </header>
-     <ul>
-       <Users :users="users" v-on:chat="chat"/>
-     </ul>
+      <ul>
+        <Users :users="users" v-on:chat="chat"/>
+      </ul>
     </aside>
     <main id="main">
       <header>
-       <chat-avatar
-         class="avatar"
-         v-if="current_chat_channel"
-         :src="this.active_user_avatar" :size="70"></chat-avatar>
+        <chat-avatar
+          class="avatar"
+          v-if="current_chat_channel"
+          :src="active_user_avatar" :size="70"></chat-avatar>
         <div>
           <h2 v-if="current_chat_channel"
-          >Chat with {{this.active_user_name}}</h2>
-          <h3 v-if="current_chat_channel" >
-            {{this.messages_length}} messages exchanged
-           </h3>
+          >Chat with {{active_user_name}}</h2>
+          <h3 v-if="current_chat_channel">
+            {{messages_length}} messages exchanged
+          </h3>
         </div>
-        {{this.test}}
       </header>
       <ul id="chat" ref="chatbox">
-          <li
-            v-if="!current_chat_channel"
-            class="select-chat text-center"
-          >
-            Select a user to start chatting...
-          </li>
+        <li
+          v-if="!current_chat_channel"
+          class="select-chat text-center"
+        >
+          Select a user to start chatting...
+        </li>
 
         <Messages
           :active_chat="active_chat_id"
@@ -90,7 +89,7 @@
       // Initialize Pusher JavaScript library
       pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
         cluster: process.env.VUE_APP_PUSHER_CLUSTER,
-        authEndpoint: 'https://student-alumni-hub-backend.herokuapp.com/test/pusher/auth',
+        authEndpoint: 'http://localhost:5001/test/pusher/auth',
         auth: {
           headers: {
             Authorization: 'Bearer ' + (localStorage.getItem('auth_token'))
@@ -109,9 +108,9 @@
       )
 
       notifications.bind('new_chat', data => {
-        this.test = data.channel_name
 
         const isSubscribed = pusher.channel(data.channel_name)
+
         if (!isSubscribed) {
           const one_on_one_chat = pusher.subscribe(data.channel_name)
 
@@ -120,8 +119,7 @@
           one_on_one_chat.bind('new_message', data => {
 
             // Check if the current chat channel is where the message is coming from
-            if (
-              data.channel !== this.current_chat_channel &&
+            if (data.channel !== this.current_chat_channel &&
               data.from_user !== this.logged_user_id
             ) {
               // Get the index of the user that sent the message
@@ -160,11 +158,11 @@
       chat: async function (id) {
         this.active_chat_id = id
 
-        for(let i = 0 ; i < this.users.length; i++){
-          if(this.users[i].id === this.active_chat_id){
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].id === this.active_chat_id) {
             this.active_user_avatar = this.users[i].avatarLocation
             this.active_user_name = this.users[i].username
-            break;
+            break
           }
         }
 
@@ -204,7 +202,6 @@
 
           channel.bind('new_message', data => {
             //Check if the current chat channel is where the message is comming from
-
             if (
               data.channel !== this.current_chat_channel &&
               data.from_user !== this.logged_user_id
@@ -226,7 +223,6 @@
           })
         }
       },
-
       send_message: async function (message) {
         await this.sendMessage({
           data:
@@ -238,7 +234,8 @@
               createdAt: Date.now()
             }
         })
-        this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight - this.$refs.chatbox.clientHeight;
+        this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight
+          - this.$refs.chatbox.clientHeight
       }
 
     }
@@ -247,142 +244,150 @@
 </script>
 
 <style>
-  *{
-    box-sizing:border-box;
+  * {
+    box-sizing: border-box;
   }
 
-  #container{
-    width:1000px;
-    height:630px;
-    background:#eff3f7;
-    margin:0 auto;
-    font-size:0;
-    border-radius:5px;
-    overflow:hidden;
+  #container {
+    width: 1000px;
+    height: 630px;
+    background: #eff3f7;
+    margin: 0 auto;
+    font-size: 0;
+    border-radius: 5px;
+    overflow: hidden;
   }
 
-  aside{
-    width:260px;
-    height:630px;
-    background-color:#3b3e49;
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
+  aside {
+    width: 260px;
+    height: 630px;
+    background-color: #3b3e49;
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: top;
   }
 
-  main{
-    width:740px;
-    height:630px;
-    display:inline-block;
-    font-size:15px;
-    vertical-align:top;
+  main {
+    width: 740px;
+    height: 630px;
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: top;
   }
 
-  aside header{
-    padding:30px 20px;
-  }
-  aside input{
-    width:100%;
-    height:50px;
-    line-height:50px;
-    padding:0 50px 0 20px;
-    background-color:#5e616a;
-    border:none;
-    border-radius:3px;
-    color:#fff;
-    background-image:url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png');
-    background-repeat:no-repeat;
-    background-position:170px;
-    background-size:40px;
+  aside header {
+    padding: 30px 20px;
   }
 
-  aside input::placeholder{
-    color:#fff;
+  aside input {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 50px 0 20px;
+    background-color: #5e616a;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png');
+    background-repeat: no-repeat;
+    background-position: 170px;
+    background-size: 40px;
   }
 
-  aside ul{
+  aside input::placeholder {
+    color: #fff;
+  }
+
+  aside ul {
     padding-left: 0;
-    margin:0;
-    list-style-type:none;
-    overflow-y:scroll;
-    height:520px;
+    margin: 0;
+    list-style-type: none;
+    overflow-y: scroll;
+    height: 520px;
     color: white;
   }
-  main header{
-    height:110px;
-    padding:30px 20px 30px 40px;
-  }
-  main header > *{
-    display:inline-block;
-    vertical-align:top;
-  }
-  main header img:first-child{
-    border-radius:50%;
-  }
-  main header img:last-child{
-    width:24px;
-    margin-top:8px;
-  }
-  main header div{
-    margin-left:10px;
-    margin-right:145px;
-  }
-  main header h2{
-    font-size:16px;
-    margin-top: 5px;
-    margin-bottom:5px;
-  }
-  main header h3{
-    font-size:14px;
-    font-weight:normal;
-    margin-top:5px
+
+  main header {
+    height: 110px;
+    padding: 30px 20px 30px 40px;
   }
 
-  #chat{
-    padding-left:0;
-    list-style-type:none;
-    overflow-y:scroll;
-    height:455px;
-    border-top:2px solid white;
-    border-bottom:2px solid white;
+  main header > * {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  main header img:first-child {
+    border-radius: 50%;
+  }
+
+  main header img:last-child {
+    width: 24px;
+    margin-top: 8px;
+  }
+
+  main header div {
+    margin-left: 10px;
+    margin-right: 145px;
+  }
+
+  main header h2 {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  main header h3 {
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: 5px
+  }
+
+  #chat {
+    padding-left: 0;
+    list-style-type: none;
+    overflow-y: scroll;
+    height: 455px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
     display: flex;
     flex-direction: column-reverse;
   }
 
-  #chat h3{
-    display:inline-block;
-    font-size:13px;
-    font-weight:normal;
+  #chat h3 {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
     color: white;
   }
 
   #chat h2 {
-    display:inline-block;
-    font-size:14px;
-    font-weight:normal;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
     color: white;
   }
 
-  main footer{
-    height:80px;
-    display:flex
+  main footer {
+    height: 80px;
+    display: flex
   }
 
   main footer #message-input {
-    resize:none;
-    border:none;
-    display:block;
+    resize: none;
+    border: none;
+    display: block;
     margin-bottom: 30px;
     margin-left: 10px;
     width: 45%;
-    height:40px;
-    border-radius:3px;
-    font-size:13px;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 13px;
 
   }
 
-  main footer #message-input::placeholder{
-    color:#ddd;
+  main footer #message-input::placeholder {
+    color: #ddd;
   }
 
   .select-chat {
@@ -391,7 +396,7 @@
   }
 
   .avatar {
-    margin-right:-1px;
+    margin-right: -1px;
     margin-top: -15px;
   }
 
@@ -400,7 +405,7 @@
   }
 
   /* Track */
-   aside ::-webkit-scrollbar-track {
+  aside ::-webkit-scrollbar-track {
     background: #3b3e49;
   }
 
