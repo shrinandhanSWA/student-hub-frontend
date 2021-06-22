@@ -3,11 +3,7 @@
     <form method="post">
       <div class="row">
         <div class="col-md-4">
-          <div class="profile-img">
-            <img
-              :src="users.avatarLocation"
-              alt=""/>
-          </div>
+          <base-avatar class="profile-img" :src="users.avatarLocation" :name="users.name" :size="200"></base-avatar>
         </div>
         <div class="col-md-6">
           <div class="profile-head">

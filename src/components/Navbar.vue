@@ -15,13 +15,14 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Chat' }">
+            <router-link class="nav-link" v-if = "isLoggedIn" :to="{ name: 'Chat' }">
               <i class="fas fa-comments"></i>
               Chat
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" 
+            v-if = "isLoggedIn"
             :to="{ name: 'Category', params: { categorySlug: 'student-finance'} }">
             <i class="fas fa-pound-sign"></i>
               Student Finance
@@ -29,6 +30,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" 
+            v-if = "isLoggedIn"
             :to="{ name: 'Category', params: { categorySlug: 'careers-and-jobs'} }">
               <i class="fas fa-briefcase"></i>
               Careers and Jobs
@@ -36,6 +38,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" 
+            v-if = "isLoggedIn"
             :to="{ name: 'Category', params: { categorySlug: 'relationships-and-health'} }"> 
               <i class="fas fa-heartbeat"></i>
               Relationships and Health
@@ -56,6 +59,9 @@
 
       <div class="avatar-item">
         <navbar-current-user v-if="isLoggedIn"/>
+        <template v-if="isLoggedIn">
+          
+        </template>
         <template v-else>
           <router-link class="nav-button"
                   :to="{ name: 'Register' }"

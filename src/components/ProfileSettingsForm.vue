@@ -7,7 +7,7 @@
 <!--        :height="250"-->
 <!--        :crop="true"-->
 <!--        @input="avatar = arguments[0]"></base-image-input>-->
-      <img class="preview" :src="currentUser.avatarLocation" alt="no avatar">
+      <base-avatar :src="this.currentUser.avatarLocation" :name="this.currentUser.name" :size="200">   </base-avatar>
     </div>
     <div class="choose-design">
       <div class="choose-file-design">

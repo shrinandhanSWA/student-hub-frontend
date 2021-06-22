@@ -6,7 +6,7 @@
         v-bind:class="[activeUser === user.id ? 'active' : 'non-active']"
         v-on:click="chat(user.id)"
       >
-        <h2>{{user.username}}</h2>
+        <a href="#"> <h2> {{user.username}} </h2></a>
         <span v-if="user.has_new_message" class="has_new_message">New message</span>
       </div>
     </div>
@@ -65,12 +65,6 @@
     margin-top: -35px;
     font-weight: normal;
     margin-left: 85px;
-  }
-
-   h3 {
-    font-size: 12px;
-    color: #7e818a;
-    font-weight: normal;
   }
 
   .has_new_message {
