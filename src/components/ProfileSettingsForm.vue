@@ -279,6 +279,7 @@
     display: inline-block
     text-align: center
     background:$buttonColor;
+    position:relative;
     color:#fff;
   }
   .hide_file {
@@ -288,9 +289,9 @@
     cursor: pointer;
     right: 0;
     top: 0;
-    height: 30%;
+    height: 100%;
     font-size: 24px;
-    width: 30%;
+    width: 100%;
 
   }
 
