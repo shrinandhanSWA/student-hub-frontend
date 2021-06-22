@@ -1,5 +1,5 @@
 <template>
-  <div class="password-settings-form page-form">
+  <div class=" password-settings-form page-form">
     <div class="field">
       <label class="label">Current Password</label>
       <base-input

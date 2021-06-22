@@ -27,6 +27,16 @@
             :to="{ name: 'AccountSettings' }">
             <i class="profile-edit-btn"> Edit profile </i>
           </router-link>
+          <router-link
+            v-if="users.name !== currentUser.name"
+            :to="{ name: 'Chat', params : {id : users.id }}">
+            <i
+              class="profile-edit-btn">
+              <i class="message-icon fas fa-paper-plane"></i>
+              Message
+            </i>
+          </router-link>
+
         </div>
       </div>
       <div class="row">
@@ -125,10 +135,6 @@
 
     },
 
-    async mounted()  {
-
-      },
-
     watch: {
       '$route.params.username': {
         immediate: true,
@@ -147,7 +153,10 @@
 
     methods: {
       ...mapActions(['getPublicProfile', 'getChat']),
-
+      chat: function (id) {
+        this.activeUser = id
+        this.$emit('chat', id)
+      }
     }
   }
 </script>
@@ -211,6 +220,10 @@
     cursor: pointer;
     font-style: normal;
     background-color: #0062cc;
+  }
+
+  .message-icon {
+    margin-right: 6px
   }
 
 

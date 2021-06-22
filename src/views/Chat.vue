@@ -83,8 +83,9 @@
         active_user_avatar: '',
         messages_length: 0,
         test: null,
-        search : {text : ''},
-        searchedUsers: []
+        search: { text: '' },
+        searchedUsers: [],
+        incomingId: null
       }
 
     },
@@ -106,28 +107,33 @@
         }
       })
 
-
       //new Get all the users from the server
       const users = await this.getChatUsers()
 
       // Get all users excluding the current logged user
       this.users = users.filter(a => a.username !== this.currentUser.username)
 
-      var notifications =  pusher.subscribe(
+
+      var notifications = pusher.subscribe(
         `private-notification_user_${this.logged_user_id}`
       )
+
+      if(this.incomingId){
+        //idk whats the bug with chat but calling it twice works so
+        this.chat(this.incomingId)
+        this.chat(this.incomingId)
+      }
 
       notifications.bind('new_chat', data => {
 
         const isSubscribed = pusher.channel(data.channel_name)
-
 
         if (!isSubscribed) {
           const one_on_one_chat = pusher.subscribe(data.channel_name)
 
           this.$set(this.messages, data.channel_name, [])
 
-          one_on_one_chat.bind('new_message', async  (data) => {
+          one_on_one_chat.bind('new_message', async (data) => {
 
             // Check if the current chat channel is where the message is coming from
             if (data.channel !== this.current_chat_channel &&
@@ -157,15 +163,23 @@
         }
       })
     },
+    watch: {
+      '$route.params.id': {
+        immediate: true,
+        async handler (id) {
+            this.incomingId =  id
+        }
+      }
+    },
     methods: {
       ...mapActions(
         ['login', 'getChatUsers', 'getChatMessage', 'requestChat', 'sendMessage']),
 
-      search_text() {
-        var inside = this;
-        this.searchedUsers = this.users.filter(function(user) {
-          if (user.name.toLowerCase().indexOf(inside.search.text.toLowerCase()) !== -1 ) {
-            return user;
+      search_text () {
+        var inside = this
+        this.searchedUsers = this.users.filter(function (user) {
+          if (user.name.toLowerCase().indexOf(inside.search.text.toLowerCase()) !== -1) {
+            return user
           }
         })
 
@@ -175,7 +189,7 @@
         const res = await this.getChatMessage({ data: { channel_name } })
         this.messages_length = res.length
 
-         this.$set(this.messages, channel_name, res)
+        this.$set(this.messages, channel_name, res)
 
       },
 
@@ -186,7 +200,7 @@
           if (this.users[i].id === this.active_chat_id) {
             this.active_user_avatar = this.users[i].avatarLocation
             this.active_user_name = this.users[i].name
-            break;
+            break
           }
         }
 
@@ -214,14 +228,10 @@
 
         this.current_chat_channel = response.data.channel_name
 
-
-
         // Get messages on this channel
         await this.getMessage(response.data.channel_name)
 
-
         var isSubscribed = pusher.channel(response.data.channel_name)
-
 
         if (!isSubscribed) {
           var channel = pusher.subscribe(response.data.channel_name)
@@ -264,7 +274,6 @@
             }
         })
 
-
         this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight
           - this.$refs.chatbox.clientHeight
       }
@@ -274,7 +283,7 @@
 
 </script>
 
-<style>
+<style lang="stylus">
   * {
     box-sizing: border-box;
   }
@@ -292,7 +301,7 @@
   aside {
     width: 260px;
     height: 630px;
-    background-color: #3b3e49;
+    background-color: darken(#5161ce, 80%);
     display: inline-block;
     font-size: 15px;
     vertical-align: top;
@@ -437,12 +446,12 @@
 
   /* Track */
   aside ::-webkit-scrollbar-track {
-    background: #3b3e49;
+    background: darken(#5161ce, 80%);
   }
 
   /* Handle */
   aside ::-webkit-scrollbar-thumb {
-    background: #4844ff;
+    background: gray;
   }
 
   /* Handle on hover */

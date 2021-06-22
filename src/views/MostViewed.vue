@@ -15,9 +15,9 @@
               Sort By
             </button>
             <div class="dropdown-content">
-              <a href="popular">Most Popular</a>
-              <a href="newest">Most Recent</a>
-              <a href="">Most Views </a>
+              <router-link  :to="{name :'Category'}">Most Popular</router-link>
+              <router-link  :to="{name :'NewestPosts'}">Most Recent</router-link>
+              <router-link  :to="{name :'MostViewed'}">Most Viewed</router-link>
             </div>
           </div>
           <base-button
@@ -46,7 +46,6 @@
     components: { BaseButton, TopicsList },
     data () {
       return {
-        voteSort: true,
         loading: false
       }
     },
@@ -67,8 +66,8 @@
             await this.loadTopics({
               filters: { categorySlug },
               data: {
-                voteSort: this.voteSort,
-                voteViews: false
+                voteSort: false,
+                voteViews: true
               }
             })
             this.loading = false

@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-settings-form page-form">
+  <div class=" profile-settings-form page-form">
     <div class="field image-field">
 <!--      <base-image-input-->
 <!--        :value="currentUser.avatarLocation"-->
@@ -279,7 +279,6 @@
     display: inline-block
     text-align: center
     background:$buttonColor;
-    position:relative;
     color:#fff;
   }
   .hide_file {
@@ -289,9 +288,9 @@
     cursor: pointer;
     right: 0;
     top: 0;
-    height: 100%;
+    height: 30%;
     font-size: 24px;
-    width: 100%;
+    width: 30%;
 
   }
 

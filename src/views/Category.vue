@@ -15,9 +15,9 @@
               Sort By
             </button>
             <div class="dropdown-content">
-              <a href="">Most Popular</a>
-              <a href="./newest">Most Recent</a>
-              <a href="./most-viewed">Most Views </a>
+              <router-link  :to="{name :'Category'}">Most Popular</router-link>
+              <router-link  :to="{name :'NewestPosts'}">Most Recent</router-link>
+              <router-link  :to="{name :'MostViewed'}">Most Viewed</router-link>
             </div>
           </div>
           <base-button

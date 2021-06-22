@@ -25,7 +25,7 @@
 </script>
 <style>
   .from-message {
-    background: #17a2b8;
+    background: #1a55b8;
     color: white;
     border-radius: 3px;
     padding: 8px 2px;
