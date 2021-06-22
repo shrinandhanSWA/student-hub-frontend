@@ -2,10 +2,16 @@
   <div id="container">
     <aside>
       <header>
-        <input type="text" placeholder="search">
+        <b-form-input
+          @input="search_text()"
+          v-model="search.text"
+          type="text"
+          placeholder="Search by Name"
+        ></b-form-input>
       </header>
       <ul>
-        <Users :users="users" v-on:chat="chat"/>
+        <Users
+          :users="searchedUsers.length === 0 ? users : searchedUsers" v-on:chat="chat"/>
       </ul>
     </aside>
     <main id="main">
@@ -14,10 +20,10 @@
           class="avatar"
           v-if="current_chat_channel"
           :src="active_user_avatar" :size="70"></chat-avatar>
-        <div>
-          <h2 v-if="current_chat_channel"
+        <div v-if="current_chat_channel">
+          <h2
           >Chat with {{active_user_name}}</h2>
-          <h3 v-if="current_chat_channel">
+          <h3>
             {{messages_length}} messages exchanged
           </h3>
         </div>
@@ -76,7 +82,9 @@
         active_user_name: '',
         active_user_avatar: '',
         messages_length: 0,
-        test: null
+        test: null,
+        search : {text : ''},
+        searchedUsers: []
       }
 
     },
@@ -151,7 +159,17 @@
     },
     methods: {
       ...mapActions(
-        ['login', 'chatLogin', 'getChatUsers', 'getChatMessage', 'requestChat', 'sendMessage']),
+        ['login', 'getChatUsers', 'getChatMessage', 'requestChat', 'sendMessage']),
+
+      search_text() {
+        var inside = this;
+        this.searchedUsers = this.users.filter(function(user) {
+          if (user.name.toLowerCase().indexOf(inside.search.text.toLowerCase()) !== -1 ) {
+            return user;
+          }
+        })
+
+      },
 
       getMessage: async function (channel_name) {
         const res = await this.getChatMessage({ data: { channel_name } })
@@ -159,14 +177,10 @@
 
          this.$set(this.messages, channel_name, res)
 
-        console.log(this.messages[channel_name])
-
       },
 
       chat: async function (id) {
         this.active_chat_id = id
-
-        console.log("the other persons id:" + this.active_chat_id)
 
         for (let i = 0; i < this.users.length; i++) {
           if (this.users[i].id === this.active_chat_id) {
@@ -200,7 +214,6 @@
 
         this.current_chat_channel = response.data.channel_name
 
-        console.log("channel name:" + this.current_chat_channel)
 
 
         // Get messages on this channel
@@ -227,7 +240,6 @@
                 has_new_message: true
               })
             }
-
 
             this.messages[response.data.channel_name].push({
               message: data.message,

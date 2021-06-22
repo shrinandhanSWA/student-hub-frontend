@@ -1,7 +1,7 @@
 <template>
   <div class="header-design">
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-      <a class="navbar-brand navbar-logo" href="/">
+      <router-link class="navbar-brand navbar-logo"  :to="{name: 'Home'}">
         <img
           class="navbar-logo"
           src="https://firebasestorage.googleapis.com/v0/b/drp-project-database.appspot.com/o/output-onlinepngtools%20(1).png?alt=media&token=dacac529-6b8a-43a7-99f6-14ab0cd844d5"
@@ -10,7 +10,7 @@
           height="50"
         >
 
-      </a>
+      </router-link>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
