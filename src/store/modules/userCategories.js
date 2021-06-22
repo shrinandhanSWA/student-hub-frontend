@@ -42,12 +42,13 @@ export default {
   mutations: {
     SET_USER_CATEGORIES (state, { userCategories }) {
       state.all = userCategories
+      state.dashboard = userCategories
     },
     DELETE_CATEGORY_FROM_USER (state, { categorySlug }) {
       state.all = state.all.filter(
         userCategory => userCategory.slug !== categorySlug
       )
-      state.dashboard = state.all.filter(
+      state.dashboard = state.dashboard.filter(
         userCategory => userCategory.slug !== categorySlug)
     },
     SET_DASHBOARD_USER_CATEGORIES(state, {DashboardCategories}){
