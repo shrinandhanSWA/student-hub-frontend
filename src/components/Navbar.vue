@@ -15,21 +15,30 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Home' }">
-              <i class="icon fas fa-home"></i>
-              Home
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Chat' }">
               <i class="fas fa-comments"></i>
               Chat
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'HowToUse' }">
-              <i class="icon fas fa-question"></i>
-              How To Use
+            <router-link class="nav-link" 
+            :to="{ name: 'Category', params: { categorySlug: 'student-finance'} }">
+            <i class="fas fa-pound-sign"></i>
+              Student Finance
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" 
+            :to="{ name: 'Category', params: { categorySlug: 'careers-and-jobs'} }">
+              <i class="fas fa-briefcase"></i>
+              Careers and Jobs
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" 
+            :to="{ name: 'Category', params: { categorySlug: 'relationships-and-health'} }"> 
+              <i class="fas fa-heartbeat"></i>
+              Relationships and Health
             </router-link>
           </li>
           <li class="nav-item">

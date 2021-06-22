@@ -40,10 +40,16 @@
       </ul>
 
       <ul class="logout">
+         <li>
+            <router-link class="nav-text" :to="{ name: 'HowToUse' }">
+              <i class="nav-icon fas fa-question"></i>
+                <span class="nav-text">How to use </span>
+            </router-link>
+          </li>
         <li>
           <router-link class="nav-text" :to="{ name: 'ContactUs'}">
             <i class="nav-icon fa fa-phone fa-3x"></i>
-            <span class="nav-text">Contact Us </span>
+            <span class="nav-text">Contact us </span>
           </router-link>
         </li>
         <li>
